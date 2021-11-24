@@ -1,20 +1,19 @@
 {
-  "name": "evoui",
+  "name": "@transverse/evo-ui",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/transverse-dev/evoui.git"
-  },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/transverse-dev/evoui/issues"
-  },
-  "homepage": "https://github.com/transverse-dev/evoui#readme"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^17.0.36",
+    "@types/react-dom": "^17.0.11",
+    "@types/styled-components": "^5.1.15",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.5.2"
+  }
 }

@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "target": "es2015",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "removeComments": true,
+    "declaration": true,
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "typeRoots": [
+      "index.d.ts",
+      "node_modules/@types"
+    ],
+    "baseUrl": "./src/",
+    "paths": {
+      "evoui/*": ["evoui/*"]
+    }
+  },
+  "include": [
+    "./src/**/*.tsx",
+    "./src/**/*.ts",
+    "./src/**/*.d.ts",
+    "./src/**/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
