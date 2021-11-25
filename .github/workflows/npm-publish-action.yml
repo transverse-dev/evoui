@@ -16,6 +16,8 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm install
+      - run: tsc
+      - run: cp -r src/evoui/globalstyle lib/evoui/
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
