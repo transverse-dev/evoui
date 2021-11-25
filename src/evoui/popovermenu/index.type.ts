@@ -45,6 +45,7 @@ export namespace popoverMenu {
     overrides?: {
       Root?: DefaultOverridesType;
       MenuListBase?: DefaultOverridesType;
+      MenuListWrapperWrapper?: DefaultOverridesType;
       MenuListWrapper?: DefaultOverridesType;
       MenuList?: DefaultOverridesType;
       MenuItem?: DefaultOverridesType;
