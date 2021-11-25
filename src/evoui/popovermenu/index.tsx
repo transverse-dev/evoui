@@ -22,21 +22,29 @@ const MenuListBase = styled.div<popoverMenu.MenuListBasePropsType>`
   ${(props) => props.cssStyle ?? ""};
 `;
 
-const MenuListWrapper = styled.div<popoverMenu.MenuListWrapperPropsType>`
+const MenuListWrapperWrapper = styled.div<popoverMenu.MenuListWrapperWrapperPropsType>`
   z-index: 1000;
-  overflow: hidden;
-  border-radius: 6px;
-  background-color: #ffffff;
-  box-shadow: 1px 1px 4px rgb(0 0 0 / 25%);
+
   position: ${(props) => (props.isFixed ? "fixed" : "absolute")};
   display: ${(props) => (props.menuVisible ? "flex" : "none")};
   right: 0;
   top: 0;
-  animation-name: fadeIn;
+
+  ${(props) => props.cssStyle ?? ""};
+`;
+
+const MenuListWrapper = styled.div<popoverMenu.MenuListWrapperPropsType>`
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: ${(props) => props.theme.colors.evoui.dropDownList.bgColor};
+  box-shadow: 1px 1px 4px
+    ${(props) => props.theme.colors.evoui.dropDownList.shadowColor};
+
+  animation-name: fadeInScale;
   animation-duration: 0.3s;
   animation-fill-mode: both;
 
-  @keyframes fadeIn {
+  @keyframes fadeInScale {
     0% {
       opacity: 0;
       transform: scale(0.8);
@@ -388,10 +396,10 @@ export const PopoverMenu = memo(function PopoverMenu({
 
   const MenuListComponent = () => {
     return (
-      <MenuListWrapper
+      <MenuListWrapperWrapper
+        ref={(el) => (popoverMenuRef.current[1] = el)}
         menuVisible={menuVisible}
         isFixed={isFixed}
-        ref={(el) => (popoverMenuRef.current[1] = el)}
         {...(typeof overrides?.MenuListWrapper?.css === "string"
           ? {
               cssStyle: overrides.MenuListWrapper.css,
@@ -404,58 +412,71 @@ export const PopoverMenu = memo(function PopoverMenu({
               ...overrides.MenuListWrapper,
             })}
       >
-        <MenuList
-          {...(typeof overrides?.MenuList?.css === "string"
+         <MenuListWrapper
+          {...(typeof overrides?.MenuListWrapper?.css === 'string'
             ? {
-                cssStyle: overrides.MenuList.css,
-                ...(overrides.MenuList ?? {}),
+                cssStyle: overrides.MenuListWrapper.css,
+                ...(overrides.MenuListWrapper ?? {}),
               }
-            : overrides?.MenuList == undefined
+            : overrides?.MenuListWrapper == undefined
             ? {}
-            : { style: overrides.MenuList.css, ...overrides.MenuList })}
-        >
-          {items?.map((item, i) => (
-            <Fragment key={i}>
-              {item === "divider" ? (
-                <Divider
-                  {...(typeof overrides?.Divider?.css === "string"
-                    ? {
-                        cssStyle: overrides.Divider.css,
-                        ...(overrides.Divider ?? {}),
+            : {
+                style: overrides.MenuListWrapper.css,
+                ...overrides.MenuListWrapper,
+              })}>
+          <MenuList
+            {...(typeof overrides?.MenuList?.css === "string"
+              ? {
+                  cssStyle: overrides.MenuList.css,
+                  ...(overrides.MenuList ?? {}),
+                }
+              : overrides?.MenuList == undefined
+              ? {}
+              : { style: overrides.MenuList.css, ...overrides.MenuList })}
+          >
+            {items?.map((item, i) => (
+              <Fragment key={i}>
+                {item === "divider" ? (
+                  <Divider
+                    {...(typeof overrides?.Divider?.css === "string"
+                      ? {
+                          cssStyle: overrides.Divider.css,
+                          ...(overrides.Divider ?? {}),
+                        }
+                      : overrides?.Divider == undefined
+                      ? {}
+                      : { style: overrides.Divider.css, ...overrides.Divider })}
+                  />
+                ) : (
+                  <MenuItem
+                    disabled={item.disabled}
+                    noClick={!item.onClick}
+                    onClick={(event) => {
+                      if (!!item.onClick && !item.disabled) {
+                        item.onClick(event);
+                        closeMenu();
                       }
-                    : overrides?.Divider == undefined
-                    ? {}
-                    : { style: overrides.Divider.css, ...overrides.Divider })}
-                />
-              ) : (
-                <MenuItem
-                  disabled={item.disabled}
-                  noClick={!item.onClick}
-                  onClick={(event) => {
-                    if (!!item.onClick && !item.disabled) {
-                      item.onClick(event);
-                      closeMenu();
-                    }
-                  }}
-                  {...(typeof overrides?.MenuItem?.css === "string"
-                    ? {
-                        cssStyle: overrides.MenuItem.css,
-                        ...(overrides.MenuItem ?? {}),
-                      }
-                    : overrides?.MenuItem == undefined
-                    ? {}
-                    : {
-                        style: overrides.MenuItem.css,
-                        ...overrides.MenuItem,
-                      })}
-                >
-                  {item.label}
-                </MenuItem>
-              )}
-            </Fragment>
-          )) ?? null}
-        </MenuList>
-      </MenuListWrapper>
+                    }}
+                    {...(typeof overrides?.MenuItem?.css === "string"
+                      ? {
+                          cssStyle: overrides.MenuItem.css,
+                          ...(overrides.MenuItem ?? {}),
+                        }
+                      : overrides?.MenuItem == undefined
+                      ? {}
+                      : {
+                          style: overrides.MenuItem.css,
+                          ...overrides.MenuItem,
+                        })}
+                  >
+                    {item.label}
+                  </MenuItem>
+                )}
+              </Fragment>
+            )) ?? null}
+          </MenuList>
+        </MenuListWrapper>
+      </MenuListWrapperWrapper>
     );
   };
 

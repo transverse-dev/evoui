@@ -10,10 +10,12 @@ export namespace popoverMenu {
 
   export interface MenuListBasePropsType extends DefaultPropsType {}
 
-  export interface MenuListWrapperPropsType extends DefaultPropsType {
+  export interface MenuListWrapperWrapperPropsType extends DefaultPropsType {
     menuVisible: boolean;
     isFixed: boolean;
   }
+
+  export interface MenuListWrapperPropsType extends DefaultPropsType {}
 
   export interface MenuListPropsType extends DefaultPropsType {}
 
