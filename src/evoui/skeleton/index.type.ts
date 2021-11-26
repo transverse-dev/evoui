@@ -1,7 +1,4 @@
-import {
-  DefaultOverridesType,
-  DefaultPropsType,
-} from '../global-properties';
+import { DefaultOverridesType, DefaultPropsType } from '../global-properties';
 
 export namespace SkeletonType {
   export interface RootPropsType extends DefaultPropsType {}

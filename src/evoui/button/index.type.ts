@@ -1,9 +1,18 @@
-import { CSSProperties } from "styled-components";
+import {
+  DefaultOverridesType,
+  DefaultPropsType,
+} from 'evoui/global-properties';
+import { CSSProperties } from 'styled-components';
 
-export type EvouiButtonKinds = undefined | 'primary' | 'secondary' | 'tertiary' | string;
+export type EvouiButtonKinds =
+  | undefined
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | string;
 
 export namespace ButtonTypes {
-  export interface BoxPropsType {
+  export interface BoxPropsType extends DefaultPropsType {
     kind: EvouiButtonKinds;
     disabled: boolean | undefined;
   }
@@ -14,5 +23,8 @@ export namespace ButtonTypes {
     onClick: () => void;
     style?: CSSProperties | undefined;
     children?: JSX.Element | HTMLElement | string;
+    overrides?: {
+      Root?: DefaultOverridesType;
+    };
   }
 }

@@ -93,7 +93,7 @@ export function Volume({
       <div style={{ marginLeft: '8px' }} />
       <VolumeContainer>
         <VolumeBarWrapper>
-          <VolumeBar progress={muted ? 0 : volume * 100}/>
+          <VolumeBar progress={muted ? 0 : volume * 100} />
         </VolumeBarWrapper>
         <Input
           type='range'

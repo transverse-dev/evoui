@@ -1,6 +1,6 @@
-import { DefaultOverridesType, DefaultPropsType } from "../global-properties";
+import { DefaultOverridesType, DefaultPropsType } from '../global-properties';
 
-import { loader } from "../loader/index.type";
+import { loader } from '../loader/index.type';
 
 export namespace wall {
   export interface RootPropsType extends DefaultPropsType {

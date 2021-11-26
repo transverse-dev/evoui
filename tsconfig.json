@@ -9,10 +9,7 @@
     "declaration": true,
     "sourceMap": true,
     "jsx": "react-jsx",
-    "typeRoots": [
-      "index.d.ts",
-      "node_modules/@types"
-    ],
+    "typeRoots": ["index.d.ts", "node_modules/@types"],
     "baseUrl": "./src/",
     "paths": {
       "evoui/*": ["evoui/*"]
@@ -24,7 +21,5 @@
     "./src/**/*.d.ts",
     "./src/**/**/*.d.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

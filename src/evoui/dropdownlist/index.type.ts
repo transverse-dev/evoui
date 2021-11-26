@@ -2,7 +2,7 @@ import {
   DefaultOverridesType,
   DefaultPrimitiveType,
   DefaultPropsType,
-} from "../global-properties";
+} from '../global-properties';
 
 export namespace dropDownList {
   export interface RootPropsType extends DefaultPropsType {}

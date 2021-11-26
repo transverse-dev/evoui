@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-import { dropDownList } from "./index.type";
-import styled from "styled-components";
+import { dropDownList } from './index.type';
+import styled from 'styled-components';
 
 const Root = styled.div<dropDownList.RootPropsType>`
   width: 100px;
@@ -10,7 +10,7 @@ const Root = styled.div<dropDownList.RootPropsType>`
   user-select: none;
   position: relative;
 
-  ${(props) => props?.cssStyle ?? ""};
+  ${(props) => props?.cssStyle ?? ''};
 `;
 
 const ListWrapper = styled.div<dropDownList.ListWrapperPropsType>`
@@ -18,62 +18,62 @@ const ListWrapper = styled.div<dropDownList.ListWrapperPropsType>`
   border-radius: 6px;
   overflow: hidden;
   box-shadow: ${(props) =>
-    props.listVisible ? `1px 1px 4px rgb(0 0 0 / 25%)` : "none"};
-  height: ${(props) => (props.listVisible ? "fit-content" : "28px")};
+    props.listVisible ? `1px 1px 4px rgb(0 0 0 / 25%)` : 'none'};
+  height: ${(props) => (props.listVisible ? 'fit-content' : '28px')};
   background-color: #ffffff;
   max-height: 90vh;
-  z-index: ${(props) => (props.listVisible ? "9" : "0")};
+  z-index: ${(props) => (props.listVisible ? '9' : '0')};
   position: absolute;
   left: 0;
   right: 0;
-  top: ${(props) => (props.listVisible ? `${-props.absolute}px` : "0")};
+  top: ${(props) => (props.listVisible ? `${-props.absolute}px` : '0')};
   transition-duration: 0.1s;
 
   &:hover {
     box-shadow: 1px 1px 4px rgb(0 0 0 / 25%);
   }
 
-  ${(props) => props?.cssStyle ?? ""};
+  ${(props) => props?.cssStyle ?? ''};
 `;
 
 const List = styled.div<dropDownList.ListPropsType>`
   width: 100%;
-  overflow: ${(props) => (props.listVisible ? "hidden auto" : "hidden")};
-  height: ${(props) => (props.listVisible ? "fit-content" : "28px")};
+  overflow: ${(props) => (props.listVisible ? 'hidden auto' : 'hidden')};
+  height: ${(props) => (props.listVisible ? 'fit-content' : '28px')};
   max-height: 90vh;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const ListItem = styled.div<dropDownList.ListItemPropsType>`
   height: 28px;
   padding: 2px 8px;
   color: ${(props) =>
-    !!props.selected && props.listVisible ? "#9f5cfa" : "#555555"};
+    !!props.selected && props.listVisible ? '#9f5cfa' : '#555555'};
   line-height: 24px;
   text-align: center;
-  cursor: ${(props) => (!!props.disabled ? "default" : "pointer")};
+  cursor: ${(props) => (!!props.disabled ? 'default' : 'pointer')};
   white-space: nowrap;
   margin: 0;
-  opacity: ${(props) => (!!props.disabled ? "0.5" : "1")};
+  opacity: ${(props) => (!!props.disabled ? '0.5' : '1')};
   font-size: 14.4px;
 
   &:hover {
     background-color: ${(props) =>
       props.listVisible && !props.disabled
-        ? "rgba(233,233,233,0.72)"
-        : "transparent"};
+        ? 'rgba(233,233,233,0.72)'
+        : 'transparent'};
   }
 
-  ${(props) => props?.cssStyle ?? ""};
+  ${(props) => props?.cssStyle ?? ''};
 `;
 
 export function DropDownList({
-  options = [{ label: "DropDownList", id: 0 }],
-  placeholder = "Select",
+  options = [{ label: 'DropDownList', id: 0 }],
+  placeholder = 'Select',
   value,
   onChange,
   overrides,
@@ -94,9 +94,9 @@ export function DropDownList({
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [dropDownListRef.current[0]]);
 
@@ -111,7 +111,7 @@ export function DropDownList({
           setIsListAbsolute(offset);
         } else if (dropDownListRef.current[0].getBoundingClientRect().top < 0) {
           setIsListAbsolute(
-            dropDownListRef.current[0].getBoundingClientRect().top
+            dropDownListRef.current[0].getBoundingClientRect().top,
           );
         } else {
           setIsListAbsolute(0);
@@ -122,12 +122,12 @@ export function DropDownList({
 
   useEffect(() => {
     if (listVisible) {
-      window.addEventListener("scroll", scrollEvent);
+      window.addEventListener('scroll', scrollEvent);
     } else {
-      window.removeEventListener("scroll", scrollEvent);
+      window.removeEventListener('scroll', scrollEvent);
     }
     return () => {
-      window.removeEventListener("scroll", scrollEvent);
+      window.removeEventListener('scroll', scrollEvent);
     };
   }, [listVisible]);
 
@@ -138,59 +138,55 @@ export function DropDownList({
   return (
     <Root
       ref={(el) => (dropDownListRef.current[0] = el)}
-      {...(typeof overrides?.Root?.css === "string"
+      {...(typeof overrides?.Root?.css === 'string'
         ? {
             cssStyle: overrides.Root.css,
             ...(overrides.Root ?? {}),
           }
         : overrides?.Root == undefined
         ? {}
-        : { style: overrides.Root.css, ...overrides.Root })}
-    >
+        : { style: overrides.Root.css, ...overrides.Root })}>
       <ListWrapper
         listVisible={listVisible}
         absolute={isListAbsolute}
-        {...(typeof overrides?.ListWrapper?.css === "string"
+        {...(typeof overrides?.ListWrapper?.css === 'string'
           ? {
               cssStyle: overrides.ListWrapper.css,
               ...(overrides.ListWrapper ?? {}),
             }
           : overrides?.ListWrapper == undefined
           ? {}
-          : { style: overrides.ListWrapper.css, ...overrides.ListWrapper })}
-      >
+          : { style: overrides.ListWrapper.css, ...overrides.ListWrapper })}>
         <List
           ref={(el) => (dropDownListRef.current[1] = el)}
           listVisible={listVisible}
-          {...(typeof overrides?.List?.css === "string"
+          {...(typeof overrides?.List?.css === 'string'
             ? {
                 cssStyle: overrides.List.css,
                 ...(overrides.List ?? {}),
               }
             : overrides?.List == undefined
             ? {}
-            : { style: overrides.List.css, ...overrides.List })}
-        >
+            : { style: overrides.List.css, ...overrides.List })}>
           <ListItem
             listVisible={listVisible}
             selected={true}
             onClick={() => setListVisible((listVisible) => !listVisible)}
-            {...(typeof overrides?.ListItem?.css === "string"
+            {...(typeof overrides?.ListItem?.css === 'string'
               ? {
                   cssStyle: overrides.ListItem.css,
                   ...(overrides.ListItem ?? {}),
                 }
               : overrides?.ListItem == undefined
               ? {}
-              : { style: overrides.ListItem.css, ...overrides.ListItem })}
-          >
+              : { style: overrides.ListItem.css, ...overrides.ListItem })}>
             {value ? value.label : placeholder}
           </ListItem>
           {options
             ?.filter((option) => (value ? value.id !== option.id : true))
             .map(
               (
-                option // value !== option 비교 불가
+                option, // value !== option 비교 불가
               ) => (
                 <ListItem
                   listVisible={listVisible}
@@ -202,7 +198,7 @@ export function DropDownList({
                     }
                   }}
                   disabled={option.disabled}
-                  {...(typeof overrides?.ListItem?.css === "string"
+                  {...(typeof overrides?.ListItem?.css === 'string'
                     ? {
                         cssStyle: overrides.ListItem.css,
                         ...(overrides.ListItem ?? {}),
@@ -212,11 +208,10 @@ export function DropDownList({
                     : {
                         style: overrides.ListItem.css,
                         ...overrides.ListItem,
-                      })}
-                >
+                      })}>
                   {option.label}
                 </ListItem>
-              )
+              ),
             ) ?? null}
         </List>
       </ListWrapper>
