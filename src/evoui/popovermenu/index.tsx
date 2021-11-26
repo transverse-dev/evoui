@@ -36,9 +36,8 @@ const MenuListWrapperWrapper = styled.div<popoverMenu.MenuListWrapperWrapperProp
 const MenuListWrapper = styled.div<popoverMenu.MenuListWrapperPropsType>`
   overflow: hidden;
   border-radius: 6px;
-  background-color: ${(props) => props.theme.colors.evoui.dropDownList.bgColor};
-  box-shadow: 1px 1px 4px
-    ${(props) => props.theme.colors.evoui.dropDownList.shadowColor};
+  background-color: #ffffff;
+  box-shadow: 1px 1px 4px rgb(0 0 0 / 25%);
 
   animation-name: fadeInScale;
   animation-duration: 0.3s;
