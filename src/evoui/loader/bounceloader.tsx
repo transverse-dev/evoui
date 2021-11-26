@@ -10,8 +10,7 @@ const Root = styled.div<loader.bounceloader.RootPropsType>`
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: ${(props) =>
-      props.color ?? '#9f5cfa'};
+    background-color: ${(props) => props.color ?? '#9f5cfa'};
     border-radius: 50%;
     opacity: 0.6;
     animation: bounce 2s infinite ease-in-out;

@@ -10,9 +10,7 @@ const Root = styled.div<wall.RootPropsType>`
   bottom: 0;
   right: 0;
   background-color: ${(props) =>
-    props.backgroundColor
-      ? props.backgroundColor
-      : 'rgba(255, 255, 255, 0.7)'};
+    props.backgroundColor ? props.backgroundColor : 'rgba(255, 255, 255, 0.7)'};
   overflow: hidden;
   z-index: 100000;
 

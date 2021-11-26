@@ -1,9 +1,9 @@
 import {
   DefaultOverridesType,
   DefaultPropsType,
-} from "evoui/global-properties";
+} from 'evoui/global-properties';
 
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
 
 export namespace VideoType {
   export interface PropsType {

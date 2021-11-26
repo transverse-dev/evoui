@@ -1,7 +1,4 @@
-import {
-  DefaultOverridesType,
-  DefaultPropsType,
-} from '../global-properties';
+import { DefaultOverridesType, DefaultPropsType } from '../global-properties';
 
 export namespace icon {
   export interface IconProps {

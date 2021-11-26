@@ -14,8 +14,7 @@ const Root = styled.div<loader.imsiloader.RootPropsType>`
   & > div {
     width: ${(props) => (props.scale ?? 1) * (props.width ?? 9)}px;
     height: ${(props) => (props.scale ?? 1) * (props.height ?? 9)}px;
-    background-color: ${(props) =>
-      props.color ?? '#9f5cfa'};
+    background-color: ${(props) => props.color ?? '#9f5cfa'};
     border-radius: ${(props) => (props.scale ?? 1) * (props.radius ?? 4.5)}px;
   }
 

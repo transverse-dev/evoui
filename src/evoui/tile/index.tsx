@@ -12,15 +12,15 @@ const Root = styled.div<tile.RootPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-export function Tile({ children, effect, css }: tile.TileProps) {
+export function Tile({ children, effect, overrides }: tile.TileProps) {
   return (
     <Root
       className={`evo-${effect}` || undefined}
-      {...(typeof css === 'string'
-        ? { cssStyle: css }
-        : css === undefined
+      {...(typeof overrides?.Root?.css === 'string'
+        ? { cssStyle: overrides.Root.css, ...(overrides.Root ?? {}) }
+        : overrides?.Root == undefined
         ? {}
-        : { style: css })}>
+        : { style: overrides.Root.css, ...(overrides.Root ?? {}) })}>
       {children}
     </Root>
   );

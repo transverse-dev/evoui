@@ -1,9 +1,9 @@
-import { ComponentType, ElementType, ReactElement, ReactInstance } from "react";
+import { ComponentType, ElementType, ReactElement, ReactInstance } from 'react';
 import {
   DefaultOverridesType,
   DefaultPrimitiveType,
   DefaultPropsType,
-} from "../global-properties";
+} from '../global-properties';
 
 export namespace popoverMenu {
   export interface RootPropsType extends DefaultPropsType {}
@@ -40,7 +40,7 @@ export namespace popoverMenu {
   export interface PopoverMenuProps {
     /** A Button React Component that triggers open the menu. */
     Button?: ComponentType | ElementType;
-    items?: Array<PopoverMenuItemType | "divider">;
+    items?: Array<PopoverMenuItemType | 'divider'>;
     /** UI elements props will be overridden. Only css value is available on current version. */
     overrides?: {
       Root?: DefaultOverridesType;
@@ -52,7 +52,7 @@ export namespace popoverMenu {
       Divider?: DefaultOverridesType;
     };
     /** Where to attach menu when menu is located out of the screen. When isFixed set to false, the option doesn't work on current version. Default value is 'sticky'. */
-    snap?: "sticky" | "pop" | false;
+    snap?: 'sticky' | 'pop' | false;
     /** If closeOnOut set to true, the menu will be closed when menu is located out of the screen. When isFixed set to false, the option doesn't work on current version. Default value is false. */
     closeOnOut?: boolean;
     /** If isFixed set to true, the menu list works as 'position: fixed' outside the component, so it can ignore css properties like 'overflow: hidden' or scrolling of parent component. Default value is false. */
@@ -63,12 +63,12 @@ export namespace popoverMenu {
     onClose?: () => any;
     /** A location where to attach the menu list. When isFixed set to true, the option doesn't work on current version. Default value is 'bottom-start'. */
     location?:
-      | "top-end"
-      | "top-center"
-      | "top-start"
-      | "bottom-end"
-      | "bottom-center"
-      | "bottom-start";
+      | 'top-end'
+      | 'top-center'
+      | 'top-start'
+      | 'bottom-end'
+      | 'bottom-center'
+      | 'bottom-start';
     scrollTarget?:
       | any // used window object
       | ComponentType

@@ -1,5 +1,5 @@
 import { DefaultOverridesType, DefaultPropsType } from '../global-properties';
-import {ReactElement, ReactInstance} from 'react';
+import { ReactElement, ReactInstance } from 'react';
 
 export namespace toast {
   type ToastTypes = 'success' | 'error' | 'info' | 'warning';

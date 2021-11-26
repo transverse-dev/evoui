@@ -1,8 +1,8 @@
-import { ReactElement, useEffect, useRef, useState } from "react";
+import { ReactElement, useEffect, useRef, useState } from 'react';
 
-import { createPortal } from "react-dom";
-import styled from "styled-components";
-import { toast } from "./index.type";
+import { createPortal } from 'react-dom';
+import styled from 'styled-components';
+import { toast } from './index.type';
 
 const Canvas = styled.div`
   position: fixed;
@@ -37,7 +37,7 @@ const Root = styled.div<toast.RootPropsType>`
   overflow: hidden;
   transition-duration: 0.6s;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const ToastContent = styled.div<toast.ToastContentPropsType>`
@@ -47,19 +47,19 @@ const ToastContent = styled.div<toast.ToastContentPropsType>`
   box-shadow: 1px 1px 4px rgb(0 0 0 / 25%);
   color: white;
   background-color: ${(props) =>
-    props.type === "success"
-      ? "#38A169"
-      : props.type === "error"
-      ? "#E53E3E"
-      : props.type === "info"
-      ? "#226B99"
-      : props.type == "warning"
-      ? "#C4A01C"
-      : "black"};
+    props.type === 'success'
+      ? '#38A169'
+      : props.type === 'error'
+      ? '#E53E3E'
+      : props.type === 'info'
+      ? '#226B99'
+      : props.type == 'warning'
+      ? '#C4A01C'
+      : 'black'};
   animation-duration: 0.4s;
   animation-fill-mode: both;
   animation-name: ${(props) =>
-    props.willRemoved ? "fadeOutRight" : "fadeInRight"};
+    props.willRemoved ? 'fadeOutRight' : 'fadeInRight'};
   transition-duration: 0.4s;
   pointer-events: all;
   padding: 13px 15px;
@@ -93,7 +93,7 @@ const ToastContent = styled.div<toast.ToastContentPropsType>`
     }
   }
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const Header = styled.div<toast.HeaderPropsType>`
@@ -101,7 +101,7 @@ const Header = styled.div<toast.HeaderPropsType>`
   flex-direction: row;
   margin-bottom: 4px;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const Icon = styled.div<toast.IconPropsType>`
@@ -112,7 +112,7 @@ const Icon = styled.div<toast.IconPropsType>`
     fill: white;
   }
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const Title = styled.div<toast.TitlePropsType>`
@@ -122,7 +122,7 @@ const Title = styled.div<toast.TitlePropsType>`
   font-weight: 500;
   font-size: 17px;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const CloseButton = styled.div<toast.CloseButtonPropsType>`
@@ -143,7 +143,7 @@ const CloseButton = styled.div<toast.CloseButtonPropsType>`
     margin: 2px;
   }
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const Content = styled.div<toast.ContentPropsType>`
@@ -151,13 +151,13 @@ const Content = styled.div<toast.ContentPropsType>`
   font-size: 15px;
   padding-left: 25px;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 function IndependentToast({
   title,
   content,
-  type = "info",
+  type = 'info',
   duration = 5000,
   closable = true,
   icon,
@@ -167,7 +167,7 @@ function IndependentToast({
   useEffect(() => {
     setTimeout(() => {
       if (!!ref.current) {
-        ref.current.style.animationName = "fadeOut";
+        ref.current.style.animationName = 'fadeOut';
       }
     }, duration - 500);
   }, []);
@@ -176,12 +176,12 @@ function IndependentToast({
 
   const doClose = () => {
     if (!!ref.current) {
-      ref.current.style.animationName = "fadeOut";
+      ref.current.style.animationName = 'fadeOut';
       setTimeout(() => {
         if (!!ref.current) {
-          ref.current.style.margin = "0";
-          ref.current.style.padding = "0";
-          ref.current.style.height = "0";
+          ref.current.style.margin = '0';
+          ref.current.style.padding = '0';
+          ref.current.style.height = '0';
         }
       }, 400);
     }
@@ -189,105 +189,96 @@ function IndependentToast({
 
   return (
     <Root
-      {...(typeof overrides?.Root?.css === "string"
+      {...(typeof overrides?.Root?.css === 'string'
         ? {
             cssStyle: overrides.Root.css,
             ...(overrides.Root ?? {}),
           }
         : overrides?.Root == undefined
         ? {}
-        : { style: overrides.Root.css, ...overrides.Root })}
-    >
+        : { style: overrides.Root.css, ...overrides.Root })}>
       <ToastContent
         type={type}
         ref={ref}
-        {...(typeof overrides?.ToastContent?.css === "string"
+        {...(typeof overrides?.ToastContent?.css === 'string'
           ? {
               cssStyle: overrides.ToastContent.css,
               ...(overrides.ToastContent ?? {}),
             }
           : overrides?.ToastContent == undefined
           ? {}
-          : { style: overrides.ToastContent.css, ...overrides.ToastContent })}
-      >
+          : { style: overrides.ToastContent.css, ...overrides.ToastContent })}>
         <Header
-          {...(typeof overrides?.Header?.css === "string"
+          {...(typeof overrides?.Header?.css === 'string'
             ? {
                 cssStyle: overrides.Header.css,
                 ...(overrides.Header ?? {}),
               }
             : overrides?.Header == undefined
             ? {}
-            : { style: overrides.Header.css, ...overrides.Header })}
-        >
+            : { style: overrides.Header.css, ...overrides.Header })}>
           <Icon
-            {...(typeof overrides?.Icon?.css === "string"
+            {...(typeof overrides?.Icon?.css === 'string'
               ? {
                   cssStyle: overrides.Icon.css,
                   ...(overrides.Icon ?? {}),
                 }
               : overrides?.Icon == undefined
               ? {}
-              : { style: overrides.Icon.css, ...overrides.Icon })}
-          >
+              : { style: overrides.Icon.css, ...overrides.Icon })}>
             {!!icon ? (
               icon
-            ) : type === "error" ? (
+            ) : type === 'error' ? (
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="18px"
-                viewBox="0 0 24 24"
-                width="18px"
-              >
-                <path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
+                xmlns='http://www.w3.org/2000/svg'
+                height='18px'
+                viewBox='0 0 24 24'
+                width='18px'>
+                <path d='M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z' />
               </svg>
-            ) : type === "success" ? (
+            ) : type === 'success' ? (
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="18px"
-                viewBox="0 0 24 24"
-                width="18px"
-              >
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z" />
+                xmlns='http://www.w3.org/2000/svg'
+                height='18px'
+                viewBox='0 0 24 24'
+                width='18px'>
+                <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z' />
               </svg>
-            ) : type === "info" ? (
+            ) : type === 'info' ? (
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="18px"
-                viewBox="0 0 24 24"
-                width="18px"
-              >
-                <path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                xmlns='http://www.w3.org/2000/svg'
+                height='18px'
+                viewBox='0 0 24 24'
+                width='18px'>
+                <path d='M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' />
               </svg>
-            ) : type === "warning" ? (
+            ) : type === 'warning' ? (
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="18px"
-                viewBox="0 0 24 24"
-                width="18px"
-              >
-                <path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z" />
+                xmlns='http://www.w3.org/2000/svg'
+                height='18px'
+                viewBox='0 0 24 24'
+                width='18px'>
+                <path d='M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z' />
               </svg>
             ) : (
-              ""
+              ''
             )}
           </Icon>
           <Title
-            {...(typeof overrides?.Title?.css === "string"
+            {...(typeof overrides?.Title?.css === 'string'
               ? {
                   cssStyle: overrides.Title.css,
                   ...(overrides.Title ?? {}),
                 }
               : overrides?.Title == undefined
               ? {}
-              : { style: overrides.Title.css, ...overrides.Title })}
-          >
+              : { style: overrides.Title.css, ...overrides.Title })}>
             {title}
           </Title>
           {closable && (
             <CloseButton
               onClick={() => doClose()}
-              {...(typeof overrides?.CloseButton?.css === "string"
+              {...(typeof overrides?.CloseButton?.css === 'string'
                 ? {
                     cssStyle: overrides.CloseButton.css,
                     ...(overrides.CloseButton ?? {}),
@@ -297,18 +288,16 @@ function IndependentToast({
                 : {
                     style: overrides.CloseButton.css,
                     ...overrides.CloseButton,
-                  })}
-            >
+                  })}>
               {!!closeButton ? (
                 closeButton
               ) : (
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="18px"
-                  viewBox="0 0 24 24"
-                  width="18px"
-                >
-                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                  xmlns='http://www.w3.org/2000/svg'
+                  height='18px'
+                  viewBox='0 0 24 24'
+                  width='18px'>
+                  <path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z' />
                 </svg>
               )}
             </CloseButton>
@@ -317,15 +306,14 @@ function IndependentToast({
         {content && (
           <Content
             onClick={() => doClose()}
-            {...(typeof overrides?.Content?.css === "string"
+            {...(typeof overrides?.Content?.css === 'string'
               ? {
                   cssStyle: overrides.Content.css,
                   ...(overrides.Content ?? {}),
                 }
               : overrides?.Content == undefined
               ? {}
-              : { style: overrides.Content.css, ...overrides.Content })}
-          >
+              : { style: overrides.Content.css, ...overrides.Content })}>
             {content}
           </Content>
         )}
@@ -352,7 +340,7 @@ function ToastCanvas() {
 
   useEffect(() => {
     if (!!ref.current) {
-      ref.current.scroll({ top: ref.current.scrollHeight, behavior: "smooth" });
+      ref.current.scroll({ top: ref.current.scrollHeight, behavior: 'smooth' });
     }
   }, [changed]);
 
@@ -439,7 +427,7 @@ class ToastManager {
     setTimeout(() => {
       if (!this.isInitialized() || !this.setList) return;
       this.displayList = this.displayList.filter(
-        (el) => (el?.key ?? -2) !== (toast?.key ?? -1)
+        (el) => (el?.key ?? -2) !== (toast?.key ?? -1),
       );
       this.setList(this.displayList);
       this.listChanged();
@@ -447,7 +435,7 @@ class ToastManager {
   }
 
   private static uninitializedError() {
-    throw "Toast did not initialized. Toast component must be mounted somewhere in the React DOM tree.";
+    throw 'Toast did not initialized. Toast component must be mounted somewhere in the React DOM tree.';
   }
 }
 

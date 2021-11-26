@@ -1,8 +1,8 @@
-import { Fragment, memo, useEffect, useRef, useState } from "react";
-import { createPortal, findDOMNode } from "react-dom";
+import { Fragment, memo, useEffect, useRef, useState } from 'react';
+import { createPortal, findDOMNode } from 'react-dom';
 
-import { popoverMenu } from "./index.type";
-import styled from "styled-components";
+import { popoverMenu } from './index.type';
+import styled from 'styled-components';
 
 const Root = styled.div<popoverMenu.RootPropsType>`
   font-size: 14.4px;
@@ -10,7 +10,7 @@ const Root = styled.div<popoverMenu.RootPropsType>`
   width: fit-content;
   height: fit-content;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const MenuListBase = styled.div<popoverMenu.MenuListBasePropsType>`
@@ -19,18 +19,18 @@ const MenuListBase = styled.div<popoverMenu.MenuListBasePropsType>`
   left: 0;
   right: 0;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const MenuListWrapperWrapper = styled.div<popoverMenu.MenuListWrapperWrapperPropsType>`
   z-index: 1000;
 
-  position: ${(props) => (props.isFixed ? "fixed" : "absolute")};
-  display: ${(props) => (props.menuVisible ? "flex" : "none")};
+  position: ${(props) => (props.isFixed ? 'fixed' : 'absolute')};
+  display: ${(props) => (props.menuVisible ? 'flex' : 'none')};
   right: 0;
   top: 0;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const MenuListWrapper = styled.div<popoverMenu.MenuListWrapperPropsType>`
@@ -55,7 +55,7 @@ const MenuListWrapper = styled.div<popoverMenu.MenuListWrapperPropsType>`
     }
   }
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const MenuList = styled.div<popoverMenu.MenuListPropsType>`
@@ -66,7 +66,7 @@ const MenuList = styled.div<popoverMenu.MenuListPropsType>`
   max-width: 90vw;
   overflow: hidden auto;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const MenuItem = styled.div<popoverMenu.MenuItemPropsType>`
@@ -75,23 +75,23 @@ const MenuItem = styled.div<popoverMenu.MenuItemPropsType>`
   line-height: 24px;
   text-align: center;
   cursor: ${(props) =>
-    !!props.disabled || !!props.noClick ? "default" : "pointer"};
+    !!props.disabled || !!props.noClick ? 'default' : 'pointer'};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
-  opacity: ${(props) => (!!props.disabled ? "0.5" : "1")};
+  opacity: ${(props) => (!!props.disabled ? '0.5' : '1')};
   font-size: 14.4px;
   transition-duration: 0.1s;
 
   &:hover {
     background-color: ${(props) =>
       !props.disabled && !props.noClick
-        ? "rgba(233,233,233,0.72)"
-        : "transparent"};
+        ? 'rgba(233,233,233,0.72)'
+        : 'transparent'};
   }
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const Divider = styled.div<popoverMenu.DividerPropsType>`
@@ -99,7 +99,7 @@ const Divider = styled.div<popoverMenu.DividerPropsType>`
   margin: 4px 0;
   background-color: #e5e5e5;
 
-  ${(props) => props.cssStyle ?? ""};
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const Circle = styled.div`
@@ -120,12 +120,11 @@ const DefaultButton = function DefaultButton() {
   return (
     <Circle>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-      >
-        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+        xmlns='http://www.w3.org/2000/svg'
+        height='24'
+        viewBox='0 0 24 24'
+        width='24'>
+        <path d='M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' />
       </svg>
     </Circle>
   );
@@ -140,7 +139,7 @@ export const PopoverMenu = memo(function PopoverMenu({
   onOpen,
   onClose,
   location,
-  snap = "sticky",
+  snap = 'sticky',
   closeOnOut = false,
   scrollTarget = window,
 }: popoverMenu.PopoverMenuProps) {
@@ -173,9 +172,9 @@ export const PopoverMenu = memo(function PopoverMenu({
   };
 
   useEffect(() => {
-    window.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener('mousedown', handleClickOutside);
     return () => {
-      window.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener('mousedown', handleClickOutside);
     };
   }, [popoverMenuRef.current[0]]);
 
@@ -186,31 +185,31 @@ export const PopoverMenu = memo(function PopoverMenu({
           if (!!popoverMenuRef.current[1]) {
             let offsetX;
             let offsetY;
-            if (snap === "sticky") {
+            if (snap === 'sticky') {
               offsetX = -Math.min(
                 Math.max(
                   window.document.documentElement.clientWidth -
                     popoverMenuRef.current[2].getBoundingClientRect().right,
-                  0
+                  0,
                 ),
                 window.document.documentElement.clientWidth -
-                  popoverMenuRef.current[1].getBoundingClientRect().width
+                  popoverMenuRef.current[1].getBoundingClientRect().width,
               );
               offsetY = -Math.max(
                 Math.min(
                   -popoverMenuRef.current[2].getBoundingClientRect().bottom,
-                  0
+                  0,
                 ),
                 popoverMenuRef.current[1].getBoundingClientRect().height -
-                  window.document.documentElement.clientHeight
+                  window.document.documentElement.clientHeight,
               );
-            } else if (snap === "pop") {
+            } else if (snap === 'pop') {
               offsetX = -(
                 window.document.documentElement.clientWidth -
                 popoverMenuRef.current[2].getBoundingClientRect().right
               );
               if (
-                (popoverMenuRef.current[2].style.bottom === "100%"
+                (popoverMenuRef.current[2].style.bottom === '100%'
                   ? -(
                       popoverMenuRef.current[2].getBoundingClientRect().bottom +
                       (popoverMenuRef.current[3]?.getBoundingClientRect()
@@ -221,14 +220,14 @@ export const PopoverMenu = memo(function PopoverMenu({
                 popoverMenuRef.current[1].getBoundingClientRect().height -
                   window.document.documentElement.clientHeight
               ) {
-                popoverMenuRef.current[2].style.bottom = "100%";
-                popoverMenuRef.current[2].style.marginBottom = "10px";
+                popoverMenuRef.current[2].style.bottom = '100%';
+                popoverMenuRef.current[2].style.marginBottom = '10px';
                 offsetY =
                   popoverMenuRef.current[2].getBoundingClientRect().top -
                   popoverMenuRef.current[1].getBoundingClientRect().height;
               } else {
-                popoverMenuRef.current[2].style.bottom = "";
-                popoverMenuRef.current[2].style.marginBottom = "0";
+                popoverMenuRef.current[2].style.bottom = '';
+                popoverMenuRef.current[2].style.marginBottom = '0';
                 offsetY =
                   popoverMenuRef.current[2].getBoundingClientRect().bottom;
               }
@@ -254,16 +253,16 @@ export const PopoverMenu = memo(function PopoverMenu({
               closeMenu();
             }
             popoverMenuRef.current[1].style.transform = `translate(${Math.floor(
-              offsetX
+              offsetX,
             )}px, ${Math.floor(offsetY)}px)`;
           }
         } else {
           if (!!popoverMenuRef.current[1]) {
             let offsetY = 0;
-            switch (location?.split("-")[0]) {
-              case "top": {
-                popoverMenuRef.current[2].style.bottom = "100%";
-                popoverMenuRef.current[2].style.marginBottom = "10px";
+            switch (location?.split('-')[0]) {
+              case 'top': {
+                popoverMenuRef.current[2].style.bottom = '100%';
+                popoverMenuRef.current[2].style.marginBottom = '10px';
                 if (
                   popoverMenuRef.current[2].getBoundingClientRect().top -
                     popoverMenuRef.current[1].getBoundingClientRect().height <
@@ -285,7 +284,7 @@ export const PopoverMenu = memo(function PopoverMenu({
                 }
                 break;
               }
-              case "bottom": {
+              case 'bottom': {
                 offsetY =
                   popoverMenuRef.current[2].getBoundingClientRect().top +
                   popoverMenuRef.current[1].getBoundingClientRect().height -
@@ -303,8 +302,8 @@ export const PopoverMenu = memo(function PopoverMenu({
               }
             }
             let offsetX = 0;
-            switch (location?.split("-")[1]) {
-              case "start": {
+            switch (location?.split('-')[1]) {
+              case 'start': {
                 offsetX =
                   popoverMenuRef.current[2].getBoundingClientRect().width -
                   popoverMenuRef.current[1].getBoundingClientRect().width;
@@ -324,7 +323,7 @@ export const PopoverMenu = memo(function PopoverMenu({
                 }
                 break;
               }
-              case "center": {
+              case 'center': {
                 offsetX =
                   (popoverMenuRef.current[2].getBoundingClientRect().width -
                     popoverMenuRef.current[1].getBoundingClientRect().width) /
@@ -350,7 +349,7 @@ export const PopoverMenu = memo(function PopoverMenu({
                 }
                 break;
               }
-              case "end":
+              case 'end':
               default: {
                 offsetX =
                   popoverMenuRef.current[2].getBoundingClientRect().right -
@@ -369,7 +368,7 @@ export const PopoverMenu = memo(function PopoverMenu({
               }
             }
             popoverMenuRef.current[1].style.transform = `translate(${Math.floor(
-              -offsetX
+              -offsetX,
             )}px, ${Math.floor(-offsetY)}px)`;
           }
         }
@@ -380,13 +379,13 @@ export const PopoverMenu = memo(function PopoverMenu({
   useEffect(() => {
     if (menuVisible) {
       scrollEvent();
-      scrollTarget.addEventListener("scroll", scrollEvent);
+      scrollTarget.addEventListener('scroll', scrollEvent);
     } else {
-      scrollTarget.removeEventListener("scroll", scrollEvent);
+      scrollTarget.removeEventListener('scroll', scrollEvent);
     }
 
     return () => {
-      scrollTarget.removeEventListener("scroll", scrollEvent);
+      scrollTarget.removeEventListener('scroll', scrollEvent);
     };
   }, [menuVisible]);
 
@@ -400,7 +399,7 @@ export const PopoverMenu = memo(function PopoverMenu({
         ref={(el) => (popoverMenuRef.current[1] = el)}
         menuVisible={menuVisible}
         isFixed={isFixed}
-        {...(typeof overrides?.MenuListWrapper?.css === "string"
+        {...(typeof overrides?.MenuListWrapper?.css === 'string'
           ? {
               cssStyle: overrides.MenuListWrapper.css,
               ...(overrides.MenuListWrapper ?? {}),
@@ -410,9 +409,8 @@ export const PopoverMenu = memo(function PopoverMenu({
           : {
               style: overrides.MenuListWrapper.css,
               ...overrides.MenuListWrapper,
-            })}
-      >
-         <MenuListWrapper
+            })}>
+        <MenuListWrapper
           {...(typeof overrides?.MenuListWrapper?.css === 'string'
             ? {
                 cssStyle: overrides.MenuListWrapper.css,
@@ -425,20 +423,19 @@ export const PopoverMenu = memo(function PopoverMenu({
                 ...overrides.MenuListWrapper,
               })}>
           <MenuList
-            {...(typeof overrides?.MenuList?.css === "string"
+            {...(typeof overrides?.MenuList?.css === 'string'
               ? {
                   cssStyle: overrides.MenuList.css,
                   ...(overrides.MenuList ?? {}),
                 }
               : overrides?.MenuList == undefined
               ? {}
-              : { style: overrides.MenuList.css, ...overrides.MenuList })}
-          >
+              : { style: overrides.MenuList.css, ...overrides.MenuList })}>
             {items?.map((item, i) => (
               <Fragment key={i}>
-                {item === "divider" ? (
+                {item === 'divider' ? (
                   <Divider
-                    {...(typeof overrides?.Divider?.css === "string"
+                    {...(typeof overrides?.Divider?.css === 'string'
                       ? {
                           cssStyle: overrides.Divider.css,
                           ...(overrides.Divider ?? {}),
@@ -457,7 +454,7 @@ export const PopoverMenu = memo(function PopoverMenu({
                         closeMenu();
                       }
                     }}
-                    {...(typeof overrides?.MenuItem?.css === "string"
+                    {...(typeof overrides?.MenuItem?.css === 'string'
                       ? {
                           cssStyle: overrides.MenuItem.css,
                           ...(overrides.MenuItem ?? {}),
@@ -467,8 +464,7 @@ export const PopoverMenu = memo(function PopoverMenu({
                       : {
                           style: overrides.MenuItem.css,
                           ...overrides.MenuItem,
-                        })}
-                  >
+                        })}>
                     {item.label}
                   </MenuItem>
                 )}
@@ -483,35 +479,33 @@ export const PopoverMenu = memo(function PopoverMenu({
   return (
     <Root
       ref={(el) => (popoverMenuRef.current[0] = el)}
-      {...(typeof overrides?.Root?.css === "string"
+      {...(typeof overrides?.Root?.css === 'string'
         ? {
             cssStyle: overrides.Root.css,
             ...(overrides.Root ?? {}),
           }
         : overrides?.Root == undefined
         ? {}
-        : { style: overrides.Root.css, ...overrides.Root })}
-    >
+        : { style: overrides.Root.css, ...overrides.Root })}>
       <div onClick={toggleMenu} ref={(el) => (popoverMenuRef.current[3] = el)}>
         {!!Button ? <Button menuVisible={menuVisible} /> : <DefaultButton />}
       </div>
       <MenuListBase
         ref={(el) => (popoverMenuRef.current[2] = el)}
-        {...(typeof overrides?.MenuListBase?.css === "string"
+        {...(typeof overrides?.MenuListBase?.css === 'string'
           ? {
               cssStyle: overrides.MenuListBase.css,
               ...(overrides.MenuListBase ?? {}),
             }
           : overrides?.MenuListBase == undefined
           ? {}
-          : { style: overrides.MenuListBase.css, ...overrides.MenuListBase })}
-      >
+          : { style: overrides.MenuListBase.css, ...overrides.MenuListBase })}>
         {isFixed ? (
           createPortal(
             <MenuListComponent />,
             fixedParent
               ? (findDOMNode(fixedParent) as Element) ?? document.body
-              : document.body
+              : document.body,
           )
         ) : (
           <MenuListComponent />

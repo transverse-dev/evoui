@@ -55,6 +55,8 @@ const Box = styled.div<ButtonTypes.BoxPropsType>`
     text-decoration: initial;
     pointer-events: none;
   `}
+
+  ${(props) => props?.cssStyle ?? ''};
 `;
 
 export function Button({
@@ -63,13 +65,19 @@ export function Button({
   onClick,
   style,
   children,
+  overrides,
 }: ButtonTypes.PropsType) {
   return (
     <Box
       disabled={disabled}
       kind={kind}
       onClick={disabled ? undefined : onClick}
-      style={style}>
+      style={style}
+      {...(typeof overrides?.Root?.css === 'string'
+        ? { cssStyle: overrides.Root.css, ...(overrides.Root ?? {}) }
+        : overrides?.Root == undefined
+        ? {}
+        : { style: overrides.Root.css, ...(overrides.Root ?? {}) })}>
       {children}
     </Box>
   );

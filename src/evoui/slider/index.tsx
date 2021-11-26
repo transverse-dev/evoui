@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { SliderPropsType } from "./index.type";
-import styled from "styled-components";
+import { SliderPropsType } from './index.type';
+import styled from 'styled-components';
 
 const Root = styled.div`
   width: 100%;
@@ -17,13 +17,13 @@ const Root = styled.div`
 `;
 
 const Bar = styled.div<any>`
-  width: ${(props) => (props.onText ? "80%" : "100%")};
+  width: ${(props) => (props.onText ? '80%' : '100%')};
   height: 20px;
   display: flex;
   justify-content: space-between;
   position: relative;
   align-items: center;
-  background-color: ${(props) => props.bgColor ?? "#9e5cfa4e"};
+  background-color: ${(props) => props.bgColor ?? '#9e5cfa4e'};
   border-radius: 20px;
   padding: 0 5px 0 0;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.52) inset;
@@ -46,13 +46,12 @@ const Spot = styled.div<any>`
   cursor: pointer;
 
   &:hover {
-    transform: ${(props) => props.temp || "scale(1.2)"};
+    transform: ${(props) => props.temp || 'scale(1.2)'};
   }
 `;
 
 const SelectBar = styled.div<any>`
-  background-color: ${(props) =>
-    props.fillColor ?? '#9f5cfa'};
+  background-color: ${(props) => props.fillColor ?? '#9f5cfa'};
   width: calc(${(props) => props.length}%);
   /* width: 50%; */
   height: 100%;
@@ -81,8 +80,7 @@ const ItemText = styled.div<any>`
   font-size: 20px;
   text-align: right;
   padding-right: 10px;
-  color: ${(props) =>
-    props.textColor ?? '#9f5cfa'};
+  color: ${(props) => props.textColor ?? '#9f5cfa'};
   @media only screen and (min-width: 565px) and (max-width: 946px) {
     margin-bottom: 22px;
   }
@@ -110,7 +108,7 @@ export function Slider({
   const [sliderIndex, _] = useState(stateValues?.indexOf(initValue));
   const [spotItem, setSpotItem] = useState({
     length: (sliderIndex ?? 0) === -1 ? 0 : sliderIndex,
-    item: textlist?.[(sliderIndex ?? 0) === -1 ? 0 : sliderIndex ?? 0] ?? "",
+    item: textlist?.[(sliderIndex ?? 0) === -1 ? 0 : sliderIndex ?? 0] ?? '',
   });
 
   useEffect(() => {
@@ -125,7 +123,7 @@ export function Slider({
             stateValues?.indexOf(initValue ?? 0) === -1
               ? 0
               : stateValues?.indexOf(initValue) ?? 0
-          ] ?? "",
+          ] ?? '',
       });
       changeClosure?.(false);
     } else {
@@ -139,7 +137,7 @@ export function Slider({
             stateValues?.indexOf(changeValue ?? 0) === -1
               ? 0
               : stateValues?.indexOf(changeValue ?? 0) ?? 0
-          ] ?? "",
+          ] ?? '',
       });
       changeClosure?.(true);
     }
@@ -153,7 +151,7 @@ export function Slider({
         <></>
       )}
       <Bar bgColor={bgColor}>
-        <Spot style={{ visibility: "hidden" }} />
+        <Spot style={{ visibility: 'hidden' }} />
         {textlist?.map((item, i) => (
           <Spot
             key={i}
@@ -167,8 +165,7 @@ export function Slider({
           fillColor={fillColor}
           length={
             (100 / (textlist?.length ?? 1)) * ((spotItem?.length ?? 1) + 1)
-          }
-        >
+          }>
           <SelectSpot />
         </SelectBar>
       </Bar>
