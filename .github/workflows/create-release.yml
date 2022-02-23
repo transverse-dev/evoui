@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-      - run: git branch main
+      - run: git checkout -b main
       - run: git pull origin main
       - run: git config --global user.email "bot@example.com"
       - run: git config --global user.name "bot"
