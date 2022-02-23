@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/transverse-dev/evoui#readme",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
     "@types/react": "17.0.39",
