@@ -5,10 +5,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+    ref:
+      - main
 
 jobs:
   create-release:
-    if: github.ref == 'refs/heads/main'
     name: Create Release
     runs-on: ubuntu-latest
     steps:
