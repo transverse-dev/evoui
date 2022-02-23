@@ -1,6 +1,9 @@
 name: Create Release
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -12,6 +15,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
+      - run: git branch main
+      - run: git pull origin main
       - run: git config --global user.email "bot@example.com"
       - run: git config --global user.name "bot"
       - run: npm version patch
@@ -20,6 +25,5 @@ jobs:
       - run: |
           curl -X POST 'https://api.github.com/repos/transverse-dev/evoui/releases' \
           -H 'Accept: application/vnd.github.v3+json' \
-          -H 'Authorization: Bearer ${{secrets.ACCESS_TOKEN}}' \
           -d '{"tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
       
