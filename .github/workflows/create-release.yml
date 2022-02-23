@@ -33,4 +33,4 @@ jobs:
     name: Please Run This Job on Main Branch
     runs-on: ubuntu-latest
     steps:
-      run: exit 1
+      - run: exit 1
