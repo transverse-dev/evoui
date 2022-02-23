@@ -9,7 +9,8 @@ on:
       - main
 
 jobs:
-  generate-api:
+  create-release:
+    if: github.ref_name == 'main'
     name: Create Release
     runs-on: ubuntu-latest
     steps:
