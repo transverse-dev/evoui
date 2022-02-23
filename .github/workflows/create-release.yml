@@ -8,7 +8,7 @@ on:
 
 jobs:
   create-release:
-    - if: github.ref_name == 'main'
+    if: github.ref_name == 'main'
       name: Create Release
       runs-on: ubuntu-latest
       steps:
@@ -27,7 +27,9 @@ jobs:
             -H 'Accept: application/vnd.github.v3+json' \
             -H 'Authorization: Bearer ${{secrets.ACCESS_TOKEN}}' \
             -d '{"tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
-    - if: github.ref_name != 'main'
+  
+  cannot-create-release:
+    if: github.ref_name != 'main'
       name: Please Run This Job on Main Branch
       runs-on: ubuntu-latest
       steps:
