@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch:
     ref:
-      - main
+      - refs/heads/main
 
 jobs:
   create-release:
