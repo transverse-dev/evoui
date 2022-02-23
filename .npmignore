@@ -1,11 +1,1 @@
-package-lock.json
-
-node_modules
-
-.vscode
-
-src
-
-.gitignore
-
-tsconfig.json
+# empty npmignore to ensure all required files (e.g., in the lib folder) are published by npm
