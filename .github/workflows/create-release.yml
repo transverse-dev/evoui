@@ -26,7 +26,7 @@ jobs:
           curl -X POST 'https://api.github.com/repos/transverse-dev/evoui/releases' \
           -H 'Accept: application/vnd.github.v3+json' \
           -H 'Authorization: Bearer ${{secrets.ACCESS_TOKEN}}' \
-          -d '{"tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
+          -d '{"target_commitish": "${{ github.sha }}", "tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
 
   cannot-create-release:
     if: github.ref_name != 'main'
