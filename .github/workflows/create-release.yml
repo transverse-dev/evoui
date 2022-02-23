@@ -5,6 +5,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+    ref:
+      - main
 
 jobs:
   generate-api:
