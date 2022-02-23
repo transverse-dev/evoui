@@ -30,7 +30,7 @@ jobs:
 
   cannot-create-release:
     if: github.ref_name != 'main'
-    name: Please Run This Job on Main Branch
+    name: Please run this workflow on main branch
     runs-on: ubuntu-latest
     steps:
       - run: exit 1
