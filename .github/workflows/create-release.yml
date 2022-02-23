@@ -5,11 +5,10 @@ on:
     branches:
       - main
   workflow_dispatch:
-    ref:
-      - main
 
 jobs:
   create-release:
+    if: github.ref_name == 'main'
     name: Create Release
     runs-on: ubuntu-latest
     steps:
@@ -28,4 +27,10 @@ jobs:
           -H 'Accept: application/vnd.github.v3+json' \
           -H 'Authorization: Bearer ${{secrets.ACCESS_TOKEN}}' \
           -d '{"tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
-      
+
+  cannot-create-release:
+    if: github.ref_name != 'main'
+    name: Please run this workflow on main branch
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 1
