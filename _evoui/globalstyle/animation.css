@@ -1,0 +1,101 @@
+.evo-jelly {
+  animation-name: jelly;
+  animation-duration: 0.5s;
+}
+@keyframes jelly{
+  0% {
+    transform: scale(1.08, 0.92);
+    opacity: 0;
+  }
+  31% {
+    transform: scale(0.94, 1.06);
+    opacity: 1;
+  }
+  58% {
+    transform: scale(1.04, 0.96);
+  }
+  81% {
+    transform: scale(0.98, 1.02);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.evo-fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 0.4s;
+}
+@keyframes fadeInUp{
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.evo-jump {
+  animation-name: jump;
+  animation-iteration-count: infinite;
+}
+@keyframes jump{
+  from {
+    transform: none;
+  }
+  8% {
+    transform: translateY(22.22222222222222%) scale(1.1, 0.9);
+  }
+  40% {
+    transform: translateY(-111.11111111111111%) scale(1, 1);
+  }
+  72% {
+    transform: translateY(22.22222222222222%) scale(1.1, 0.9);
+  }
+  80% {
+    transform: none;
+  }
+  to {
+    transform: none;
+  }
+}
+
+.evo-rotate {
+  animation-name: rotate;
+  animation-iteration-count: infinite;
+}
+@keyframes rotate{
+  from {
+    transform: rotate(0);
+  }
+  8% {
+    transform: rotate(0);
+  }
+  72% {
+    transform: rotate(-180deg);
+  }
+  to {
+    transform: rotate(-180deg);
+  }
+}
+
+.evo-imsi {
+  animation-name: imsi;
+  animation-iteration-count: infinite;
+}
+@keyframes imsi{
+  from {
+    transform: scale(1);
+  }
+  33% {
+    transform: scale(0);
+  }
+  66% {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
