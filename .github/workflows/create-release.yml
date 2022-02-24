@@ -21,7 +21,11 @@ jobs:
       - run: git config --global user.name "bot"
       - run: npm version patch
       - run: git push origin main
+      - run: echo "current=" >> $GITHUB_ENV
+      - run: git rev-parse HEAD >> $GITHUB_ENV
       - run: node -p "'version=' + require('./package.json').version" >> $GITHUB_ENV
+      - run: echo "${{ env.version }}, ${{ env.current }}"
+      - run: exit 1
       - run: |
           curl -X POST 'https://api.github.com/repos/transverse-dev/evoui/releases' \
           -H 'Accept: application/vnd.github.v3+json' \
