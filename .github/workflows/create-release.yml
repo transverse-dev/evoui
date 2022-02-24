@@ -20,17 +20,14 @@ jobs:
       - run: git config --global user.email "bot@example.com"
       - run: git config --global user.name "bot"
       - run: npm version patch
-      # - run: git push origin main
-      - run: echo "temp=$(git rev-parse HEAD)" >> $GITHUB_ENV
-      - run: echo "${{ env.version }}, ${{ env.temp }}"
+      - run: git push origin main
+      - run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - run: node -p "'version=' + require('./package.json').version" >> $GITHUB_ENV
-      - run: echo "${{ env.version }}, ${{ env.temp }}"
-      - run: exit 1
       - run: |
           curl -X POST 'https://api.github.com/repos/transverse-dev/evoui/releases' \
           -H 'Accept: application/vnd.github.v3+json' \
           -H 'Authorization: Bearer ${{secrets.ACCESS_TOKEN}}' \
-          -d '{"target_commitish": "${{ github.sha }}", "tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
+          -d '{"target_commitish": "${{ env.sha }}", "tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
 
   cannot-create-release:
     if: github.ref_name != 'main'
