@@ -1,9 +1,4 @@
-# dependencies
 node_modules
-
-# misc
 .DS_Store
-
-# others
 .vscode
-/lib
+dist
