@@ -7,10 +7,6 @@
     "start": "node server.js",
     "build": "webpack"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/transverse-dev/cuting-front.git"
-  },
   "keywords": [],
   "author": "",
   "license": "MIT",
