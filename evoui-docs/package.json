@@ -58,6 +58,7 @@
     "redux-saga": "1.1.3",
     "reselect": "4.1.5",
     "styled-components": "5.3.3",
-    "@transverse/evo-ui": "file:../src"
+    "evo-ui": "file:../src",
+    "@transverse/evo-ui": "0.0.26"
   }
 }
