@@ -55,6 +55,6 @@
     "reselect": "4.1.5",
     "styled-components": "5.3.3",
     "evo-ui": "file:../src",
-    "@transverse/evo-ui": "0.0.31"
+    "@transverse/evo-ui": "0.0.33"
   }
 }
