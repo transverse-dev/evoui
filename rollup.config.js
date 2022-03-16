@@ -25,6 +25,7 @@ export default [
       commonjs(),
       typescript({ tsconfig: './tsconfig.evoui.json' }),
     ],
+    external: ['react', 'styled-components'],
   },
   {
     input: 'dist/esm/types/index.d.ts',
