@@ -2,7 +2,7 @@
   "compilerOptions": {
     // Language and Environment
     "target": "ES5", // Set the JavaScript language version for emitted JavaScript and include compatible library declarations.
-    "jsx": "react", // Specify what JSX code is generated.
+    "jsx": "react-jsx", // Specify what JSX code is generated.
 
     // Modules
     "module": "ESNext", // Specify what module code is generated.
