@@ -6,7 +6,7 @@ const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
-  entry: './app/index.tsx',
+  entry: './src/index.tsx',
   output: {
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[chunkhash].js',
@@ -31,7 +31,7 @@ module.exports = {
     },
   },
   resolve: {
-    modules: ['node_modules', 'app'],
+    modules: ['node_modules', 'src'],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
@@ -80,7 +80,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       publicPath: '/',
-      template: 'app/index.html',
+      template: 'src/index.html',
     }),
     // new BundleAnalyzerPlugin(),
   ],
