@@ -22,7 +22,7 @@ export default [
     ],
     plugins: [
       resolve(),
-      commonjs({ include: /node_modules/ }),
+      commonjs(),
       typescript({ tsconfig: './tsconfig.evoui.json' }),
     ],
   },
