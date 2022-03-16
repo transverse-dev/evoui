@@ -1,5 +1,3 @@
-// @ts-ignore
-import React from 'react';
 import styled from 'styled-components';
 import { ButtonType } from './button.type';
 
