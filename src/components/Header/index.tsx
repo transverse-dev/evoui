@@ -19,6 +19,7 @@ const Brand = styled.div`
   font-size: 1.2rem;
   font-weight: 700;
   cursor: pointer;
+  user-select: none;
 `;
 
 export default function Header() {
@@ -41,7 +42,7 @@ export default function Header() {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Brand
           onClick={() => {
-            dispatch(push('/introduction'));
+            dispatch(push('/gettingstarted/introduction'));
           }}>
           EvoUI
         </Brand>
@@ -49,14 +50,19 @@ export default function Header() {
         <div
           style={{ cursor: 'pointer', fontSize: '0.8rem', fontWeight: '300' }}
           onClick={() => {
-            dispatch(push('/version'));
+            dispatch(push('/gettingstarted/release'));
           }}>
           v0.0.42
         </div>
       </div>
       <div
         onClick={toggleTheme}
-        style={{ cursor: 'pointer', fontSize: '0.8rem', fontWeight: '300' }}>
+        style={{
+          cursor: 'pointer',
+          fontSize: '0.8rem',
+          fontWeight: '300',
+          userSelect: 'none',
+        }}>
         {theme} mode
       </div>
     </Root>

@@ -17,6 +17,9 @@ export const dark = {
     pageWrapper: {
       bgColor: Palette.aether,
     },
+    sidemenu: {
+      selectedItemBgColor: Palette.aether,
+    },
   },
 };
 
@@ -36,6 +39,9 @@ export const light = {
     },
     pageWrapper: {
       bgColor: Palette.gray,
+    },
+    sidemenu: {
+      selectedItemBgColor: Palette.gray,
     },
   },
 };

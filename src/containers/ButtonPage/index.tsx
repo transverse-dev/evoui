@@ -1,5 +1,5 @@
 import { Text, Title1 } from 'components/PageComponents';
-import { Button } from 'evoui';
+import { Button } from '@transverse/evo-ui';
 
 export default function ButtonPage() {
   return (
@@ -20,13 +20,13 @@ export default function ButtonPage() {
         uncover many web sites still in their infancy.
       </Text>
       <div style={{ marginTop: '32px' }} />
-      <Button>클릭하기</Button>
+      <Button>Submit</Button>
       <div style={{ marginTop: '32px' }} />
-      <Button kind='secondary'>클릭하기</Button>
+      <Button kind='secondary'>Submit</Button>
       <div style={{ marginTop: '32px' }} />
-      <Button kind='tertiary'>클릭하기</Button>
+      <Button kind='tertiary'>Submit</Button>
       <div style={{ marginTop: '32px' }} />
-      <Button disabled>클릭하기</Button>
+      <Button disabled>Submit</Button>
     </>
   );
 }
