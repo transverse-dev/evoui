@@ -4,7 +4,14 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
       [key: string]: {
-        [key: string]: string; // theme object의 최대 depth 지정
+        [key: string]: any;
+      };
+    };
+    evoui: {
+      colors: {
+        [key: string]: {
+          [key: string]: any;
+        };
       };
     };
   }
