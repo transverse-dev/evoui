@@ -52,7 +52,7 @@ export default function Header() {
           onClick={() => {
             dispatch(push('/gettingstarted/release'));
           }}>
-          v0.0.42
+          v0.0.50
         </div>
       </div>
       <div

@@ -12,7 +12,7 @@
     "test": "exit 0",
     "start": "node server.js",
     "build": "rollup -c",
-    "build:docs": "webpack --config webpack.config.production.js && cp src/404.html docs/404.html"
+    "build:docs": "webpack --config webpack.config.production.js && cp src/404.html docs/404.html && rm -rf docs/*.map"
   },
   "repository": {
     "type": "git",
