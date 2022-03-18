@@ -12,9 +12,7 @@
     "test": "exit 0",
     "start": "node server.js",
     "build": "rollup -c",
-    "build:docs": "webpack --config webpack.config.production.js && cp src/404.html docs/404.html",
-    "predeploy": "npm run build:docs",
-    "deploy": "gh-pages -d docs"
+    "build:docs": "webpack --config webpack.config.production.js && cp src/404.html docs/404.html"
   },
   "repository": {
     "type": "git",
@@ -47,7 +45,6 @@
     "connected-react-router": "6.9.1",
     "css-loader": "6.7.1",
     "express": "4.17.2",
-    "gh-pages": "3.2.3",
     "history": "4.10.1",
     "html-loader": "3.0.1",
     "html-webpack-plugin": "5.5.0",
