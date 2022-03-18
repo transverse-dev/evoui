@@ -23,7 +23,7 @@ const Item = styled.div<any>`
   user-select: none;
   background-color: ${(props) =>
     props.selected
-      ? props.theme.colors.sidemenu.selectedItemBgColor
+      ? props.theme.colors.sideMenu.selectedItemBgColor
       : 'initial'};
 `;
 
