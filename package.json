@@ -12,7 +12,9 @@
     "test": "exit 0",
     "build": "rollup -c",
     "start": "node server.js",
-    "build:docs": "webpack"
+    "build:docs": "webpack",
+    "predeploy": "npm run build:docs",
+    "deploy": "gh-pages -d docs"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/transverse-dev/evoui/issues"
   },
-  "homepage": "https://github.com/transverse-dev/evoui#readme",
+  "homepage": "https://transverse-dev.github.io/evoui",
   "devDependencies": {
     "@babel/core": "7.16.0",
     "@babel/preset-react": "7.16.0",
@@ -45,6 +47,7 @@
     "connected-react-router": "6.9.1",
     "css-loader": "6.7.1",
     "express": "4.17.2",
+    "gh-pages": "3.2.3",
     "history": "4.10.1",
     "html-loader": "3.0.1",
     "html-webpack-plugin": "5.5.0",
