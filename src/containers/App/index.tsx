@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={StyledComponentsTheme} darkMode={theme === 'dark'}>
-      <BrowserRouter basename={'/evoui'}>
+      <BrowserRouter>
         <Header />
         <div style={{ display: 'flex', minHeight: '100%' }}>
           <SideMenu />
