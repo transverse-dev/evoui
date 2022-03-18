@@ -5,31 +5,31 @@ const webpack = require('webpack');
 //   require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/index.tsx',
   output: {
     filename: '[name].[contenthash].js',
-    // chunkFilename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'docs'),
     publicPath: '/', // 빌드 파일 절대 경로(중첩된 route 문제)
     clean: true, // 빌드하기 전에 build 폴더 정리
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //     cacheGroups: {
-  //       default: false,
-  //       vendor: false,
-  //       framework: {
-  //         name: 'framework',
-  //         test: /\/node_modules\/(react|react-dom|react-router-dom)\//,
-  //         priority: 40,
-  //         enforce: true,
-  //       }, // core framework
-  //       commons: { name: 'commons', test: /\/node_modules\//, priority: 20 }, // 그 외의 모듈에 대한 chunk
-  //     },
-  //   },
-  // },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        default: false,
+        vendor: false,
+        framework: {
+          name: 'framework',
+          test: /\/node_modules\/(react|react-dom|react-router-dom)\//,
+          priority: 40,
+          enforce: true,
+        }, // core framework
+        commons: { name: 'commons', test: /\/node_modules\//, priority: 20 }, // 그 외의 모듈에 대한 chunk
+      },
+    },
+  },
   resolve: {
     modules: ['node_modules', 'src'],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -89,7 +89,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      publicPath: '/',
+      publicPath: './',
       template: 'src/index.html',
     }),
     // new BundleAnalyzerPlugin(),

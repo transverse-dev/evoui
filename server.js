@@ -8,7 +8,7 @@ const chalk = require('chalk');
 const ip = require('ip');
 
 const app = express();
-const config = require('./webpack.config');
+const config = require('./webpack.config.development');
 const compiler = webpack(config);
 
 app.use(

@@ -10,9 +10,9 @@
   ],
   "scripts": {
     "test": "exit 0",
-    "build": "rollup -c",
     "start": "node server.js",
-    "build:docs": "webpack",
+    "build": "rollup -c",
+    "build:docs": "webpack --config webpack.config.production.js",
     "predeploy": "npm run build:docs",
     "deploy": "gh-pages -d docs"
   },
