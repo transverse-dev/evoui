@@ -1,37 +1,37 @@
-name: Create Release
+# name: Create Release
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
 
-jobs:
-  create-release:
-    if: github.ref_name == 'main'
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - run: echo ${{ github.ref }}
-      - run: git config --global user.email "bot@example.com"
-      - run: git config --global user.name "bot"
-      - run: npm version patch
-      - run: git push origin main
-      - run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
-      - run: node -p "'version=' + require('./package.json').version" >> $GITHUB_ENV
-      - run: |
-          curl -X POST 'https://api.github.com/repos/transverse-dev/evoui/releases' \
-          -H 'Accept: application/vnd.github.v3+json' \
-          -H 'Authorization: Bearer ${{secrets.ACCESS_TOKEN}}' \
-          -d '{"target_commitish": "${{ env.sha }}", "tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
+# jobs:
+#   create-release:
+#     if: github.ref_name == 'main'
+#     name: Create Release
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v2
+#         with:
+#           node-version: 16
+#       - run: echo ${{ github.ref }}
+#       - run: git config --global user.email "bot@example.com"
+#       - run: git config --global user.name "bot"
+#       - run: npm version patch
+#       - run: git push origin main
+#       - run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
+#       - run: node -p "'version=' + require('./package.json').version" >> $GITHUB_ENV
+#       - run: |
+#           curl -X POST 'https://api.github.com/repos/transverse-dev/evoui/releases' \
+#           -H 'Accept: application/vnd.github.v3+json' \
+#           -H 'Authorization: Bearer ${{secrets.ACCESS_TOKEN}}' \
+#           -d '{"target_commitish": "${{ env.sha }}", "tag_name": "${{ env.version }}", "generate_release_notes": true, "prerelease": true}'
 
-  cannot-create-release:
-    if: github.ref_name != 'main'
-    name: Please run this workflow on main branch
-    runs-on: ubuntu-latest
-    steps:
-      - run: exit 1
+#   cannot-create-release:
+#     if: github.ref_name != 'main'
+#     name: Please run this workflow on main branch
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: exit 1
