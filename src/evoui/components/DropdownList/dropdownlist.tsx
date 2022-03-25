@@ -18,10 +18,10 @@ const ListWrapper = styled.div<DropdownListType.ListWrapperPropsType>`
   overflow: hidden;
   box-shadow: ${(props) =>
     props.listVisible
-      ? `1px 1px 4px ${props.theme.colors.evoui.dropDownList.shadowColor}`
+      ? `1px 1px 4px ${props.theme.evoui.colors.dropDownList.shadowColor}`
       : 'none'};
   height: ${(props) => (props.listVisible ? 'fit-content' : '28px')};
-  background-color: ${(props) => props.theme.colors.evoui.dropDownList.bgColor};
+  background-color: ${(props) => props.theme.evoui.colors.dropDownList.bgColor};
   max-height: 90vh;
   z-index: ${(props) => (props.listVisible ? '9' : '0')};
   position: absolute;
@@ -32,7 +32,7 @@ const ListWrapper = styled.div<DropdownListType.ListWrapperPropsType>`
 
   &:hover {
     box-shadow: 1px 1px 4px
-      ${(props) => props.theme.colors.evoui.dropDownList.shadowColor};
+      ${(props) => props.theme.evoui.colors.dropDownList.shadowColor};
   }
 
   ${(props) => props?.cssStyle ?? ''};
@@ -43,7 +43,7 @@ const List = styled.div<DropdownListType.ListPropsType>`
   overflow: ${(props) => (props.listVisible ? 'hidden auto' : 'hidden')};
   height: ${(props) => (props.listVisible ? 'fit-content' : '28px')};
   max-height: 90vh;
-  background-color: ${(props) => props.theme.colors.evoui.dropDownList.bgColor};
+  background-color: ${(props) => props.theme.evoui.colors.dropDownList.bgColor};
   display: flex;
   flex-direction: column;
 
@@ -55,8 +55,8 @@ const ListItem = styled.div<DropdownListType.ListItemPropsType>`
   padding: 2px 8px;
   color: ${(props) =>
     !!props.selected && props.listVisible
-      ? props.theme.colors.evoui.dropDownList.accentColor
-      : props.theme.colors.evoui.dropDownList.fgColor};
+      ? props.theme.evoui.colors.dropDownList.accentColor
+      : props.theme.evoui.colors.dropDownList.fgColor};
   line-height: 24px;
   text-align: center;
   cursor: ${(props) => (!!props.disabled ? 'default' : 'pointer')};
@@ -68,7 +68,7 @@ const ListItem = styled.div<DropdownListType.ListItemPropsType>`
   &:hover {
     background-color: ${(props) =>
       props.listVisible && !props.disabled
-        ? props.theme.colors.evoui.dropDownList.hoverBgColor
+        ? props.theme.evoui.colors.dropDownList.hoverBgColor
         : 'transparent'};
   }
 

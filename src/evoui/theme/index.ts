@@ -15,13 +15,13 @@ const dark = {
       disabledShadow: `none`,
       disabledFgColor: '#404040',
     },
-    // dropDownList: {
-    //   fgColor: '#e2e2e2',
-    //   bgColor: '#212121',
-    //   hoverBgColor: 'rgba(10, 10, 10, 0.72)',
-    //   shadowColor: 'rgb(0 0 0 / 75%)',
-    //   accentColor: '#9f5cfa',
-    // },
+    dropDownList: {
+      fgColor: '#e2e2e2',
+      bgColor: '#212121',
+      hoverBgColor: 'rgba(10, 10, 10, 0.72)',
+      shadowColor: 'rgb(0 0 0 / 75%)',
+      accentColor: '#9f5cfa',
+    },
     // feedback: {
     //   bgColor: '#241722',
     //   fgColor: '#9f5cfa',
@@ -64,13 +64,13 @@ const light = {
       disabledShadow: `none`,
       disabledFgColor: '#c4c4c4',
     },
-    // dropDownList: {
-    //   fgColor: '#555555',
-    //   bgColor: '#ffffff',
-    //   hoverBgColor: 'rgba(233,233,233,0.72)',
-    //   shadowColor: 'rgb(0 0 0 / 25%)',
-    //   accentColor: '#9f5cfa',
-    // },
+    dropDownList: {
+      fgColor: '#555555',
+      bgColor: '#ffffff',
+      hoverBgColor: 'rgba(233,233,233,0.72)',
+      shadowColor: 'rgb(0 0 0 / 25%)',
+      accentColor: '#9f5cfa',
+    },
     // feedback: {
     //   bgColor: '#f6f1ff',
     //   fgColor: '#9f5cfa',
