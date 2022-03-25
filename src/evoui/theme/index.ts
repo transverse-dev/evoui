@@ -22,11 +22,11 @@ const dark = {
       shadowColor: 'rgb(0 0 0 / 75%)',
       accentColor: '#9f5cfa',
     },
-    // feedback: {
-    //   bgColor: '#241722',
-    //   fgColor: '#9f5cfa',
-    //   hoverBgColor: '#281a26',
-    // },
+    feedback: {
+      bgColor: '#241722',
+      fgColor: '#9f5cfa',
+      hoverBgColor: '#281a26',
+    },
     // skeleton: {
     //   bgColor: '#161616',
     //   gradientBgColor: '#00000000',
@@ -71,11 +71,11 @@ const light = {
       shadowColor: 'rgb(0 0 0 / 25%)',
       accentColor: '#9f5cfa',
     },
-    // feedback: {
-    //   bgColor: '#f6f1ff',
-    //   fgColor: '#9f5cfa',
-    //   hoverBgColor: '#efeaf7',
-    // },
+    feedback: {
+      bgColor: '#f6f1ff',
+      fgColor: '#9f5cfa',
+      hoverBgColor: '#efeaf7',
+    },
     // skeleton: {
     //   bgColor: '#f6f6f6',
     //   gradientBgColor: '#00000000',

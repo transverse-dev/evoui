@@ -8,9 +8,9 @@ const Root = styled.div<FeedbackType.RootPropsType>`
   display: flex;
   align-items: center;
   padding: 20px;
-  background-color: ${(props) => props.theme.colors.evoui.feedback.bgColor};
+  background-color: ${(props) => props.theme.evoui.colors.feedback.bgColor};
   border-radius: 10px;
-  color: ${(props) => props.theme.colors.evoui.feedback.fgColor};
+  color: ${(props) => props.theme.evoui.colors.feedback.fgColor};
   font-weight: 600;
   ${(props) =>
     props.clickable
@@ -19,7 +19,7 @@ const Root = styled.div<FeedbackType.RootPropsType>`
     cursor: pointer;
 
     &:hover {
-      background-color: ${props.theme.colors.evoui.feedback.hoverBgColor};
+      background-color: ${props.theme.evoui.colors.feedback.hoverBgColor};
     }
   `
       : ''};
