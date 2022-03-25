@@ -1,7 +1,7 @@
 export { default as Button } from './Button';
 export { default as DropdownList } from './DropdownList';
 export { default as Feedback } from './Feedback';
-// export { default as Icon } from './Icon';
+export { default as Icon } from './Icon';
 // export { default as InfiniteScroll } from './InfiniteScroll';
 // export { default as Loader } from './Loader';
 // export { default as Popover } from './Popover';
