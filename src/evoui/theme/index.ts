@@ -27,6 +27,9 @@ const dark = {
       fgColor: '#9f5cfa',
       hoverBgColor: '#281a26',
     },
+    loader: {
+      bgColor: '#9f5cfa',
+    },
     // skeleton: {
     //   bgColor: '#161616',
     //   gradientBgColor: '#00000000',
@@ -75,6 +78,9 @@ const light = {
       bgColor: '#f6f1ff',
       fgColor: '#9f5cfa',
       hoverBgColor: '#efeaf7',
+    },
+    loader: {
+      bgColor: '#9f5cfa',
     },
     // skeleton: {
     //   bgColor: '#f6f6f6',

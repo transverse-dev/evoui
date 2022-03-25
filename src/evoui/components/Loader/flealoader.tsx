@@ -16,7 +16,7 @@ const Root = styled.div<LoaderType.FleaLoaderType.RootPropsType>`
     width: ${(props) => (props.scale ?? 1) * (props.width ?? 9)}px;
     height: ${(props) => (props.scale ?? 1) * (props.height ?? 9)}px;
     background-color: ${(props) =>
-      props.color ?? props.theme.colors.universal.accentColor};
+      props.color ?? props.theme.evoui.colors.loader.bgColor};
     border-radius: ${(props) =>
       (props.scale ?? 1) * (3 + (props.radius ?? 0))}px;
   }
