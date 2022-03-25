@@ -5,9 +5,9 @@ const Root = styled.div<SkeletonType.RootPropsType>`
   width: 100%;
   height: 100%;
   background: ${(props) =>
-    `linear-gradient(135deg, ${props.theme.colors.evoui.skeleton.gradientBgColor} 33%, ${props.theme.colors.evoui.skeleton.gradientAccentColor} 50%, ${props.theme.colors.evoui.skeleton.gradientBgColor} 66%)`};
+    `linear-gradient(135deg, ${props.theme.evoui.colors.skeleton.gradientBgColor} 33%, ${props.theme.evoui.colors.skeleton.gradientAccentColor} 50%, ${props.theme.evoui.colors.skeleton.gradientBgColor} 66%)`};
   background-size: 300% 300%;
-  background-color: ${(props) => props.theme.colors.evoui.skeleton.bgColor};
+  background-color: ${(props) => props.theme.evoui.colors.skeleton.bgColor};
   animation: skeleton 1.4s infinite;
 
   @keyframes skeleton {
