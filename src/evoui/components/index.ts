@@ -4,7 +4,7 @@ export { default as Feedback } from './Feedback';
 export { default as Icon } from './Icon';
 // export { default as InfiniteScroll } from './InfiniteScroll';
 export { default as Loader } from './Loader';
-// export { default as Popover } from './Popover';
+export { default as Popover } from './Popover';
 export { default as Skeleton } from './Skeleton';
 // export { default as Slider } from './Slider';
 export { default as ThemeProvider } from './ThemeProvider';

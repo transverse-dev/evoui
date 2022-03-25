@@ -30,11 +30,18 @@ const dark = {
     loader: {
       bgColor: '#9f5cfa',
     },
-    // skeleton: {
-    //   bgColor: '#161616',
-    //   gradientBgColor: '#00000000',
-    //   gradientAccentColor: '#ffffff11',
-    // },
+    skeleton: {
+      bgColor: '#161616',
+      gradientBgColor: '#00000000',
+      gradientAccentColor: '#ffffff11',
+    },
+    popover: {
+      fgColor: '#ffffff',
+      bgColor: '#212121',
+      shadowColor: 'rgb(0 0 0 / 75%)',
+      hoverBgColor: 'rgba(10, 10, 10, 0.72)',
+      dividerColor: '#333333',
+    },
     // tile: {
     //   bgColor: '#212121',
     //   shadowColor: 'rgb(0, 0, 0, 0.75)',
@@ -82,11 +89,18 @@ const light = {
     loader: {
       bgColor: '#9f5cfa',
     },
-    // skeleton: {
-    //   bgColor: '#f6f6f6',
-    //   gradientBgColor: '#00000000',
-    //   gradientAccentColor: '#00000011',
-    // },
+    skeleton: {
+      bgColor: '#f6f6f6',
+      gradientBgColor: '#00000000',
+      gradientAccentColor: '#00000011',
+    },
+    popover: {
+      fgColor: '#212121',
+      bgColor: '#ffffff',
+      shadowColor: 'rgb(0 0 0 / 25%)',
+      hoverBgColor: 'rgba(233,233,233,0.72)',
+      dividerColor: '#e5e5e5',
+    },
     // tile: {
     //   bgColor: '#ffffff',
     //   shadowColor: 'rgb(0, 0, 0, 0.25)',
