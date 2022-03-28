@@ -1,26 +1,25 @@
 import styled from 'styled-components';
-import { ModalHeaderType } from './modalheader.type';
+import { ModalFooterType } from './modalfooter.type';
 
-const Root = styled.div<ModalHeaderType.RootPropsType>`
-  padding-bottom: 32px;
+const Root = styled.div<ModalFooterType.RootPropsType>`
+  padding: 40px 0 12px 0;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
   width: 100%;
-  font-size: 1.25rem;
-  font-weight: 500;
 
   @media screen and (max-width: 768px) {
-    padding-bottom: 18px;
+    padding: 20px 0 6px 0;
   }
 
   ${(props) => props?.cssStyle ?? ''};
 `;
 
-export default function ModalHeader({
+export function ModalFooter({
   children,
   overrides,
-}: ModalHeaderType.PropsType) {
+}: ModalFooterType.PropsType) {
   return (
     <Root
       {...(typeof overrides?.Root?.css === 'string'

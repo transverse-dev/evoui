@@ -11,3 +11,9 @@ export { default as ThemeProvider } from './ThemeProvider';
 export { default as Tile } from './Tile';
 export { default as Video } from './Video';
 // export { default as Wall } from './Wall';
+export {
+  default as Modal,
+  ModalHeader as ModalHeader,
+  ModalBody as ModalBody,
+  ModalFooter as ModalFooter,
+} from './Modal';
