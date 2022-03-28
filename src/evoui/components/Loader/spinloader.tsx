@@ -25,7 +25,7 @@ const Root = styled.div<LoaderType.SpinLoaderType.RootPropsType>`
     display: block;
     width: 25%;
     height: 25%;
-    background-color: ${(props) => props.theme.colors.universal.accentColor};
+    background-color: ${(props) => props.theme.evoui.colors.loader.bgColor};
     border-radius: 100%;
     animation: dotInit ${(props) => 2.5 / (props.speed ?? 1)}s infinite
       ease-in-out both;

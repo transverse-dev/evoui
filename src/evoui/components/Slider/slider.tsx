@@ -22,10 +22,12 @@ const Bar = styled.div<any>`
   justify-content: space-between;
   position: relative;
   align-items: center;
-  background-color: ${(props) => props.bgColor ?? '#9e5cfa4e'};
+  background-color: ${(props) =>
+    props.bgColor ?? props.theme.evoui.colors.slider.bgColor};
   border-radius: 20px;
   padding: 0 5px 0 0;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.52) inset;
+  box-shadow: 0px 0px 5px 0px
+    ${(props) => props.theme.evoui.colors.slider.barShadowColor} inset;
 
   @media only screen and (max-width: 564px) {
     width: 100%;
@@ -36,7 +38,7 @@ const Spot = styled.div<any>`
   z-index: 1;
   width: 10px;
   height: 10px;
-  background-color: white;
+  background-color: ${(props) => props.theme.evoui.colors.slider.spotColor};
   border-radius: 100%;
   cursor: pointer;
 
@@ -47,7 +49,7 @@ const Spot = styled.div<any>`
 
 const SelectBar = styled.div<any>`
   background-color: ${(props) =>
-    props.fillColor ?? props.theme.colors.universal.accentColor};
+    props.fillColor ?? props.theme.evoui.colors.slider.selectBgColor};
   width: calc(${(props) => props.length}%);
   /* width: 50%; */
   height: 100%;
@@ -67,8 +69,9 @@ const SelectSpot = styled.div<any>`
   height: 24px;
   right: -7px;
   border-radius: 100%;
-  background-color: white;
-  box-shadow: 0px 0px 7px 2px #0000004b;
+  background-color: ${(props) => props.theme.evoui.colors.slider.spotColor};
+  box-shadow: 0px 0px 7px 2px
+    ${(props) => props.theme.evoui.colors.slider.selectSpotColor};
 `;
 
 const ItemText = styled.div<any>`
@@ -77,7 +80,7 @@ const ItemText = styled.div<any>`
   text-align: right;
   padding-right: 10px;
   color: ${(props) =>
-    props.textColor ?? props.theme.colors.universal.accentColor};
+    props.textColor ?? props.theme.evoui.colors.slider.bgColor};
   @media only screen and (min-width: 565px) and (max-width: 946px) {
     margin-bottom: 22px;
   }

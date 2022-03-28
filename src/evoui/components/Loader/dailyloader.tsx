@@ -14,7 +14,7 @@ const Root = styled.div<LoaderType.DailyLoaderType.RootPropsType>`
     width: ${(props) => (props.scale ?? 1) * (props.width ?? 9)}px;
     height: ${(props) => (props.scale ?? 1) * (props.height ?? 9)}px;
     background-color: ${(props) =>
-      props.color ?? props.theme.colors.universal.accentColor};
+      props.color ?? props.theme.evoui.colors.loader.bgColor};
     border-radius: ${(props) => (props.scale ?? 1) * (props.radius ?? 4.5)}px;
   }
 

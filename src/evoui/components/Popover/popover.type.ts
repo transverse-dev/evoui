@@ -6,37 +6,37 @@ import {
 } from '../global.type';
 
 export namespace PopoverType {
-  interface PopoverMenuItemType {
+  export interface RootProps extends DefaultPropsType {
+    locationY: 'top' | 'bottom' | string;
+  }
+  export interface ButtonWrapperProps extends DefaultPropsType {}
+  export interface DefaultButtonProps extends DefaultPropsType {
+    isDisable: boolean;
+  }
+  export interface MenuWrapperProps extends DefaultPropsType {}
+  export interface Menu extends DefaultPropsType {
+    isExternal: boolean;
+    isMenuVisible: boolean;
+  }
+  export interface MenuList extends DefaultPropsType {}
+  export interface MenuItem extends DefaultPropsType {
+    isSelected: boolean;
+    isDisabled: boolean;
+    isClickEventExist: boolean;
+  }
+  export interface DividerProps extends DefaultPropsType {}
+
+  interface PopoverItemType {
     label: DefaultPrimitiveType;
     selected?: boolean;
     disabled?: boolean;
     onClick?: (event: any) => any;
   }
 
-  export interface RootPropsType extends DefaultPropsType {
-    locationY: 'top' | 'bottom' | string;
-  }
-  export interface ButtonWrapperPropsType extends DefaultPropsType {}
-  export interface DefaultButtonPropsType extends DefaultPropsType {
-    isDisable: boolean;
-  }
-  export interface MenuWrapperPropsType extends DefaultPropsType {}
-  export interface MenuPropsType extends DefaultPropsType {
-    isExternal: boolean;
-    isMenuVisible: boolean;
-  }
-  export interface MenuListPropsType extends DefaultPropsType {}
-  export interface MenuItemPropsType extends DefaultPropsType {
-    isSelected: boolean;
-    isDisabled: boolean;
-    isClickEventExist: boolean;
-  }
-  export interface DividerPropsType extends DefaultPropsType {}
-
-  export interface PropsType {
+  export interface PopoverProps {
     Button?: React.ComponentType | React.ElementType;
     items?: Array<
-      | PopoverMenuItemType
+      | PopoverItemType
       | 'divider'
       | React.ComponentType
       | React.ElementType

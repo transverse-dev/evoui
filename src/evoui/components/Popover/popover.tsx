@@ -1,9 +1,10 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
 import { PopoverType } from './popover.type';
 
-const Root = styled.div<PopoverType.RootPropsType>`
+import styled from 'styled-components';
+import { Fragment, memo, useEffect, useRef, useState, MouseEvent } from 'react';
+
+const Root = styled.div<PopoverType.RootProps>`
   position: relative;
   display: inline-flex;
   flex-direction: ${(props) =>
@@ -18,7 +19,7 @@ const Root = styled.div<PopoverType.RootPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const ButtonWrapper = styled.div<PopoverType.ButtonWrapperPropsType>`
+const ButtonWrapper = styled.div<PopoverType.ButtonWrapperProps>`
   display: inline-flex;
   width: fit-content;
   height: fit-content;
@@ -27,7 +28,7 @@ const ButtonWrapper = styled.div<PopoverType.ButtonWrapperPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const DefaultButton = styled.button<PopoverType.DefaultButtonPropsType>`
+const DefaultButton = styled.button<PopoverType.DefaultButtonProps>`
   margin: 0;
   border: none;
   padding: 0;
@@ -42,13 +43,13 @@ const DefaultButton = styled.button<PopoverType.DefaultButtonPropsType>`
 
   > svg {
     height: 100%;
-    fill: ${(props) => props.theme.colors.universal.fgColor};
+    fill: ${(props) => props.theme.evoui.colors.popover.fgColor};
   }
 
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const MenuWrapper = styled.div<PopoverType.MenuWrapperPropsType>`
+const MenuWrapper = styled.div<PopoverType.MenuWrapperProps>`
   z-index: 1000;
   position: relative;
   width: 100%;
@@ -56,19 +57,19 @@ const MenuWrapper = styled.div<PopoverType.MenuWrapperPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const Menu = styled.div<PopoverType.MenuPropsType>`
+const Menu = styled.div<PopoverType.Menu>`
   z-index: 11111;
   border-radius: 6px;
   position: ${(props) => (props.isExternal ? 'fixed' : 'absolute')};
   display: inline-block;
   width: fit-content;
   height: fit-content;
-  max-width: 90vh;
+  max-width: 90vw;
   max-height: 90vh;
   min-width: 80px;
-  background-color: ${(props) => props.theme.colors.evoui.dropDownList.bgColor};
+  background-color: ${(props) => props.theme.evoui.colors.popover.bgColor};
   box-shadow: 1px 1px 4px
-    ${(props) => props.theme.colors.evoui.dropDownList.shadowColor};
+    ${(props) => props.theme.evoui.colors.popover.shadowColor};
   overflow-x: hidden;
   overflow-y: auto;
   animation-name: ${(props) => (props.isMenuVisible ? 'fadeInScale' : '')};
@@ -95,7 +96,7 @@ const Menu = styled.div<PopoverType.MenuPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const MenuList = styled.div<PopoverType.MenuListPropsType>`
+const MenuList = styled.div<PopoverType.MenuList>`
   padding: 4px 0;
   display: inline-flex;
   flex-direction: column;
@@ -105,9 +106,9 @@ const MenuList = styled.div<PopoverType.MenuListPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const MenuItem = styled.div<PopoverType.MenuItemPropsType>`
+const MenuItem = styled.div<PopoverType.MenuItem>`
   padding: 8px 12px;
-  color: ${(props) => props.theme.colors.evoui.dropDownList.fgColor};
+  color: ${(props) => props.theme.evoui.colors.popover.fgColor};
   font-size: 0.9rem;
   font-weight: ${(props) => (props.isSelected ? '600' : '500')};
   text-align: center;
@@ -115,7 +116,7 @@ const MenuItem = styled.div<PopoverType.MenuItemPropsType>`
   text-overflow: ellipsis;
   background-color: ${(props) =>
     props.isSelected
-      ? props.theme.colors.evoui.dropDownList.hoverBgColor
+      ? props.theme.evoui.colors.popover.hoverBgColor
       : 'transparent'};
   cursor: ${(props) =>
     !!props?.isDisabled
@@ -131,18 +132,18 @@ const MenuItem = styled.div<PopoverType.MenuItemPropsType>`
   &:hover {
     background-color: ${(props) =>
       !!!props.isDisabled && !!props.isClickEventExist
-        ? props.theme.colors.evoui.dropDownList.hoverBgColor
+        ? props.theme.evoui.colors.popover.hoverBgColor
         : 'transparent'};
   }
 
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const Divider = styled.div<PopoverType.DividerPropsType>`
+const Divider = styled.div<PopoverType.DividerProps>`
   margin: 4px 0;
   width: 100%;
   height: 1px;
-  background-color: ${(props) => props.theme.colors.universal.dividerColor};
+  background-color: ${(props) => props.theme.evoui.colors.popover.dividerColor};
 
   ${(props) => props.cssStyle ?? ''};
 `;
@@ -168,7 +169,7 @@ const Popover = memo(function Popover({
   close = false,
   disable = false,
   overrides,
-}: PopoverType.PropsType) {
+}: PopoverType.PopoverProps): JSX.Element {
   /*
    * Button: 메뉴를 킬 버튼을 커스텀 할 수 있다.
    * items: 메뉴 리스트를 커스텀 할 수 있다.
@@ -190,17 +191,88 @@ const Popover = memo(function Popover({
    * overrides: 전체 기본 요소 커스텀
    */
 
-  const popoverMenuRef = useRef<Array<any>>([]);
+  const popoverRef = useRef<Array<any>>([]);
   /*
-   * popoverMenuRef.current[0]: Root
+   * popoverRef.current[0]: Root
    *   - isExternal가 true 일때 사용
-   * popoverMenuRef.current[1]: MenuWrapper
+   * popoverRef.current[1]: MenuWrapper
    *   - isExternal가 false 일때 사용
-   * popoverMenuRef.current[2]: Menu
+   * popoverRef.current[2]: Menu
    *   - Menu의 위치와 거리계산에 사용
    */
 
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (scrollTarget?.current !== undefined) {
+      if (isMenuVisible) {
+        setMenuPosition();
+        scrollTarget?.current?.removeEventListener('scroll', setMenuPosition);
+        scrollTarget.current.addEventListener('scroll', setMenuPosition);
+      } else {
+        scrollTarget.current.removeEventListener('scroll', setMenuPosition);
+      }
+    } else {
+      if (isMenuVisible) {
+        setMenuPosition();
+        window?.removeEventListener('scroll', setMenuPosition);
+        window.addEventListener('scroll', setMenuPosition);
+      } else {
+        window.removeEventListener('scroll', setMenuPosition);
+      }
+    }
+    if (isMenuVisible) {
+      window.onresize = setMenuPosition;
+    } else {
+      window.onresize = null;
+    }
+
+    return () => {
+      if (scrollTarget?.current !== undefined) {
+        scrollTarget?.current?.removeEventListener('scroll', setMenuPosition);
+      } else {
+        window?.removeEventListener('scroll', setMenuPosition);
+      }
+      window.onresize = null;
+    };
+  }, [isMenuVisible, scrollTarget]);
+  /*
+   * 메뉴가 켜진뒤 스크롤 이벤트 부여
+   * 이때 만약 스크롤 타겟이 있다면
+   * 해당 앨리먼트에 이벤트 부여
+   * 없으면 window에 이벤트 부여
+   */
+
+  useEffect(() => {
+    if (isMenuVisible) {
+      setMenuPosition();
+    }
+  }, [Button, items, overrides]);
+  /*
+   * Button: 메뉴가 켜진 중간에 버튼이 변경되거나
+   * items: 메뉴가 켜진 중간에 아이템 리스트가 변경되거나
+   * overrides: 메뉴가 켜진 중간에 overrides가 변경되었을때
+   * 같이 변경된 크기에 맞게 위치 조정
+   */
+
+  useEffect(() => {
+    window.removeEventListener('mousedown', handleClickOutside);
+    window.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [popoverRef.current[0]]);
+  /*
+   * 메뉴를 제외한 다른곳 클릭 시
+   * 메뉴 닫기
+   */
+
+  useEffect(() => {
+    if (isMenuVisible && close) {
+      closeMenu();
+    }
+  }, [close]);
 
   const openMenu = (): void => {
     onOpen && onOpen();
@@ -233,11 +305,11 @@ const Popover = memo(function Popover({
    */
 
   const handleClickOutside = (event: { target: any }) => {
-    if (!popoverMenuRef.current[0] || !popoverMenuRef.current[2]) {
+    if (!popoverRef.current[0] || !popoverRef.current[2]) {
       closeMenu();
     } else if (
-      !popoverMenuRef.current[0].contains(event.target) &&
-      !popoverMenuRef.current[2].contains(event.target)
+      !popoverRef.current[0].contains(event.target) &&
+      !popoverRef.current[2].contains(event.target)
     )
       closeMenu();
   };
@@ -245,23 +317,23 @@ const Popover = memo(function Popover({
   const setMenuPosition = () => {
     if (
       isMenuVisible &&
-      !!popoverMenuRef?.current[0] &&
-      !!popoverMenuRef?.current[1] &&
-      !!popoverMenuRef?.current[2]
+      !!popoverRef?.current[0] &&
+      !!popoverRef?.current[1] &&
+      !!popoverRef?.current[2]
     ) {
       if (
         scrollTarget?.current !== undefined &&
         !!closeOutOfScreen &&
-        (popoverMenuRef.current[0].getBoundingClientRect().top <=
+        (popoverRef.current[0].getBoundingClientRect().top <=
           scrollTarget.current?.getBoundingClientRect()?.top ||
-          popoverMenuRef.current[0].getBoundingClientRect().bottom >=
+          popoverRef.current[0].getBoundingClientRect().bottom >=
             scrollTarget.current?.getBoundingClientRect()?.bottom)
       ) {
         closeMenu();
       } else if (
         !!closeOutOfScreen &&
-        (popoverMenuRef.current[0].getBoundingClientRect().top <= 0 ||
-          popoverMenuRef.current[0].getBoundingClientRect().bottom >=
+        (popoverRef.current[0].getBoundingClientRect().top <= 0 ||
+          popoverRef.current[0].getBoundingClientRect().bottom >=
             window.document.documentElement.clientHeight)
       ) {
         closeMenu();
@@ -270,9 +342,9 @@ const Popover = memo(function Popover({
       var right: number | null = null;
       var bottom: number | null = null;
       var left: number | null = null;
-      const root = popoverMenuRef.current[0].getBoundingClientRect();
-      const menuWrapper = popoverMenuRef.current[1].getBoundingClientRect();
-      const menu = popoverMenuRef.current[2].getBoundingClientRect();
+      const root = popoverRef.current[0].getBoundingClientRect();
+      const menuWrapper = popoverRef.current[1].getBoundingClientRect();
+      const menu = popoverRef.current[2].getBoundingClientRect();
       if (isExternal) {
         if (direction?.split('-')[0] === 'top') {
           if (
@@ -369,29 +441,29 @@ const Popover = memo(function Popover({
         }
       }
       if (top !== null) {
-        popoverMenuRef.current[2].style.top = `${top}px`;
+        popoverRef.current[2].style.top = `${top}px`;
       } else {
-        popoverMenuRef.current[2].style.top = ``;
+        popoverRef.current[2].style.top = ``;
       }
       if (right !== null) {
-        popoverMenuRef.current[2].style.right = `${right - position.x}px`;
+        popoverRef.current[2].style.right = `${right - position.x}px`;
       } else {
-        popoverMenuRef.current[2].style.right = ``;
+        popoverRef.current[2].style.right = ``;
       }
       if (bottom !== null) {
-        popoverMenuRef.current[2].style.bottom = `${bottom}px`;
+        popoverRef.current[2].style.bottom = `${bottom}px`;
       } else {
-        popoverMenuRef.current[2].style.bottom = ``;
+        popoverRef.current[2].style.bottom = ``;
       }
       if (left !== null) {
         if (!!isExternal && left + position.x <= 0 + (margin?.left ?? 0)) {
-          popoverMenuRef.current[2].style.left = `${0 + (margin?.left ?? 0)}px`;
+          popoverRef.current[2].style.left = `${0 + (margin?.left ?? 0)}px`;
         } else if (
           !!isExternal &&
           left + menu.width + position.x >=
             window.document.documentElement.clientWidth - (margin?.right ?? 0)
         ) {
-          popoverMenuRef.current[2].style.left = `${
+          popoverRef.current[2].style.left = `${
             window.document.documentElement.clientWidth -
             menu.width -
             (margin?.right ?? 0)
@@ -405,7 +477,7 @@ const Popover = memo(function Popover({
             (margin?.right ?? 0) >=
             window.document.documentElement.clientWidth
         ) {
-          popoverMenuRef.current[2].style.left = `${
+          popoverRef.current[2].style.left = `${
             window.document.documentElement.clientWidth -
             menuWrapper.left -
             menu.width -
@@ -413,10 +485,10 @@ const Popover = memo(function Popover({
             (margin?.right ?? 0)
           }px`;
         } else {
-          popoverMenuRef.current[2].style.left = `${left + position.x}px`;
+          popoverRef.current[2].style.left = `${left + position.x}px`;
         }
       } else {
-        popoverMenuRef.current[2].style.left = ``;
+        popoverRef.current[2].style.left = ``;
       }
     }
   };
@@ -468,80 +540,9 @@ const Popover = memo(function Popover({
    *   메뉴를 화면 우측에 고정
    */
 
-  useEffect(() => {
-    if (scrollTarget?.current !== undefined) {
-      if (isMenuVisible) {
-        setMenuPosition();
-        scrollTarget?.current?.removeEventListener('scroll', setMenuPosition);
-        scrollTarget.current.addEventListener('scroll', setMenuPosition);
-      } else {
-        scrollTarget.current.removeEventListener('scroll', setMenuPosition);
-      }
-    } else {
-      if (isMenuVisible) {
-        setMenuPosition();
-        window?.removeEventListener('scroll', setMenuPosition);
-        window.addEventListener('scroll', setMenuPosition);
-      } else {
-        window.removeEventListener('scroll', setMenuPosition);
-      }
-    }
-    if (isMenuVisible) {
-      window.onresize = setMenuPosition;
-    } else {
-      window.onresize = null;
-    }
-
-    return () => {
-      if (scrollTarget?.current !== undefined) {
-        scrollTarget?.current?.removeEventListener('scroll', setMenuPosition);
-      } else {
-        window?.removeEventListener('scroll', setMenuPosition);
-      }
-      window.onresize = null;
-    };
-  }, [isMenuVisible, scrollTarget]);
-  /*
-   * 메뉴가 켜진뒤 스크롤 이벤트 부여
-   * 이때 만약 스크롤 타겟이 있다면
-   * 해당 앨리먼트에 이벤트 부여
-   * 없으면 window에 이벤트 부여
-   */
-
-  useEffect(() => {
-    if (isMenuVisible) {
-      setMenuPosition();
-    }
-  }, [Button, items, overrides]);
-  /*
-   * Button: 메뉴가 켜진 중간에 버튼이 변경되거나
-   * items: 메뉴가 켜진 중간에 아이템 리스트가 변경되거나
-   * overrides: 메뉴가 켜진 중간에 overrides가 변경되었을때
-   * 같이 변경된 크기에 맞게 위치 조정
-   */
-
-  useEffect(() => {
-    window.removeEventListener('mousedown', handleClickOutside);
-    window.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      window.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [popoverMenuRef.current[0]]);
-  /*
-   * 메뉴를 제외한 다른곳 클릭 시
-   * 메뉴 닫기
-   */
-
-  useEffect(() => {
-    if (isMenuVisible && close) {
-      closeMenu();
-    }
-  }, [close]);
-
   return (
     <Root
-      ref={(el) => (popoverMenuRef.current[0] = el)}
+      ref={(el) => (popoverRef.current[0] = el)}
       locationY={benchmark?.split('-')[0]}
       {...(typeof overrides?.Root?.css === 'string'
         ? {
@@ -590,8 +591,8 @@ const Popover = memo(function Popover({
         )}
       </ButtonWrapper>
       <MenuWrapper
-        ref={(el) => (popoverMenuRef.current[1] = el)}
-        onClick={(e: React.MouseEvent<HTMLElement>) => {
+        ref={(el) => (popoverRef.current[1] = el)}
+        onClick={(e: MouseEvent<HTMLElement>) => {
           e.stopPropagation();
           e.preventDefault();
           e.nativeEvent.stopImmediatePropagation();
@@ -610,7 +611,7 @@ const Popover = memo(function Popover({
         {!isMenuVisible ? undefined : !!isExternal ? (
           ReactDOM.createPortal(
             <Menu
-              ref={(el) => (popoverMenuRef.current[2] = el)}
+              ref={(el) => (popoverRef.current[2] = el)}
               isExternal={!!isExternal}
               isMenuVisible={isMenuVisible}
               {...(typeof overrides?.Menu?.css === 'string'
@@ -637,7 +638,7 @@ const Popover = memo(function Popover({
                       ...overrides.MenuList,
                     })}>
                 {items?.map((item: any, i) => (
-                  <React.Fragment key={i}>
+                  <Fragment key={i}>
                     {item === 'divider' ? (
                       <Divider
                         {...(typeof overrides?.Divider?.css === 'string'
@@ -657,7 +658,7 @@ const Popover = memo(function Popover({
                         isSelected={!!item?.selected}
                         isDisabled={!!item?.disabled}
                         isClickEventExist={!!item?.onClick}
-                        onClick={(e: React.MouseEvent<HTMLElement>) => {
+                        onClick={(e: MouseEvent<HTMLElement>) => {
                           if (typeof item?.onClick === 'function') {
                             item.onClick(e);
                             closeMenu();
@@ -679,7 +680,7 @@ const Popover = memo(function Popover({
                     ) : !!item ? (
                       item
                     ) : undefined}
-                  </React.Fragment>
+                  </Fragment>
                 ))}
               </MenuList>
             </Menu>,
@@ -687,7 +688,7 @@ const Popover = memo(function Popover({
           )
         ) : (
           <Menu
-            ref={(el) => (popoverMenuRef.current[2] = el)}
+            ref={(el) => (popoverRef.current[2] = el)}
             isExternal={!!isExternal}
             isMenuVisible={isMenuVisible}
             {...(typeof overrides?.Menu?.css === 'string'
@@ -714,7 +715,7 @@ const Popover = memo(function Popover({
                     ...overrides.MenuList,
                   })}>
               {items?.map((item: any, i) => (
-                <React.Fragment key={i}>
+                <Fragment key={i}>
                   {item === 'divider' ? (
                     <Divider
                       {...(typeof overrides?.Divider?.css === 'string'
@@ -734,7 +735,7 @@ const Popover = memo(function Popover({
                       isSelected={!!item?.selected}
                       isDisabled={!!item?.disabled}
                       isClickEventExist={!!item?.onClick}
-                      onClick={(e: React.MouseEvent<HTMLElement>) => {
+                      onClick={(e: MouseEvent<HTMLElement>) => {
                         if (typeof item?.onClick === 'function') {
                           item.onClick(e);
                           closeMenu();
@@ -756,7 +757,7 @@ const Popover = memo(function Popover({
                   ) : !!item ? (
                     item
                   ) : undefined}
-                </React.Fragment>
+                </Fragment>
               ))}
             </MenuList>
           </Menu>
