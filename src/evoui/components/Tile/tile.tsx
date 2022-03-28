@@ -4,10 +4,10 @@ import { TileType } from './tile.type';
 
 const Root = styled.div<TileType.RootPropsType>`
   padding: 20px;
-  background-color: ${(props) => props.theme.colors.evoui.tile.bgColor};
+  background-color: ${(props) => props.theme.evoui.colors.tile.bgColor};
   border-radius: 8px;
   box-shadow: 1px 1px 4px
-    ${(props) => props.theme.colors.evoui.tile.shadowColor};
+    ${(props) => props.theme.evoui.colors.tile.shadowColor};
 
   ${(props) => props.cssStyle ?? ''};
 `;

@@ -42,18 +42,29 @@ const dark = {
       hoverBgColor: 'rgba(10, 10, 10, 0.72)',
       dividerColor: '#333333',
     },
-    // tile: {
-    //   bgColor: '#212121',
-    //   shadowColor: 'rgb(0, 0, 0, 0.75)',
-    // },
+    tile: {
+      bgColor: '#212121',
+      shadowColor: 'rgb(0, 0, 0, 0.75)',
+    },
     // rangeSlider: {
     //   bgColor: '#7a45d6',
     //   textColor: '#6A10E8',
     //   fillColor: '#6A10E8',
     // },
-    // wall: {
-    //   bgColor: 'rgba(0, 0, 0, 0.6)',
-    // },
+    slider: {
+      selectBgColor: '#9f5cfa',
+      bgColor: '#9e5cfa4e',
+      selectSpotColor: '#0000004b',
+      spotColor: '#ffffff',
+      barShadowColor: '#00000084',
+    },
+    wall: {
+      bgColor: 'rgba(0, 0, 0, 0.6)',
+    },
+    video: {
+      fgColor: '#e2e2e2',
+      hoverBgColor: 'rgba(10, 10, 10, 0.72)',
+    },
   },
 };
 
@@ -101,18 +112,29 @@ const light = {
       hoverBgColor: 'rgba(233,233,233,0.72)',
       dividerColor: '#e5e5e5',
     },
-    // tile: {
-    //   bgColor: '#ffffff',
-    //   shadowColor: 'rgb(0, 0, 0, 0.25)',
-    // },
+    tile: {
+      bgColor: '#ffffff',
+      shadowColor: 'rgb(0, 0, 0, 0.25)',
+    },
+    slider: {
+      selectBgColor: '#9f5cfa',
+      bgColor: '#9e5cfa4e',
+      selectSpotColor: '#0000004b',
+      spotColor: '#ffffff',
+      barShadowColor: '#00000084',
+    },
     // rangeSlider: {
     //   bgColor: '#9e5cfa4e',
     //   textColor: '#9f5cfa',
     //   fillColor: '#9f5cfa',
     // },
-    // wall: {
-    //   bgColor: 'rgba(255, 255, 255, 0.7)',
-    // },
+    wall: {
+      bgColor: 'rgba(255, 255, 255, 0.7)',
+    },
+    video: {
+      fgColor: '#555555',
+      hoverBgColor: 'rgba(233,233,233,0.72)',
+    },
   },
 };
 

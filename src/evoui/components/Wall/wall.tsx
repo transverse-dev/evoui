@@ -12,7 +12,7 @@ const Root = styled.div<WallType.RootPropsType>`
   background-color: ${(props) =>
     props.backgroundColor
       ? props.backgroundColor
-      : props.theme.colors.evoui.wall.bgColor};
+      : props.theme.evoui.colors.wall.bgColor};
   overflow: hidden;
   z-index: 100000;
 
