@@ -10,7 +10,7 @@ export { default as Slider } from './Slider';
 export { default as ThemeProvider } from './ThemeProvider';
 export { default as Tile } from './Tile';
 export { default as Video } from './Video';
-// export { default as Wall } from './Wall';
+export { default as Wall } from './Wall';
 export {
   default as Modal,
   ModalHeader as ModalHeader,
