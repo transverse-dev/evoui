@@ -17,3 +17,7 @@ export {
   ModalBody as ModalBody,
   ModalFooter as ModalFooter,
 } from './Modal';
+export {
+  Toast,
+  sendToast
+} from './Toast';
