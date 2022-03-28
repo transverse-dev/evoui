@@ -69,6 +69,9 @@ const dark = {
       fgColor: '#e2e2e2',
       hoverBgColor: 'rgba(10, 10, 10, 0.72)',
     },
+    toast: {
+      shadowColor: 'rgb(0 0 0 / 75%)',
+    },
   },
 };
 
@@ -142,6 +145,9 @@ const light = {
     modal: {
       bgColor: '#ffffff',
       fgColor: '#212121',
+    },
+    toast: {
+      shadowColor: 'rgb(0 0 0 / 25%)',
     },
   },
 };
