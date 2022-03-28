@@ -30,7 +30,7 @@ const SettingButton = styled.button<VideoType.SettingsType.SettingButtonPropsTyp
 
 const MenuItem = styled.div`
   padding: 8px 12px;
-  color: ${(props) => props.theme.colors.evoui.dropDownList.fgColor};
+  color: ${(props) => props.theme.evoui.colors.video.fgColor};
   font-size: 0.9rem;
   font-weight: 500;
   text-align: center;
@@ -44,7 +44,7 @@ const MenuItem = styled.div`
 
   &:hover {
     background-color: ${(props) =>
-      props.theme.colors.evoui.dropDownList.hoverBgColor};
+      props.theme.evoui.colors.video.hoverBgColor};
   }
 `;
 

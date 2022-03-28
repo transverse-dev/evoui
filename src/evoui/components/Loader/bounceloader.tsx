@@ -11,7 +11,7 @@ const Root = styled.div<LoaderType.BounceLoaderType.RootPropsType>`
     height: 100%;
     position: absolute;
     background-color: ${(props) =>
-      props.color ?? props.theme.colors.universal.accentColor};
+      props.color ?? props.theme.evoui.colors.loader.bgColor};
     border-radius: 50%;
     opacity: 0.6;
     animation: bounce 2s infinite ease-in-out;

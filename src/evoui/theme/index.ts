@@ -22,28 +22,49 @@ const dark = {
       shadowColor: 'rgb(0 0 0 / 75%)',
       accentColor: '#9f5cfa',
     },
-    // feedback: {
-    //   bgColor: '#241722',
-    //   fgColor: '#9f5cfa',
-    //   hoverBgColor: '#281a26',
-    // },
-    // skeleton: {
-    //   bgColor: '#161616',
-    //   gradientBgColor: '#00000000',
-    //   gradientAccentColor: '#ffffff11',
-    // },
-    // tile: {
-    //   bgColor: '#212121',
-    //   shadowColor: 'rgb(0, 0, 0, 0.75)',
-    // },
+    feedback: {
+      bgColor: '#241722',
+      fgColor: '#9f5cfa',
+      hoverBgColor: '#281a26',
+    },
+    loader: {
+      bgColor: '#9f5cfa',
+    },
+    skeleton: {
+      bgColor: '#161616',
+      gradientBgColor: '#00000000',
+      gradientAccentColor: '#ffffff11',
+    },
+    popover: {
+      fgColor: '#ffffff',
+      bgColor: '#212121',
+      shadowColor: 'rgb(0 0 0 / 75%)',
+      hoverBgColor: 'rgba(10, 10, 10, 0.72)',
+      dividerColor: '#333333',
+    },
+    tile: {
+      bgColor: '#212121',
+      shadowColor: 'rgb(0, 0, 0, 0.75)',
+    },
     // rangeSlider: {
     //   bgColor: '#7a45d6',
     //   textColor: '#6A10E8',
     //   fillColor: '#6A10E8',
     // },
-    // wall: {
-    //   bgColor: 'rgba(0, 0, 0, 0.6)',
-    // },
+    slider: {
+      selectBgColor: '#9f5cfa',
+      bgColor: '#9e5cfa4e',
+      selectSpotColor: '#0000004b',
+      spotColor: '#ffffff',
+      barShadowColor: '#00000084',
+    },
+    wall: {
+      bgColor: 'rgba(0, 0, 0, 0.6)',
+    },
+    video: {
+      fgColor: '#e2e2e2',
+      hoverBgColor: 'rgba(10, 10, 10, 0.72)',
+    },
   },
 };
 
@@ -71,28 +92,49 @@ const light = {
       shadowColor: 'rgb(0 0 0 / 25%)',
       accentColor: '#9f5cfa',
     },
-    // feedback: {
-    //   bgColor: '#f6f1ff',
-    //   fgColor: '#9f5cfa',
-    //   hoverBgColor: '#efeaf7',
-    // },
-    // skeleton: {
-    //   bgColor: '#f6f6f6',
-    //   gradientBgColor: '#00000000',
-    //   gradientAccentColor: '#00000011',
-    // },
-    // tile: {
-    //   bgColor: '#ffffff',
-    //   shadowColor: 'rgb(0, 0, 0, 0.25)',
-    // },
+    feedback: {
+      bgColor: '#f6f1ff',
+      fgColor: '#9f5cfa',
+      hoverBgColor: '#efeaf7',
+    },
+    loader: {
+      bgColor: '#9f5cfa',
+    },
+    skeleton: {
+      bgColor: '#f6f6f6',
+      gradientBgColor: '#00000000',
+      gradientAccentColor: '#00000011',
+    },
+    popover: {
+      fgColor: '#212121',
+      bgColor: '#ffffff',
+      shadowColor: 'rgb(0 0 0 / 25%)',
+      hoverBgColor: 'rgba(233,233,233,0.72)',
+      dividerColor: '#e5e5e5',
+    },
+    tile: {
+      bgColor: '#ffffff',
+      shadowColor: 'rgb(0, 0, 0, 0.25)',
+    },
+    slider: {
+      selectBgColor: '#9f5cfa',
+      bgColor: '#9e5cfa4e',
+      selectSpotColor: '#0000004b',
+      spotColor: '#ffffff',
+      barShadowColor: '#00000084',
+    },
     // rangeSlider: {
     //   bgColor: '#9e5cfa4e',
     //   textColor: '#9f5cfa',
     //   fillColor: '#9f5cfa',
     // },
-    // wall: {
-    //   bgColor: 'rgba(255, 255, 255, 0.7)',
-    // },
+    wall: {
+      bgColor: 'rgba(255, 255, 255, 0.7)',
+    },
+    video: {
+      fgColor: '#555555',
+      hoverBgColor: 'rgba(233,233,233,0.72)',
+    },
   },
 };
 
