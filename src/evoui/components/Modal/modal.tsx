@@ -56,7 +56,7 @@ const Root = styled.div<ModalType.RootPropsType>`
       : props.scrollType === 'fullScreenScroll'
       ? '100%'
       : 'calc(100% - 32px)'};
-  background-color: ${(props) => props.theme.colors.universal.bgColor};
+  background-color: ${(props) => props.theme.evoui.colors.modal.bgColor};
   overflow-x: hidden;
   overflow-y: ${(props) =>
     props.scrollType === 'rootWrapperScroll' ? 'hidden' : 'auto'};
@@ -138,7 +138,7 @@ const CloseButton = styled.button<ModalType.CloseButtonPropsType>`
   > svg {
     width: 10px;
     height: 10px;
-    fill: ${(props) => props.theme.colors.universal.fgColor};
+    fill: ${(props) => props.theme.evoui.colors.modal.fgColor};
     transition: transform ease-in-out 200ms;
   }
 

@@ -51,6 +51,10 @@ const dark = {
     //   textColor: '#6A10E8',
     //   fillColor: '#6A10E8',
     // },
+    modal: {
+      bgColor: '#212121',
+      fgColor: '#ffffff',
+    },
     slider: {
       selectBgColor: '#9f5cfa',
       bgColor: '#9e5cfa4e',
@@ -64,6 +68,9 @@ const dark = {
     video: {
       fgColor: '#e2e2e2',
       hoverBgColor: 'rgba(10, 10, 10, 0.72)',
+    },
+    toast: {
+      shadowColor: 'rgb(0 0 0 / 75%)',
     },
   },
 };
@@ -134,6 +141,13 @@ const light = {
     video: {
       fgColor: '#555555',
       hoverBgColor: 'rgba(233,233,233,0.72)',
+    },
+    modal: {
+      bgColor: '#ffffff',
+      fgColor: '#212121',
+    },
+    toast: {
+      shadowColor: 'rgb(0 0 0 / 25%)',
     },
   },
 };

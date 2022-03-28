@@ -44,7 +44,7 @@ const ToastContent = styled.div<ToastType.ToastContentPropsType>`
   height: fit-content;
   border-radius: 8px;
   box-shadow: 1px 1px 4px
-    ${(props) => props.theme.colors.evoui.dropDownList.shadowColor};
+    ${(props) => props.theme.evoui.colors.toast.shadowColor};
   color: white;
   background-color: ${(props) =>
     props.type === 'success'
@@ -439,7 +439,7 @@ class ToastManager {
   }
 }
 
-export default function Toast() {
+export function Toast() {
   const [initialized, setInitialized] = useState(false);
 
   const toastCanvas = <ToastCanvas />;

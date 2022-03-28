@@ -11,7 +11,7 @@ const Root = styled.div<ModalBodyType.RootPropsType>`
   ${(props) => props?.cssStyle ?? ''};
 `;
 
-export default function ModalBody({
+export function ModalBody({
   children,
   overrides,
 }: ModalBodyType.PropsType) {
