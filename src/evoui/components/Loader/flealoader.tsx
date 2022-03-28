@@ -22,31 +22,66 @@ const Root = styled.div<LoaderType.FleaLoaderType.RootPropsType>`
   }
 
   & > div:nth-child(1) {
-    animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
-    animation-delay: -1s;
+    animation: jump ${(props) => 1 / (props.speed ?? 1)}s infinite -1s;
     margin-right: ${(props) => props.margin ?? 0}px;
   }
   & > div:nth-child(2) {
-    animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
-    animation-delay: ${(props) => 0.2 / (props.speed ?? 1) - 1}s;
+    animation: jump ${(props) => 1 / (props.speed ?? 1)}s infinite
+      ${(props) => 0.2 / (props.speed ?? 1) - 1}s;
     margin-right: ${(props) => props.margin ?? 0}px;
   }
   & > div:nth-child(3) {
+    animation: jump ${(props) => 1 / (props.speed ?? 1)}s infinite
+      ${(props) => 0.4 / (props.speed ?? 1) - 1}s;
     animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
     animation-delay: ${(props) => 0.4 / (props.speed ?? 1) - 1}s;
   }
 
   & > div:nth-child(1) > div {
-    animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
-    animation-delay: -1s;
+    animation: rotate ${(props) => 1 / (props.speed ?? 1)}s infinite -1s;
   }
   & > div:nth-child(2) > div {
-    animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
-    animation-delay: ${(props) => 0.2 / (props.speed ?? 1) - 1}s;
+    animation: rotate ${(props) => 1 / (props.speed ?? 1)}s infinite
+      ${(props) => 0.2 / (props.speed ?? 1) - 1}s;
   }
   & > div:nth-child(3) > div {
-    animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
-    animation-delay: ${(props) => 0.4 / (props.speed ?? 1) - 1}s;
+    animation: rotate ${(props) => 1 / (props.speed ?? 1)}s infinite
+      ${(props) => 0.4 / (props.speed ?? 1) - 1}s;
+  }
+
+  @keyframes jump {
+    from {
+      transform: none;
+    }
+    8% {
+      transform: translateY(22.22222222222222%) scale(1.1, 0.9);
+    }
+    40% {
+      transform: translateY(-111.11111111111111%) scale(1, 1);
+    }
+    72% {
+      transform: translateY(22.22222222222222%) scale(1.1, 0.9);
+    }
+    80% {
+      transform: none;
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes rotate {
+    from {
+      transform: rotate(0);
+    }
+    8% {
+      transform: rotate(0);
+    }
+    72% {
+      transform: rotate(-180deg);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
   }
 `;
 

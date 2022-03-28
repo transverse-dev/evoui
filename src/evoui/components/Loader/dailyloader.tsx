@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { AnimationStyle } from '../z_GlobalStyle';
 import { LoaderType } from './loader.type';
 
 const Root = styled.div<LoaderType.DailyLoaderType.RootPropsType>`
@@ -19,17 +18,30 @@ const Root = styled.div<LoaderType.DailyLoaderType.RootPropsType>`
   }
 
   & > div:nth-child(1) {
-    animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
+    animation: daily ${(props) => 1 / (props.speed ?? 1)}s infinite;
     margin-right: ${(props) => props.margin ?? 0}px;
   }
   & > div:nth-child(2) {
-    animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
-    animation-delay: 0.2s;
+    animation: daily ${(props) => 1 / (props.speed ?? 1)}s infinite 0.2s;
     margin-right: ${(props) => props.margin ?? 0}px;
   }
   & > div:nth-child(3) {
-    animation-duration: ${(props) => 1 / (props.speed ?? 1)}s;
-    animation-delay: 0.4s;
+    animation: daily ${(props) => 1 / (props.speed ?? 1)}s infinite 0.4s;
+  }
+
+  @keyframes daily {
+    from {
+      transform: scale(1);
+    }
+    33% {
+      transform: scale(0);
+    }
+    66% {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1);
+    }
   }
 `;
 
@@ -51,9 +63,9 @@ export default function DailyLoader({
       radius={radius}
       speed={speed}
       margin={margin}>
-      <div className={AnimationStyle.daily}></div>
-      <div className={AnimationStyle.daily}></div>
-      <div className={AnimationStyle.daily}></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </Root>
   );
 }
