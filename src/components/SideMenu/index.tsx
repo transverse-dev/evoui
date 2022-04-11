@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { pathnameSelector } from 'redux/router/selectors';
 import styled from 'styled-components';
 
 const Root = styled.div`
@@ -29,21 +29,22 @@ const Item = styled.div<any>`
 
 export default function SideMenu() {
   const dispatch = useDispatch();
-  const location = useLocation();
+
+  const pathname = useSelector(pathnameSelector);
 
   return (
     <Root>
       <ListName>Getting Started</ListName>
       <List>
         <Item
-          selected={location.pathname.split('/')[2] === 'introduction'}
+          selected={pathname.split('/')[2] === 'introduction'}
           onClick={() => {
             dispatch(push('/gettingstarted/introduction'));
           }}>
           Introduction
         </Item>
         <Item
-          selected={location.pathname.split('/')[2] === 'release'}
+          selected={pathname.split('/')[2] === 'release'}
           onClick={() => {
             dispatch(push('/gettingstarted/release'));
           }}>
@@ -53,25 +54,18 @@ export default function SideMenu() {
       <ListName>Components</ListName>
       <List>
         <Item
-          selected={location.pathname.split('/')[2] === 'button'}
+          selected={pathname.split('/')[2] === 'button'}
           onClick={() => {
             dispatch(push('/components/button'));
           }}>
           Button
         </Item>
         <Item
-          selected={location.pathname.split('/')[2] === 'dropdownlist'}
+          selected={pathname.split('/')[2] === 'themeprovider'}
           onClick={() => {
-            dispatch(push('/components/dropdownlist'));
+            dispatch(push('/components/themeprovider'));
           }}>
-          DropdownList
-        </Item>
-        <Item
-          selected={location.pathname.split('/')[2] === 'feedback'}
-          onClick={() => {
-            dispatch(push('/components/feedback'));
-          }}>
-          Feedback
+          ThemeProvider
         </Item>
       </List>
     </Root>

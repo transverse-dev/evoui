@@ -12,6 +12,9 @@ import { ThemeProvider } from '@transverse/evo-ui';
 import Footer from 'components/Footer';
 import PageWrapper from 'components/PageWrapper';
 import SideMenu from 'components/SideMenu';
+import IntroductionPage from 'containers/IntroductionPage';
+import ReleasePage from 'containers/ReleasePage';
+import ThemeProviderPage from 'containers/ThemeProviderPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -30,14 +33,26 @@ export default function App() {
             <Suspense fallback={<div>loading</div>}>
               <Switch location={location}>
                 <Route
+                  path='/gettingstarted/introduction'
+                  render={() => <IntroductionPage />}
+                />
+                <Route
+                  path='/gettingstarted/release'
+                  render={() => <ReleasePage />}
+                />
+                <Route
                   path='/components/button'
                   render={() => <ButtonPage />}
+                />
+                <Route
+                  path='/components/themeprovider'
+                  render={() => <ThemeProviderPage />}
                 />
                 <Route
                   render={() => (
                     <Executer
                       targetFunction={() => {
-                        dispatch(push('/components/button'));
+                        dispatch(push('/gettingstarted/introduction'));
                       }}
                     />
                   )}

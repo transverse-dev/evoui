@@ -1,4 +1,4 @@
-import { Text, Title1 } from 'components/PageComponents';
+import { Divider, Text, Title1, Title2 } from 'components/PageComponents';
 import styled from 'styled-components';
 
 const PageWrapper = styled.div`
@@ -16,6 +16,18 @@ const PageWrapper = styled.div`
     padding-top: 2rem;
     font-size: 2rem;
     font-weight: 600;
+  }
+
+  & ${Title2} {
+    padding-top: 1.6rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+
+  & ${Divider} {
+    height: 1px;
+    margin: 0.5rem 0;
+    background-color: ${(props) => props.theme.colors.universal.fgColor}20;
   }
 `;
 
