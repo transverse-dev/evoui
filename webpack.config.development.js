@@ -10,7 +10,7 @@ module.exports = {
   output: {
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, 'docs'),
+    path: path.resolve(__dirname, 'docs_dev'),
     publicPath: '/', // 빌드 파일 절대 경로(중첩된 route 문제)
     clean: true, // 빌드하기 전에 build 폴더 정리
   },
@@ -90,7 +90,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       publicPath: '/',
-      template: 'src/index.html',
+      template: 'src/index.development.html',
     }),
     // new BundleAnalyzerPlugin(),
   ],
