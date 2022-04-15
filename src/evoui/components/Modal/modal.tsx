@@ -4,8 +4,6 @@ import { ModalType } from './modal.type';
 
 const RootWrapper = styled.div<ModalType.RootWrapperPropsType>`
   z-index: 10000;
-  padding: ${(props) =>
-    props.scrollType === 'fullScreenScroll' ? '' : '16px'};
   position: fixed;
   top: ${(props) => (props.isBackgroundOff ? '50%' : '0')};
   right: ${(props) => (props.isBackgroundOff ? '' : '0')};
@@ -17,10 +15,7 @@ const RootWrapper = styled.div<ModalType.RootWrapperPropsType>`
   height: ${(props) => (props.isBackgroundOff ? 'fit-content' : '')};
   max-width: 100%;
   max-height: 100%;
-  overflow-x: hidden;
-  overflow-y: ${(props) =>
-    props.scrollType === 'rootWrapperScroll' ? 'auto' : 'hidden'};
-  cursor: pointer;
+  overflow: hidden;
   transform: ${(props) =>
     props.isBackgroundOff ? 'translate(-50%, -50%)' : ''};
 
@@ -31,10 +26,25 @@ const RootBackground = styled.div`
   z-index: 0;
   position: absolute;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: #00000080;
+  cursor: pointer;
+`;
+
+const RootScrollWrapper = styled.div<ModalType.RootScrollWrapperPropsType>`
+  padding: ${(props) =>
+    props.scrollType === 'fullScreenScroll' ? '' : '16px'};
+  width: ${(props) => (props.isBackgroundOff ? 'fit-content' : '100%')};
+  height: ${(props) => (props.isBackgroundOff ? 'fit-content' : '100%')};
+  overflow-x: hidden;
+  overflow-y: ${(props) =>
+    props.scrollType === 'rootWrapperScroll' ? 'auto' : 'hidden'};
+
+  ${(props) => props?.cssStyle ?? ''};
 `;
 
 const Root = styled.div<ModalType.RootPropsType>`
@@ -188,7 +198,6 @@ export default function Modal({
   return isOpen ? (
     <RootWrapper
       isBackgroundOff={!!options?.RootBackgroundOff}
-      scrollType={scrollType}
       {...(typeof overrides?.RootWrapper?.css === 'string'
         ? {
             cssStyle: overrides.RootWrapper.css,
@@ -218,45 +227,60 @@ export default function Modal({
       {!!options?.RootOff ? (
         children
       ) : (
-        <Root
+        <RootScrollWrapper
+          isBackgroundOff={!!options?.RootBackgroundOff}
           scrollType={scrollType}
-          isScrollStyleOn={!!options?.scrollStyleOn}
-          // onClick={(e: React.MouseEvent<HTMLElement>) => {
-          //   e.stopPropagation();
-          //   e.preventDefault();
-          //   e.nativeEvent.stopImmediatePropagation();
-          // }}
-          {...(typeof overrides?.Root?.css === 'string'
+          {...(typeof overrides?.RootScrollWrapper?.css === 'string'
             ? {
-                cssStyle: overrides.Root.css,
-                ...(overrides.Root ?? {}),
+                cssStyle: overrides.RootScrollWrapper.css,
+                ...(overrides.RootScrollWrapper ?? {}),
               }
-            : overrides?.Root == undefined
+            : overrides?.RootScrollWrapper == undefined
             ? {}
-            : { style: overrides.Root.css, ...overrides.Root })}>
-          {!!options?.CloseButtonOff ? (
-            <></>
-          ) : (
-            <CloseButton
-              onClick={onClose}
-              {...(typeof overrides?.CloseButton?.css === 'string'
-                ? {
-                    cssStyle: overrides.CloseButton.css,
-                    ...(overrides.CloseButton ?? {}),
-                  }
-                : overrides?.CloseButton == undefined
-                ? {}
-                : {
-                    style: overrides.CloseButton.css,
-                    ...overrides.CloseButton,
-                  })}>
-              <svg viewBox='0 0 34 34' xmlns='http://www.w3.org/2000/svg'>
-                <path d='M34 3.42429L30.5757 0L17 13.5757L3.42429 0L0 3.42429L13.5757 17L0 30.5757L3.42429 34L17 20.4243L30.5757 34L34 30.5757L20.4243 17L34 3.42429Z' />
-              </svg>
-            </CloseButton>
-          )}
-          {children}
-        </Root>
+            : {
+                style: overrides.RootScrollWrapper.css,
+                ...overrides.RootScrollWrapper,
+              })}>
+          <Root
+            scrollType={scrollType}
+            isScrollStyleOn={!!options?.scrollStyleOn}
+            // onClick={(e: React.MouseEvent<HTMLElement>) => {
+            //   e.stopPropagation();
+            //   e.preventDefault();
+            //   e.nativeEvent.stopImmediatePropagation();
+            // }}
+            {...(typeof overrides?.Root?.css === 'string'
+              ? {
+                  cssStyle: overrides.Root.css,
+                  ...(overrides.Root ?? {}),
+                }
+              : overrides?.Root == undefined
+              ? {}
+              : { style: overrides.Root.css, ...overrides.Root })}>
+            {!!options?.CloseButtonOff ? (
+              <></>
+            ) : (
+              <CloseButton
+                onClick={onClose}
+                {...(typeof overrides?.CloseButton?.css === 'string'
+                  ? {
+                      cssStyle: overrides.CloseButton.css,
+                      ...(overrides.CloseButton ?? {}),
+                    }
+                  : overrides?.CloseButton == undefined
+                  ? {}
+                  : {
+                      style: overrides.CloseButton.css,
+                      ...overrides.CloseButton,
+                    })}>
+                <svg viewBox='0 0 34 34' xmlns='http://www.w3.org/2000/svg'>
+                  <path d='M34 3.42429L30.5757 0L17 13.5757L3.42429 0L0 3.42429L13.5757 17L0 30.5757L3.42429 34L17 20.4243L30.5757 34L34 30.5757L20.4243 17L34 3.42429Z' />
+                </svg>
+              </CloseButton>
+            )}
+            {children}
+          </Root>
+        </RootScrollWrapper>
       )}
     </RootWrapper>
   ) : (
