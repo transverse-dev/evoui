@@ -52,7 +52,7 @@ export default function Header() {
           onClick={() => {
             dispatch(push('/gettingstarted/release'));
           }}>
-          v0.0.50
+          v{require('../../../package.json').version}
         </div>
       </div>
       <div
