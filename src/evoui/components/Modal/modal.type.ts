@@ -5,9 +5,12 @@ export namespace ModalType {
 
   export interface RootWrapperPropsType extends DefaultPropsType {
     isBackgroundOff: boolean;
-    scrollType?: scrollType;
   }
   export interface RootBackgroundPropsType extends DefaultPropsType {}
+  export interface RootScrollWrapperPropsType extends DefaultPropsType {
+    isBackgroundOff: boolean;
+    scrollType?: scrollType;
+  }
   export interface RootPropsType extends DefaultPropsType {
     scrollType?: scrollType;
     isScrollStyleOn?: boolean;
@@ -27,6 +30,7 @@ export namespace ModalType {
     overrides?: {
       RootWrapper?: DefaultOverridesType;
       RootBackground?: DefaultOverridesType;
+      RootScrollWrapper?: DefaultOverridesType;
       Root?: DefaultOverridesType;
       CloseButton?: DefaultOverridesType;
     };
