@@ -22,7 +22,7 @@ const RootWrapper = styled.div<ModalType.RootWrapperPropsType>`
   ${(props) => props?.cssStyle ?? ''};
 `;
 
-const RootBackground = styled.div`
+const RootBackground = styled.div<ModalType.RootBackgroundPropsType>`
   z-index: 0;
   position: absolute;
   top: 0;
@@ -33,11 +33,15 @@ const RootBackground = styled.div`
   height: 100%;
   background-color: #00000080;
   cursor: pointer;
+
+  ${(props) => props?.cssStyle ?? ''};
 `;
 
 const RootScrollWrapper = styled.div<ModalType.RootScrollWrapperPropsType>`
   padding: ${(props) =>
     props.scrollType === 'fullScreenScroll' ? '' : '16px'};
+  display: inline-flex;
+  justify-content: center;
   width: ${(props) => (props.isBackgroundOff ? 'fit-content' : '100%')};
   height: ${(props) => (props.isBackgroundOff ? 'fit-content' : '100%')};
   overflow-x: hidden;
@@ -184,16 +188,26 @@ export default function Modal({
 
     if (isOpen) {
       window.document.body.style.overflow = 'hidden';
+      window?.removeEventListener('keydown', keypressEvent);
+      window.addEventListener('keydown', keypressEvent);
     } else if (!alreadyHidden) {
       window.document.body.style.overflow = '';
     } else {
       setAlreadyHidden(false);
+      window?.removeEventListener('keydown', keypressEvent);
     }
 
     return () => {
       setAlreadyHidden(false);
+      window?.removeEventListener('keydown', keypressEvent);
     };
   }, [isOpen]);
+
+  const keypressEvent = (e: KeyboardEvent) => {
+    if (e.code === 'Escape') {
+      onClose();
+    }
+  };
 
   return isOpen ? (
     <RootWrapper
