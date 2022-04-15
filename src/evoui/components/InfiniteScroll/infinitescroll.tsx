@@ -382,10 +382,14 @@ export default function InfiniteScroll({
    */
 
   const doEvent = useCallback(
-    throttle((event: () => void) => {
-      setIsLoading(true);
-      event();
-    }, 500),
+    throttle(
+      (event: () => void) => {
+        setIsLoading(true);
+        event();
+      },
+      500,
+      { trailing: false },
+    ),
     [],
   );
   /*
@@ -677,11 +681,15 @@ export default function InfiniteScroll({
           <></>
         )}
       </ListWrapper>
-      <NextObserver
-        ref={(el) => (observerRef.current[0] = el)}
-        isScrollY={scrollDirection === 'y'}
-        activeGap={activeGap ?? 1}
-      />
+      {next !== undefined ? (
+        <NextObserver
+          ref={(el) => (observerRef.current[0] = el)}
+          isScrollY={scrollDirection === 'y'}
+          activeGap={activeGap ?? 1}
+        />
+      ) : (
+        <></>
+      )}
     </Root>
   );
 }
