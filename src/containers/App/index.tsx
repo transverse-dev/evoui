@@ -8,7 +8,6 @@ import ButtonPage from 'containers/ButtonPage';
 import Executer from './executer';
 import { push } from 'connected-react-router';
 import Header from 'components/Header';
-import { ThemeProvider } from '@transverse/evo-ui';
 import Footer from 'components/Footer';
 import PageWrapper from 'components/PageWrapper';
 import SideMenu from 'components/SideMenu';
@@ -16,6 +15,7 @@ import IntroductionPage from 'containers/IntroductionPage';
 import ReleasePage from 'containers/ReleasePage';
 import ThemeProviderPage from 'containers/ThemeProviderPage';
 import DropdownListPage from 'containers/DropdownListPage';
+import { ThemeProvider } from 'evoui';
 
 export default function App() {
   const dispatch = useDispatch();
