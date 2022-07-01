@@ -68,6 +68,13 @@ export default function SideMenu() {
           DropdownList
         </Item>
         <Item
+          selected={pathname.split('/')[2] === 'select'}
+          onClick={() => {
+            dispatch(push('/components/select'));
+          }}>
+          Select
+        </Item>
+        <Item
           selected={pathname.split('/')[2] === 'themeprovider'}
           onClick={() => {
             dispatch(push('/components/themeprovider'));
