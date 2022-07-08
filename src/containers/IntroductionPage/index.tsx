@@ -21,7 +21,6 @@ export default function IntroductionPage() {
         styled-components의 ThemeProvider를 이미 사용하고 있다면 EvoUI
         ThemeProvider로 대체해주세요.
       </Text>
-      <Text></Text>
     </>
   );
 }

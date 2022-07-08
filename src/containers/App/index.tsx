@@ -15,8 +15,9 @@ import IntroductionPage from 'containers/IntroductionPage';
 import ReleasePage from 'containers/ReleasePage';
 import ThemeProviderPage from 'containers/ThemeProviderPage';
 import DropdownListPage from 'containers/DropdownListPage';
-import { ThemeProvider } from 'evoui';
 import SelectPage from 'containers/SelectPage';
+import { ThemeProvider } from 'evoui';
+import InputPage from 'containers/InputPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ export default function App() {
                   path='/components/dropdownlist'
                   render={() => <DropdownListPage />}
                 />
+                <Route path='/components/input' render={() => <InputPage />} />
                 <Route
                   path='/components/select'
                   render={() => <SelectPage />}
