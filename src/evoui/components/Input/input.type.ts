@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent } from 'react';
+import { ChangeEvent, FocusEvent, KeyboardEvent } from 'react';
 import { DefaultOverridesType, DefaultPropsType } from '../global.type';
 
 export interface RootPropsType extends DefaultPropsType {
@@ -8,17 +8,19 @@ export interface RootPropsType extends DefaultPropsType {
 export type InputPropsType = DefaultPropsType;
 export type IconPropsType = DefaultPropsType;
 export interface PropsType {
+  type?: 'text' | 'password';
+  placeholder?: string;
   value: string;
-  isClearable?: boolean;
-  isError?: boolean;
+  onChange: (() => void) | ((event: ChangeEvent<HTMLInputElement>) => void);
   onFocus?:
     | (() => void)
     | ((event: FocusEvent<HTMLInputElement, Element>) => void);
   onBlur?:
     | (() => void)
     | ((event: FocusEvent<HTMLInputElement, Element>) => void);
-  onChange: (() => void) | ((event: ChangeEvent<HTMLInputElement>) => void);
-  type?: 'text' | 'password';
+  onKeyDown?: (() => void) | ((event: KeyboardEvent<HTMLInputElement>) => void);
+  isClearable?: boolean;
+  isError?: boolean;
   overrides?: {
     Root?: DefaultOverridesType;
     Input?: DefaultOverridesType;
