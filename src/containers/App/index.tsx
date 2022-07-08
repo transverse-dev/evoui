@@ -8,7 +8,6 @@ import ButtonPage from 'containers/ButtonPage';
 import Executer from './executer';
 import { push } from 'connected-react-router';
 import Header from 'components/Header';
-import { ThemeProvider } from '@transverse/evo-ui';
 import Footer from 'components/Footer';
 import PageWrapper from 'components/PageWrapper';
 import SideMenu from 'components/SideMenu';
@@ -16,6 +15,9 @@ import IntroductionPage from 'containers/IntroductionPage';
 import ReleasePage from 'containers/ReleasePage';
 import ThemeProviderPage from 'containers/ThemeProviderPage';
 import DropdownListPage from 'containers/DropdownListPage';
+import SelectPage from 'containers/SelectPage';
+import { ThemeProvider } from 'evoui';
+import InputPage from 'containers/InputPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -48,6 +50,11 @@ export default function App() {
                 <Route
                   path='/components/dropdownlist'
                   render={() => <DropdownListPage />}
+                />
+                <Route path='/components/input' render={() => <InputPage />} />
+                <Route
+                  path='/components/select'
+                  render={() => <SelectPage />}
                 />
                 <Route
                   path='/components/themeprovider'

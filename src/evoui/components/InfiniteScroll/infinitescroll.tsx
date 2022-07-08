@@ -291,7 +291,7 @@ export default function InfiniteScroll({
    * 만약 로딩중이거나 새로고침중인데, 리스트의 길이가 달라졌다면
    * 리스트 길이 state값을 현재 리스트 길이로 설정하고, 로딩중과 새로고침중을 false로 전환
    * Todo: 리스트의 길이로 업데이트가 되었는지를 확인하는데에는 한계가 있어, 다른 방식이 필요
-   */
+   */ // TODO
 
   useEffect(() => {
     const scrollTarget = document.getElementById(scrollTargetId ?? '');
