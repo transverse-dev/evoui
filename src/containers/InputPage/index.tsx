@@ -16,8 +16,36 @@ export default function InputPage() {
         onChange={(event) => setValue(event.currentTarget.value)}
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
+
       <Title2>Props</Title2>
       <Divider />
+
+      <Text>type</Text>
+      <Text>포맷을 결정합니다.</Text>
+      <Text>타입: 'text' | 'password'</Text>
+      <Text>기본값: 'text'</Text>
+      <div style={{ marginTop: '24px' }} />
+      <Input
+        type='password'
+        value={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        overrides={{ Root: { css: 'max-width: 550px;' } }}
+      />
+
+      <div style={{ marginTop: '24px' }} />
+      <Text>placeholder</Text>
+      <Text>placeholder입니다.</Text>
+      <Text>타입: string</Text>
+      <Text>기본값: ''</Text>
+      <div style={{ marginTop: '24px' }} />
+      <Input
+        placeholder='placeholder입니다.'
+        value={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        overrides={{ Root: { css: 'max-width: 550px;' } }}
+      />
+
+      <div style={{ marginTop: '24px' }} />
       <Text>isClearable</Text>
       <Text>
         값을 입력하면 입력한 값을 한 번에 지울 수 있는 버튼이 우측에 나타납니다.
@@ -31,8 +59,8 @@ export default function InputPage() {
         isClearable
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
+
       <div style={{ marginTop: '24px' }} />
-      <Divider />
       <Text>isError</Text>
       <Text>빨갛게 변합니다.</Text>
       <Text>타입: boolean</Text>
@@ -44,19 +72,8 @@ export default function InputPage() {
         isError
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
+      
       <div style={{ marginTop: '24px' }} />
-      <Divider />
-      <Text>type</Text>
-      <Text>포맷을 결정합니다.</Text>
-      <Text>타입: 'text' | 'password'</Text>
-      <Text>기본값: 'text'</Text>
-      <div style={{ marginTop: '24px' }} />
-      <Input
-        type='password'
-        value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
-        overrides={{ Root: { css: 'max-width: 550px;' } }}
-      />
     </>
   );
 }

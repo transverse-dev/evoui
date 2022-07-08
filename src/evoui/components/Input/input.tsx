@@ -59,13 +59,15 @@ const createNoBlurringOnClick = <elementType extends SVGSVGElement>(
 });
 
 export default function PureInput({
+  type = 'text',
+  placeholder = '',
   value,
-  isClearable = false,
-  isError = false,
+  onChange,
   onFocus,
   onBlur,
-  onChange,
-  type = 'text',
+  onKeyDown,
+  isClearable = false,
+  isError = false,
   overrides,
 }: PropsType) {
   // Root 클릭 시 input에 focus를 해야하기 때문에 사용
@@ -131,6 +133,7 @@ export default function PureInput({
         ref={inputRef}
         // type의 종류가 늘어날 수 있어 조건식을 직관적으로 작성했습니다.
         type={type === 'password' && isVisible ? 'text' : type}
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
         onFocus={(event) => {
@@ -141,6 +144,7 @@ export default function PureInput({
           onBlur?.(event);
           setIsFocused(false);
         }}
+        onKeyDown={onKeyDown}
       />
       {isClearable && isFocused && value.length > 0 && (
         <Icon
