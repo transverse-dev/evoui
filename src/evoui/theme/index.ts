@@ -34,6 +34,7 @@ const dark = {
       errorBorderColor: '#e11900',
       focusedBorderColor: '#ffffff',
       iconFillColor: '#ffffff',
+      placeholderFgColor: '#757575',
     },
     loader: {
       bgColor: '#9f5cfa',
@@ -131,6 +132,7 @@ const light = {
       errorBorderColor: '#f1998e',
       focusedBorderColor: '#000000',
       iconFillColor: '#212121',
+      placeholderFgColor: '#9b9b9b',
     },
     loader: {
       bgColor: '#9f5cfa',
