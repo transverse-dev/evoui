@@ -124,7 +124,7 @@ export default function PureInput({
           })}
       isFocused={isFocused}
       isError={isError}
-      {...createNoBlurringOnClick<HTMLDivElement>(focus)}>
+      {...createNoBlurringOnClick(focus)}>
       <Input
         {...(typeof overrides?.Input?.css === 'string'
           ? {
