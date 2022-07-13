@@ -11,7 +11,7 @@ const Root = styled.div<RootPropsType>`
   display: flex;
   align-items: center;
   column-gap: 12px;
-  padding: 10px;
+  padding: 10px 12px;
   background-color: ${(props) =>
     !props.isFocused && props.isError
       ? props.theme.evoui.colors.input.errorBgColor
@@ -25,6 +25,7 @@ const Root = styled.div<RootPropsType>`
         : props.theme.evoui.colors.input.borderColor};
   border-radius: 6px;
   transition: border 0.2s, background-color 0.2s;
+  cursor: text;
 
   ${(props) => props.cssStyle ?? ''};
 `;
@@ -34,6 +35,10 @@ const Input = styled.input<InputPropsType>`
   height: 20px;
   line-height: 20px;
   font-size: 16px;
+
+  &::placeholder {
+    color: ${(props) => props.theme.evoui.colors.input.placeholderFgColor};
+  }
 
   ${(props) => props.cssStyle ?? ''};
 `;
@@ -46,8 +51,10 @@ const Icon = styled.svg<IconPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const createNoBlurringOnClick = <elementType extends SVGSVGElement>(
-  onClick: (event: MouseEvent<elementType>) => void,
+const createNoBlurringOnClick = <
+  elementType extends SVGSVGElement | HTMLDivElement,
+>(
+  onClick: (() => void) | ((event: MouseEvent<elementType>) => void),
 ) => ({
   onMouseDown(event: MouseEvent<elementType>) {
     event.preventDefault();
@@ -116,8 +123,8 @@ export default function PureInput({
             ...overrides.Root,
           })}
       isFocused={isFocused}
-      onClick={focus}
-      isError={isError}>
+      isError={isError}
+      {...createNoBlurringOnClick<HTMLDivElement>(focus)}>
       <Input
         {...(typeof overrides?.Input?.css === 'string'
           ? {
