@@ -64,6 +64,17 @@ const createNoBlurringOnClick = <
   },
   onClick,
 });
+const createNoPropagatingOnClick = <elementType extends HTMLInputElement>(
+  onClick: (() => void) | ((event: MouseEvent<elementType>) => void),
+) => ({
+  onMouseDown(event: MouseEvent<elementType>) {
+    event.stopPropagation();
+  },
+  onMouseUp(event: MouseEvent<elementType>) {
+    event.stopPropagation();
+  },
+  onClick,
+});
 
 export default function PureInput({
   type = 'text',
@@ -152,6 +163,7 @@ export default function PureInput({
           setIsFocused(false);
         }}
         onKeyDown={onKeyDown}
+        {...createNoPropagatingOnClick((event) => event.stopPropagation())}
       />
       {isClearable && isFocused && value.length > 0 && (
         <Icon
