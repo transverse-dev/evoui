@@ -21,7 +21,8 @@ export namespace MultipleTextInputType {
     placeholder?: string;
     onChange: (items: Array<ItemType>) => void;
     stateColors?: Array<{ state: string; fgColor: string; bgColor: string }>;
-    setValueState?: (value: string) => string;
+    setItemState?: (value: string) => string;
+    options?: ['deduplication'];
     overrides?: {
       Root?: DefaultOverridesType;
       InputWrapper?: DefaultOverridesType;
