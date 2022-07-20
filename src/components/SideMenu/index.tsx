@@ -75,6 +75,13 @@ export default function SideMenu() {
           Input
         </Item>
         <Item
+          selected={pathname.split('/')[2] === 'multipletextinput'}
+          onClick={() => {
+            dispatch(push('/components/multipletextinput'));
+          }}>
+          MultipleTextInput
+        </Item>
+        <Item
           selected={pathname.split('/')[2] === 'select'}
           onClick={() => {
             dispatch(push('/components/select'));
