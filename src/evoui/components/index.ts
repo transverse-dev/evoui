@@ -5,6 +5,7 @@ export { default as Icon } from './Icon';
 export { default as InfiniteScroll } from './InfiniteScroll';
 export { default as Input } from './Input';
 export { default as Loader } from './Loader';
+export { default as MultipleTextInput } from './MultipleTextInput';
 export { default as Popover } from './Popover';
 export { default as Select } from './Select';
 export { default as Skeleton } from './Skeleton';

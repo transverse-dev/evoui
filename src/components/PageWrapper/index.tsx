@@ -1,4 +1,10 @@
-import { Divider, Text, Title1, Title2 } from 'components/PageComponents';
+import {
+  Divider,
+  Text,
+  Title1,
+  Title2,
+  Title3,
+} from 'components/PageComponents';
 import styled from 'styled-components';
 
 const PageWrapper = styled.div`
@@ -21,6 +27,12 @@ const PageWrapper = styled.div`
   & ${Title2} {
     padding-top: 1.6rem;
     font-size: 1.6rem;
+    font-weight: 500;
+  }
+
+  & ${Title3} {
+    padding-top: 1.25rem;
+    font-size: 1.25rem;
     font-weight: 500;
   }
 

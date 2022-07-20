@@ -48,6 +48,9 @@ const dark = {
       bgColor: '#212121',
       fgColor: '#ffffff',
     },
+    multipleTextInput: {
+      fgColor: '#ffffff',
+    },
     popover: {
       bgColor: '#212121',
       dividerColor: '#333333',
@@ -139,6 +142,9 @@ const light = {
     },
     modal: {
       bgColor: '#ffffff',
+      fgColor: '#212121',
+    },
+    multipleTextInput: {
       fgColor: '#212121',
     },
     popover: {

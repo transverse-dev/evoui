@@ -18,6 +18,7 @@ import DropdownListPage from 'containers/DropdownListPage';
 import SelectPage from 'containers/SelectPage';
 import { ThemeProvider } from 'evoui';
 import InputPage from 'containers/InputPage';
+import MultipleTextInputPage from 'containers/MultipleTextInputPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,10 @@ export default function App() {
                   render={() => <DropdownListPage />}
                 />
                 <Route path='/components/input' render={() => <InputPage />} />
+                <Route
+                  path='/components/multipletextinput'
+                  render={() => <MultipleTextInputPage />}
+                />
                 <Route
                   path='/components/select'
                   render={() => <SelectPage />}
