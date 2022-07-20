@@ -27,6 +27,8 @@ const Root = styled.div<MultipleTextInputType.RootProps>`
     align-items: inherit;
     justify-content: inherit;
   }
+
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const InputWrapper = styled.div<MultipleTextInputType.ItemWrapperProps>`
@@ -44,6 +46,8 @@ const InputWrapper = styled.div<MultipleTextInputType.ItemWrapperProps>`
     padding-top: 0;
     min-height: auto;
   }
+
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const Item = styled.div<MultipleTextInputType.ItemProps>`
@@ -54,6 +58,8 @@ const Item = styled.div<MultipleTextInputType.ItemProps>`
   align-items: center;
   column-gap: 12px;
   background-color: ${(props) => props.bgColor};
+
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const ItemText = styled.p<MultipleTextInputType.ItemTextProps>`
@@ -64,6 +70,8 @@ const ItemText = styled.p<MultipleTextInputType.ItemTextProps>`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const ItemDeleteButton = styled.button<MultipleTextInputType.ItemDeleteButtonProps>`
@@ -80,6 +88,8 @@ const ItemDeleteButton = styled.button<MultipleTextInputType.ItemDeleteButtonPro
     width: 100%;
     fill: ${(props) => props.fgColor};
   }
+
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 const Input = styled.input<MultipleTextInputType.InputProps>`
@@ -93,14 +103,17 @@ const Input = styled.input<MultipleTextInputType.InputProps>`
     padding: 10px;
     width: 100%;
   }
+
+  ${(props) => props.cssStyle ?? ''};
 `;
 
 export default function MultipleTextInput({
   items,
   placeholder,
   onChange,
-  stateColors,
-  setValueState,
+  stateColors = [{ state: 'default', fgColor: '#e7d6fe', bgColor: '#555555' }],
+  setItemState,
+  options,
   overrides,
 }: MultipleTextInputType.MultipleTextInputProps): JSX.Element {
   const [isMobileView, setIsMobileView] = useState<boolean>(false);
@@ -116,32 +129,36 @@ export default function MultipleTextInput({
         ...inputValueList
           .filter(
             (pureInputValue, i) =>
-              inputValueList.indexOf(pureInputValue) === i &&
-              !items.find((item) => item.value === pureInputValue),
+              (inputValueList.indexOf(pureInputValue) === i &&
+                !items.find((item) => item.value === pureInputValue)) ||
+              !options?.includes('deduplication'),
             /*
              * inputValueList 내의 중복 값인지 검사 &&
-             * items 내의 중복 값인지 검사
+             * option에 deduplication이 있다면 items 내의 중복 값인지 검사
              */
           )
           .map(
             (pureInputValue): MultipleTextInputType.ItemType => ({
               value: pureInputValue,
-              state: setValueState ? setValueState(pureInputValue) : 'default',
+              state: setItemState ? setItemState(pureInputValue) : 'default',
             }),
           ),
       ]);
       setInputValue('');
-    } else if (!items.find((item) => item.value === inputValue)) {
+    } else if (
+      !items.find((item) => item.value === inputValue) ||
+      !options?.includes('deduplication')
+    ) {
       onChange([
         ...items,
         {
           value: inputValue,
-          state: setValueState ? setValueState(inputValue) : 'default',
+          state: setItemState ? setItemState(inputValue) : 'default',
         },
       ]);
       setInputValue('');
     }
-  }, [inputValue, onChange, items, setValueState]);
+  }, [inputValue, onChange, items, setItemState]);
 
   const removeItem = (value: string): void => {
     onChange(items.filter((item) => item.value !== value));
@@ -219,9 +236,9 @@ export default function MultipleTextInput({
                 style: overrides.InputWrapper.css,
                 ...overrides.InputWrapper,
               })}>
-          {items.map((item) => (
+          {items.map((item, i) => (
             <Item
-              key={item.value}
+              key={`${item.value}_${i}`}
               bgColor={
                 stateColors?.find(
                   (stateColorItem) => stateColorItem.state === item.state,
