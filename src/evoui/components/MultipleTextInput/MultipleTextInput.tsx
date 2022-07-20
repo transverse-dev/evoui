@@ -5,7 +5,6 @@ import {
   ChangeEvent,
   KeyboardEvent,
 } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { MultipleTextInputType } from './MultipleTextInput.type';
 
 import styled from 'styled-components';
@@ -104,9 +103,7 @@ export default function MultipleTextInput({
   setValueState,
   overrides,
 }: MultipleTextInputType.MultipleTextInputProps): JSX.Element {
-  const isMobile = useMediaQuery({
-    query: '(max-width: 768px)',
-  });
+  const [isMobileView, setIsMobileView] = useState<boolean>(false);
 
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -179,6 +176,21 @@ export default function MultipleTextInput({
   };
 
   useEffect(() => {
+    const checkIsMobileView = (): void => {
+      if (window.innerWidth <= 768) {
+        setIsMobileView(true);
+      } else {
+        setIsMobileView(false);
+      }
+    };
+
+    window.addEventListener('resize', checkIsMobileView);
+    checkIsMobileView();
+
+    return () => window.removeEventListener('resize', checkIsMobileView);
+  }, []);
+
+  useEffect(() => {
     if (inputValue.split(/ +/g).length > 1) {
       addItem();
     }
@@ -194,7 +206,7 @@ export default function MultipleTextInput({
         : overrides?.Root === undefined
         ? {}
         : { style: overrides.Root.css, ...overrides.Root })}>
-      {!(isMobile && items.length === 0) ? (
+      {!(isMobileView && items.length === 0) ? (
         <InputWrapper
           {...(typeof overrides?.InputWrapper?.css === 'string'
             ? {
@@ -264,7 +276,7 @@ export default function MultipleTextInput({
               </ItemDeleteButton>
             </Item>
           ))}
-          {!isMobile ? (
+          {!isMobileView ? (
             <Input
               type='text'
               value={inputValue}
@@ -285,7 +297,7 @@ export default function MultipleTextInput({
           ) : null}
         </InputWrapper>
       ) : null}
-      {isMobile ? (
+      {isMobileView ? (
         <Input
           type='text'
           value={inputValue}
