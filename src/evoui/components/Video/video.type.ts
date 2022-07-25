@@ -1,3 +1,4 @@
+import { RefObject } from 'react';
 import { DefaultOverridesType, DefaultPropsType } from '../global.type';
 
 export namespace VideoType {
@@ -21,6 +22,7 @@ export namespace VideoType {
 
   export interface PropsType {
     src?: string;
+    videoRef: RefObject<HTMLVideoElement>;
     previewTime?: number;
     onPlayingChange?: (playing: boolean) => void;
     onCurrentTimeChange?: (currentTime: number) => void;
