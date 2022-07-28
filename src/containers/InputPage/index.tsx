@@ -1,9 +1,18 @@
 import { Divider, Text, Title1, Title2 } from 'components/PageComponents';
+import { DropdownList } from 'evoui';
 import Input from 'evoui/components/Input';
 import { useState } from 'react';
 
 export default function InputPage() {
+  const inputTypes = [
+    { label: 'text' as const, id: 'text' as const },
+    { label: 'password' as const, id: 'password' as const },
+    { label: 'email' as const, id: 'email' as const },
+    { label: 'number' as const, id: 'number' as const },
+  ];
+
   const [value, setValue] = useState('');
+  const [inputType, setInputType] = useState(inputTypes[0]);
 
   return (
     <>
@@ -25,8 +34,14 @@ export default function InputPage() {
       <Text>타입: 'text' | 'password'</Text>
       <Text>기본값: 'text'</Text>
       <div style={{ marginTop: '24px' }} />
+      <DropdownList
+        options={inputTypes}
+        value={inputType}
+        onChange={(option) => setInputType(option as typeof inputTypes[number])} // TODO: popover처럼 generic 타입을 사용하도록 해야함.
+      />
+      <div style={{ marginTop: '24px' }} />
       <Input
-        type='password'
+        type={inputType.id}
         value={value}
         onChange={(event) => setValue(event.currentTarget.value)}
         overrides={{ Root: { css: 'max-width: 550px;' } }}
@@ -72,7 +87,7 @@ export default function InputPage() {
         isError
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
-      
+
       <div style={{ marginTop: '24px' }} />
     </>
   );

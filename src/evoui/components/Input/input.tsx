@@ -40,6 +40,23 @@ const Input = styled.input<InputPropsType>`
     color: ${(props) => props.theme.evoui.colors.input.placeholderFgColor};
   }
 
+  ${(props) =>
+    props.isTypeNumber
+      ? `
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  & {
+    -moz-appearance: textfield;
+  }
+  `
+      : ''}
+
   ${(props) => props.cssStyle ?? ''};
 `;
 const Icon = styled.svg<IconPropsType>`
@@ -93,7 +110,7 @@ export default function PureInput({
 
   // input의 실제 focus 여부를 나타내지 않을 수 있음. focus 시 Root에 border를 추가하는 용도의 state.
   const [isFocused, setIsFocused] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const focus = () => {
     if (inputRef.current === null) {
@@ -150,7 +167,7 @@ export default function PureInput({
             })}
         ref={inputRef}
         // type의 종류가 늘어날 수 있어 조건식을 직관적으로 작성했습니다.
-        type={type === 'password' && isVisible ? 'text' : type}
+        type={type === 'password' && isPasswordVisible ? 'text' : type}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
@@ -164,6 +181,7 @@ export default function PureInput({
         }}
         onKeyDown={onKeyDown}
         {...createNoPropagatingOnClick((event) => event.stopPropagation())}
+        isTypeNumber={type === 'number'}
       />
       {isClearable && isFocused && value.length > 0 && (
         <Icon
@@ -200,8 +218,10 @@ export default function PureInput({
               })}
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
-          {...createNoBlurringOnClick(() => setIsVisible((prev) => !prev))}>
-          {isVisible ? (
+          {...createNoBlurringOnClick(() =>
+            setIsPasswordVisible((prev) => !prev),
+          )}>
+          {isPasswordVisible ? (
             <>
               <path d='M0 0h24v24H0z' fill='none' />
               <path d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z' />
