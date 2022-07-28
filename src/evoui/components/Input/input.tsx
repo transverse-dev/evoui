@@ -103,6 +103,7 @@ export default function PureInput({
   onKeyDown,
   isClearable = false,
   isError = false,
+  maxLength,
   overrides,
 }: PropsType) {
   // Root 클릭 시 input에 focus를 해야하기 때문에 사용
@@ -182,6 +183,7 @@ export default function PureInput({
         onKeyDown={onKeyDown}
         {...createNoPropagatingOnClick((event) => event.stopPropagation())}
         isTypeNumber={type === 'number'}
+        maxLength={maxLength}
       />
       {isClearable && isFocused && value.length > 0 && (
         <Icon

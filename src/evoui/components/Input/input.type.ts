@@ -23,6 +23,7 @@ export interface PropsType {
   onKeyDown?: (() => void) | ((event: KeyboardEvent<HTMLInputElement>) => void);
   isClearable?: boolean;
   isError?: boolean;
+  maxLength?: number;
   overrides?: {
     Root?: DefaultOverridesType;
     Input?: DefaultOverridesType;
