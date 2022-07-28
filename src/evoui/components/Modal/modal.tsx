@@ -136,6 +136,7 @@ const Root = styled.div<ModalType.RootPropsType>`
 `;
 
 const CloseButton = styled.button<ModalType.CloseButtonPropsType>`
+  z-index: 1;
   border: 0;
   padding: 0;
   position: absolute;

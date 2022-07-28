@@ -113,6 +113,7 @@ const secondsToHMS = (_seconds: number) => {
 
 export default function Video({
   src,
+  videoRef,
   previewTime,
   onPlayingChange,
   onCurrentTimeChange,
@@ -135,7 +136,6 @@ export default function Video({
   const [controllerVisible, setControllerVisible] = React.useState(false);
 
   const rootRef = React.useRef<HTMLDivElement>(null); // for fullscreen
-  const videoRef = React.useRef<HTMLVideoElement>(null);
 
   const onLoadedMetadata = () => {
     if (videoRef.current === null) return;
