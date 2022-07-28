@@ -1,9 +1,36 @@
 import { Divider, Text, Title1, Title2 } from 'components/PageComponents';
-import Input from 'evoui/components/Input';
-import { useState } from 'react';
+import { DropdownList, Input } from 'evoui';
+import { useEffect, useState } from 'react';
+
+type InputTypeOptionType = typeof INPUT_TYPE_OPTIONS[number];
+type MaxLengthOptionType = typeof MAX_LENGTH_OPTIONS[number];
+
+const INPUT_TYPE_OPTIONS = [
+  { label: 'text' as const, id: 'text' as const },
+  { label: 'password' as const, id: 'password' as const },
+  { label: 'email' as const, id: 'email' as const },
+  { label: 'number' as const, id: 'number' as const },
+];
+const MAX_LENGTH_OPTIONS = [
+  { label: 'maxLength: 4', id: 4 },
+  { label: 'maxLength: 5', id: 5 },
+  { label: 'maxLength: 8', id: 8 },
+  { label: 'maxLength: 20', id: 20 },
+];
 
 export default function InputPage() {
   const [value, setValue] = useState('');
+  const [maxLengthInputValue, setMaxLengthInputValue] = useState('');
+  const [inputTypeOption, setInputTypeOption] = useState<InputTypeOptionType>(
+    INPUT_TYPE_OPTIONS[0],
+  );
+  const [maxLengthOption, setMaxLengthOption] = useState<MaxLengthOptionType>(
+    MAX_LENGTH_OPTIONS[0],
+  );
+
+  useEffect(() => {
+    setMaxLengthInputValue('');
+  }, [maxLengthOption]);
 
   return (
     <>
@@ -22,11 +49,21 @@ export default function InputPage() {
 
       <Text>type</Text>
       <Text>포맷을 결정합니다.</Text>
-      <Text>타입: 'text' | 'password'</Text>
+      <Text>
+        타입: {INPUT_TYPE_OPTIONS.map((option) => `'${option.id}'`).join(' | ')}
+      </Text>
       <Text>기본값: 'text'</Text>
       <div style={{ marginTop: '24px' }} />
+      <DropdownList
+        options={INPUT_TYPE_OPTIONS}
+        value={inputTypeOption}
+        onChange={(option) =>
+          setInputTypeOption(option as typeof INPUT_TYPE_OPTIONS[number])
+        } // TODO: popover처럼 generic 타입을 사용하도록 해야함.
+      />
+      <div style={{ marginTop: '24px' }} />
       <Input
-        type='password'
+        type={inputTypeOption.id}
         value={value}
         onChange={(event) => setValue(event.currentTarget.value)}
         overrides={{ Root: { css: 'max-width: 550px;' } }}
@@ -72,7 +109,29 @@ export default function InputPage() {
         isError
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
-      
+
+      <div style={{ marginTop: '24px' }} />
+      <Text>maxLength</Text>
+      <Text>입력할 수 있는 최대 글자수를 설정합니다.</Text>
+      <Text>타입: number</Text>
+      <Text>기본값: 없음</Text>
+      <div style={{ marginTop: '24px' }} />
+      <DropdownList
+        options={MAX_LENGTH_OPTIONS}
+        value={maxLengthOption}
+        onChange={(option) =>
+          setMaxLengthOption(option as typeof MAX_LENGTH_OPTIONS[number])
+        } // TODO: popover처럼 generic 타입을 사용하도록 해야함.
+        overrides={{ Root: { css: 'width: 150px;' } }}
+      />
+      <div style={{ marginTop: '24px' }} />
+      <Input
+        value={maxLengthInputValue}
+        onChange={(event) => setMaxLengthInputValue(event.currentTarget.value)}
+        maxLength={maxLengthOption.id}
+        overrides={{ Root: { css: 'max-width: 550px;' } }}
+      />
+
       <div style={{ marginTop: '24px' }} />
     </>
   );
