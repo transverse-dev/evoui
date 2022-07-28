@@ -10,7 +10,7 @@ export interface InputPropsType extends DefaultPropsType {
 }
 export type IconPropsType = DefaultPropsType;
 export interface PropsType {
-  type?: 'text' | 'password' | 'email' | 'number';
+  type?: 'text' | 'password' | 'email' | 'number' | 'tel';
   placeholder?: string;
   value: string;
   onChange: (() => void) | ((event: ChangeEvent<HTMLInputElement>) => void);

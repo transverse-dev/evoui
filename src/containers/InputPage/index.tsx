@@ -10,6 +10,7 @@ const INPUT_TYPE_OPTIONS = [
   { label: 'password' as const, id: 'password' as const },
   { label: 'email' as const, id: 'email' as const },
   { label: 'number' as const, id: 'number' as const },
+  { label: 'tel' as const, id: 'tel' as const },
 ];
 const MAX_LENGTH_OPTIONS = [
   { label: 'maxLength: 4', id: 4 },
