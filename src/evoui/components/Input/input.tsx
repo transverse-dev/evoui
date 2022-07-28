@@ -32,6 +32,7 @@ const Root = styled.div<RootPropsType>`
 const Input = styled.input<InputPropsType>`
   all: unset;
   flex-grow: 1;
+  min-width: 0;
   height: 20px;
   line-height: 20px;
   font-size: 16px;
@@ -60,7 +61,7 @@ const Input = styled.input<InputPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 const Icon = styled.svg<IconPropsType>`
-  width: 16px;
+  min-width: 16px;
   height: 16px;
   fill: ${(props) => props.theme.evoui.colors.input.iconFillColor};
   cursor: pointer;
