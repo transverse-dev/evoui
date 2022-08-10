@@ -41,7 +41,7 @@ export default function InputPage() {
       <div style={{ marginTop: '24px' }} />
       <Input
         value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
+        onChange={(value) => setValue(value)}
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
 
@@ -66,7 +66,7 @@ export default function InputPage() {
       <Input
         type={inputTypeOption.id}
         value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
+        onChange={(value) => setValue(value)}
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
 
@@ -79,12 +79,25 @@ export default function InputPage() {
       <Input
         placeholder='placeholder입니다.'
         value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
+        onChange={(value) => setValue(value)}
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
 
       <div style={{ marginTop: '24px' }} />
-      <Text>isClearable</Text>
+      <Text>selectAll</Text>
+      <Text>Input을 클릭 시 값 전체가 선택됩니다.</Text>
+      <Text>타입: boolean</Text>
+      <Text>기본값: false</Text>
+      <div style={{ marginTop: '24px' }} />
+      <Input
+        value={value}
+        onChange={(value) => setValue(value)}
+        selectAll
+        overrides={{ Root: { css: 'max-width: 550px;' } }}
+      />
+
+      <div style={{ marginTop: '24px' }} />
+      <Text>clearable</Text>
       <Text>
         값을 입력하면 입력한 값을 한 번에 지울 수 있는 버튼이 우측에 나타납니다.
       </Text>
@@ -93,8 +106,8 @@ export default function InputPage() {
       <div style={{ marginTop: '24px' }} />
       <Input
         value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
-        isClearable
+        onChange={(value) => setValue(value)}
+        clearable
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
 
@@ -106,8 +119,21 @@ export default function InputPage() {
       <div style={{ marginTop: '24px' }} />
       <Input
         value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
+        onChange={(value) => setValue(value)}
         isError
+        overrides={{ Root: { css: 'max-width: 550px;' } }}
+      />
+
+      <div style={{ marginTop: '24px' }} />
+      <Text>isDisabled</Text>
+      <Text>input이 비활성화 됩니다.</Text>
+      <Text>타입: boolean</Text>
+      <Text>기본값: false</Text>
+      <div style={{ marginTop: '24px' }} />
+      <Input
+        value={value}
+        onChange={(value) => setValue(value)}
+        isDisabled
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
 
@@ -128,7 +154,7 @@ export default function InputPage() {
       <div style={{ marginTop: '24px' }} />
       <Input
         value={maxLengthInputValue}
-        onChange={(event) => setMaxLengthInputValue(event.currentTarget.value)}
+        onChange={(value) => setMaxLengthInputValue(value)}
         maxLength={maxLengthOption.id}
         overrides={{ Root: { css: 'max-width: 550px;' } }}
       />
