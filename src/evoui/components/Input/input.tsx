@@ -124,6 +124,7 @@ const createNoPropagatingOnClick = <elementType extends HTMLInputElement>(
 });
 
 export default function PureInput({
+  tabIndex,
   type = 'text',
   value,
   placeholder,
@@ -223,7 +224,7 @@ export default function PureInput({
         : { style: overrides.Root.css, ...overrides.Root })}>
       <Input
         ref={inputRef}
-        tabIndex={isInputFunctionsDisabled ? -1 : undefined}
+        tabIndex={isInputFunctionsDisabled ? -1 : tabIndex}
         type={inputType}
         value={value}
         placeholder={placeholder}
