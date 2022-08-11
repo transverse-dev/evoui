@@ -1,15 +1,14 @@
 import { DefaultOverridesType, DefaultPropsType } from '../global.type';
 
+// internal types: 패키지 외부에서 사용 불가
 export namespace ToastType {
-  type ToastTypes = 'success' | 'error' | 'info' | 'warning';
-
   export interface IndependentToastPropsType {
     /** Title of the toast. It must be a string.*/
     title: string;
     /** Content of the toast.*/
     content?: string | React.ReactInstance | React.ReactElement;
     /** Type of the toast. It must be one of 'success', 'error', 'info', 'warning'. Default value is 'info'. */
-    type?: ToastTypes;
+    type?: ToastType;
     /** The duration how long the toast will be displayed. */
     duration?: number;
     /** Is the toast could be closed. */
@@ -33,7 +32,7 @@ export namespace ToastType {
   export interface RootPropsType extends DefaultPropsType {}
 
   export interface ToastContentPropsType extends DefaultPropsType {
-    type: ToastTypes;
+    type: ToastType;
     willRemoved?: boolean;
   }
 
@@ -56,3 +55,6 @@ export namespace ToastType {
     onClose?: () => any;
   }
 }
+
+// external types: 패키지 외부에서 사용 가능
+export type ToastType = 'success' | 'error' | 'info' | 'warning';
