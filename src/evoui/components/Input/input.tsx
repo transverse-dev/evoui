@@ -1,5 +1,7 @@
 import { useState, useRef, ChangeEvent, FocusEvent, MouseEvent } from 'react';
+
 import styled from 'styled-components';
+
 import {
   PropsType,
   RootPropsType,
@@ -72,8 +74,13 @@ const Button = styled.button`
   width: 16px;
   height: 16px;
   min-width: 16px;
+  color: ${(props) => props.theme.evoui.colors.input.fgColor};
   background-color: transparent;
   cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid ${(props) => props.theme.evoui.colors.input.fgColor};
+  }
 
   > svg {
     width: 100%;
@@ -139,17 +146,19 @@ export default function PureInput({
   isError = false,
   isDisabled = false,
   overrides,
-}: PropsType) {
+}: PropsType): JSX.Element {
   // Root 클릭 시 input에 focus를 해야하기 때문에 사용
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   // input의 실제 focus 여부를 나타내지 않을 수 있음. focus 시 Root에 border를 추가하는 용도의 state.
-  const [isFocused, setIsFocused] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const isInputFunctionsDisabled = readOnly || isDisabled;
   // type의 종류가 늘어날 수 있어 조건식을 직관적으로 작성했습니다.
   const inputType = type === 'password' && isPasswordVisible ? 'text' : type;
+  const isClearButtonTabIndexExist: boolean =
+    typeof overrides?.ClearButton?.tabIndex === 'number';
 
   const onRootClick = (): void => {
     if (!!inputRef?.current) {
@@ -214,14 +223,17 @@ export default function PureInput({
       isError={!isFocused && isError}
       isDisabled={isDisabled}
       {...createNoBlurringOnClick(onRootClick)}
-      {...(typeof overrides?.Root?.css === 'string'
+      {...(overrides?.Root === undefined
+        ? {}
+        : typeof overrides?.Root?.css === 'string'
         ? {
             cssStyle: overrides.Root.css,
             ...(overrides.Root ?? {}),
           }
-        : overrides?.Root === undefined
-        ? {}
-        : { style: overrides.Root.css, ...overrides.Root })}>
+        : {
+            style: overrides.Root.css,
+            ...overrides.Root,
+          })}>
       <Input
         ref={inputRef}
         tabIndex={isInputFunctionsDisabled ? -1 : tabIndex}
@@ -236,44 +248,52 @@ export default function PureInput({
         onBlur={onInputBlur}
         isTypeNumber={type === 'number'}
         {...createNoPropagatingOnClick((event) => event.stopPropagation())}
-        {...(typeof overrides?.Input?.css === 'string'
+        {...(overrides?.Input === undefined
+          ? {}
+          : typeof overrides?.Input?.css === 'string'
           ? {
               cssStyle: overrides.Input.css,
               ...(overrides.Input ?? {}),
             }
-          : overrides?.Input === undefined
-          ? {}
-          : { style: overrides.Input.css, ...overrides.Input })}
+          : {
+              style: overrides.Input.css,
+              ...overrides.Input,
+            })}
       />
-      {clearable && !isInputFunctionsDisabled && isFocused && value.length > 0 && (
-        <ClearButton
-          {...createNoBlurringOnClick(doClearInput)}
-          {...(typeof overrides?.ClearButton?.css === 'string'
-            ? {
-                cssStyle: overrides.ClearButton.css,
-                ...(overrides.ClearButton ?? {}),
-              }
-            : overrides?.ClearButton == undefined
-            ? {}
-            : {
-                style: overrides.ClearButton.css,
-                ...overrides.ClearButton,
-              })}>
-          <svg viewBox='0 0 24 24'>
-            <path d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' />
-          </svg>
-        </ClearButton>
-      )}
+      {clearable &&
+        !isInputFunctionsDisabled &&
+        (isFocused || isClearButtonTabIndexExist) &&
+        value.length > 0 && (
+          <ClearButton
+            tabIndex={-1}
+            {...createNoBlurringOnClick(doClearInput)}
+            {...(overrides?.ClearButton === undefined
+              ? {}
+              : typeof overrides?.ClearButton?.css === 'string'
+              ? {
+                  cssStyle: overrides.ClearButton.css,
+                  ...(overrides.ClearButton ?? {}),
+                }
+              : {
+                  style: overrides.ClearButton.css,
+                  ...overrides.ClearButton,
+                })}>
+            <svg viewBox='0 0 24 24'>
+              <path d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' />
+            </svg>
+          </ClearButton>
+        )}
       {type === 'password' && (
         <ValueVisibleButton
+          tabIndex={-1}
           {...createNoBlurringOnClick(toggleIsPasswordVisible)}
-          {...(typeof overrides?.ValueVisibleButton?.css === 'string'
+          {...(overrides?.ValueVisibleButton === undefined
+            ? {}
+            : typeof overrides?.ValueVisibleButton?.css === 'string'
             ? {
                 cssStyle: overrides.ValueVisibleButton.css,
                 ...(overrides.ValueVisibleButton ?? {}),
               }
-            : overrides?.ValueVisibleButton == undefined
-            ? {}
             : {
                 style: overrides.ValueVisibleButton.css,
                 ...overrides.ValueVisibleButton,

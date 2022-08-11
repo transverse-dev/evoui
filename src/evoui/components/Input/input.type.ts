@@ -11,6 +11,10 @@ export interface InputPropsType extends DefaultPropsType {
 }
 export type ClearButtonPropsType = DefaultPropsType;
 export type ValueVisibleButtonPropsType = DefaultPropsType;
+
+interface OverridesButtonType extends DefaultOverridesType {
+  tabIndex?: number;
+}
 export interface PropsType {
   tabIndex?: number;
   type?: 'text' | 'password' | 'email' | 'number' | 'tel';
@@ -30,10 +34,10 @@ export interface PropsType {
   readOnly?: boolean;
   isError?: boolean;
   isDisabled?: boolean;
-  overrides?: {
-    Root?: DefaultOverridesType;
-    Input?: DefaultOverridesType;
-    ClearButton?: DefaultOverridesType;
-    ValueVisibleButton?: DefaultOverridesType;
-  };
+  overrides?: Partial<{
+    Root: DefaultOverridesType;
+    Input: DefaultOverridesType;
+    ClearButton: OverridesButtonType;
+    ValueVisibleButton: OverridesButtonType;
+  }>;
 }
