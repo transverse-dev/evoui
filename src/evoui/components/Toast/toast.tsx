@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import { ToastType } from './toast.type';
+import {
+  CloseButtonPropsType,
+  ContentPropsType,
+  HeaderPropsType,
+  IconPropsType,
+  IndependentToastPropsType,
+  RootPropsType,
+  TitlePropsType,
+  ToastContentPropsType,
+} from './toast.type';
 
 const Canvas = styled.div`
   position: fixed;
@@ -29,7 +38,7 @@ const ToastWrapper = styled.div`
   }
 `;
 
-const Root = styled.div<ToastType.RootPropsType>`
+const Root = styled.div<RootPropsType>`
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
@@ -39,7 +48,7 @@ const Root = styled.div<ToastType.RootPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const ToastContent = styled.div<ToastType.ToastContentPropsType>`
+const ToastContent = styled.div<ToastContentPropsType>`
   width: fit-content;
   height: fit-content;
   border-radius: 8px;
@@ -96,7 +105,7 @@ const ToastContent = styled.div<ToastType.ToastContentPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const Header = styled.div<ToastType.HeaderPropsType>`
+const Header = styled.div<HeaderPropsType>`
   display: flex;
   flex-direction: row;
   margin-bottom: 4px;
@@ -104,7 +113,7 @@ const Header = styled.div<ToastType.HeaderPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const Icon = styled.div<ToastType.IconPropsType>`
+const Icon = styled.div<IconPropsType>`
   margin: 3px 6px auto 0;
   line-height: 0;
 
@@ -115,7 +124,7 @@ const Icon = styled.div<ToastType.IconPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const Title = styled.div<ToastType.TitlePropsType>`
+const Title = styled.div<TitlePropsType>`
   margin: auto auto auto 0;
   padding-bottom: 2px;
   line-height: 21px;
@@ -125,7 +134,7 @@ const Title = styled.div<ToastType.TitlePropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const CloseButton = styled.div<ToastType.CloseButtonPropsType>`
+const CloseButton = styled.div<CloseButtonPropsType>`
   margin: -4px -6px auto 3px;
   width: 22px;
   height: 22px;
@@ -146,7 +155,7 @@ const CloseButton = styled.div<ToastType.CloseButtonPropsType>`
   ${(props) => props.cssStyle ?? ''};
 `;
 
-const Content = styled.div<ToastType.ContentPropsType>`
+const Content = styled.div<ContentPropsType>`
   line-height: 17px;
   font-size: 15px;
   padding-left: 25px;
@@ -163,7 +172,7 @@ function IndependentToast({
   icon,
   closeButton,
   overrides,
-}: ToastType.IndependentToastPropsType) {
+}: IndependentToastPropsType) {
   useEffect(() => {
     setTimeout(() => {
       if (!!ref.current) {
@@ -325,7 +334,7 @@ function IndependentToast({
 function ToastCanvas() {
   const [changed, setChanged] = useState(false);
   const [list, setList] = useState<
-    Array<{ toast: ToastType.IndependentToastPropsType; key: number }>
+    Array<{ toast: IndependentToastPropsType; key: number }>
   >([]);
 
   useEffect(() => {
@@ -380,11 +389,11 @@ class ToastManager {
   private static maxDisplaySize: number = 0;
 
   private static toastQueue: Array<{
-    toast: ToastType.IndependentToastPropsType;
+    toast: IndependentToastPropsType;
     key: number;
   }> = [];
   private static displayList: Array<{
-    toast: ToastType.IndependentToastPropsType;
+    toast: IndependentToastPropsType;
     key: number;
   }> = [];
   private static toastKey: number = 0;
@@ -405,7 +414,7 @@ class ToastManager {
     this.initialized = false;
   }
 
-  static enqueueToast(toastProps: ToastType.IndependentToastPropsType) {
+  static enqueueToast(toastProps: IndependentToastPropsType) {
     if (!this.isInitialized()) {
       this.uninitializedError();
     }
@@ -467,7 +476,7 @@ export function sendToast({
   icon,
   closeButton,
   overrides,
-}: ToastType.IndependentToastPropsType) {
+}: IndependentToastPropsType) {
   ToastManager.enqueueToast({
     title,
     content,
