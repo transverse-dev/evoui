@@ -126,7 +126,7 @@ export default function InputPage() {
 
       <div style={{ marginTop: '24px' }} />
       <Text>readOnly</Text>
-      <Text>input을 읽을수만 있게 됩니다.</Text>
+      <Text>input 내용 읽기만 허용 됩니다.</Text>
       <Text>타입: boolean</Text>
       <Text>기본값: false</Text>
       <div style={{ marginTop: '24px' }} />
