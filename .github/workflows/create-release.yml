@@ -20,6 +20,7 @@ jobs:
       - run: git config --global user.email "bot@example.com"
       - run: git config --global user.name "bot"
       - run: npm version patch
+      - run: npm run build:docs
       - run: git push origin main
       - run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - run: node -p "'version=' + require('./package.json').version" >> $GITHUB_ENV
