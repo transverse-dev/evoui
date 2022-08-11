@@ -111,7 +111,13 @@ export default function MultipleTextInput({
   items,
   placeholder,
   onChange,
-  stateColors = [{ state: 'default', fgColor: '#e7d6fe', bgColor: '#555555' }],
+  stateColors = [
+    {
+      state: 'default',
+      fgColor: DEFAULT_ITEM_FGCOLOR,
+      bgColor: DEFAULT_ITEM_BGCOLOR,
+    },
+  ],
   setItemState,
   options,
   overrides,

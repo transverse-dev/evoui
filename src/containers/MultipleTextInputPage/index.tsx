@@ -199,11 +199,8 @@ export default function InputPage(): JSX.Element {
               <Input
                 value={stateColorItem.fgColor}
                 placeholder={'#??????'}
-                onChange={(event) =>
-                  onStateColorFgChange(
-                    event.currentTarget.value,
-                    stateColorItem.state,
-                  )
+                onChange={(value) =>
+                  onStateColorFgChange(value, stateColorItem.state)
                 }
                 overrides={StateColorsInputOverrides}
               />
@@ -213,11 +210,8 @@ export default function InputPage(): JSX.Element {
               <Input
                 value={stateColorItem.bgColor}
                 placeholder={'#??????'}
-                onChange={(event) =>
-                  onStateColorBgChange(
-                    event.currentTarget.value,
-                    stateColorItem.state,
-                  )
+                onChange={(value) =>
+                  onStateColorBgChange(value, stateColorItem.state)
                 }
                 overrides={StateColorsInputOverrides}
               />
@@ -248,9 +242,7 @@ export default function InputPage(): JSX.Element {
         <Input
           value={itemConditionalStatement}
           placeholder={`state가 'warn'으로 표시될 값을 적어주세요`}
-          onChange={(event) =>
-            setItemConditionalStatement(event.currentTarget.value)
-          }
+          onChange={(value) => setItemConditionalStatement(value)}
           overrides={SetItemStateInputOverrides}
         />
         <p>) return 'warn'</p>
