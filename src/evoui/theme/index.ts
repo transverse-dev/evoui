@@ -28,6 +28,7 @@ const dark = {
       hoverBgColor: '#281a26',
     },
     input: {
+      fgColor: '#fefefe',
       bgColor: '#292929',
       borderColor: '#00000000',
       errorBgColor: '#5a0a00',
@@ -129,6 +130,7 @@ const light = {
       hoverBgColor: '#efeaf7',
     },
     input: {
+      fgColor: '#151416',
       bgColor: '#eeeeee',
       borderColor: '#00000000',
       errorBgColor: '#ffefed',

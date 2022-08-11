@@ -20,4 +20,4 @@ export {
   ModalBody as ModalBody,
   ModalFooter as ModalFooter,
 } from './Modal';
-export { Toast, sendToast } from './Toast';
+export { Toast, sendToast, ToastType } from './Toast';
