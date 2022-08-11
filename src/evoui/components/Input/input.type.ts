@@ -12,6 +12,7 @@ export interface InputPropsType extends DefaultPropsType {
 export type ClearButtonPropsType = DefaultPropsType;
 export type ValueVisibleButtonPropsType = DefaultPropsType;
 export interface PropsType {
+  tabIndex?: number;
   type?: 'text' | 'password' | 'email' | 'number' | 'tel';
   value: string;
   placeholder?: string;
@@ -26,6 +27,7 @@ export interface PropsType {
     | ((event: FocusEvent<HTMLInputElement, Element>) => void);
   selectAll?: boolean;
   clearable?: boolean;
+  readOnly?: boolean;
   isError?: boolean;
   isDisabled?: boolean;
   overrides?: {

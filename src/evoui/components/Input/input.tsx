@@ -134,6 +134,7 @@ export default function PureInput({
   onBlur,
   selectAll = false,
   clearable = false,
+  readOnly = false,
   isError = false,
   isDisabled = false,
   overrides,
@@ -145,6 +146,7 @@ export default function PureInput({
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  const isInputFunctionsDisabled = readOnly || isDisabled;
   // type의 종류가 늘어날 수 있어 조건식을 직관적으로 작성했습니다.
   const inputType = type === 'password' && isPasswordVisible ? 'text' : type;
 
@@ -165,7 +167,11 @@ export default function PureInput({
         ? e.currentTarget.value.length <= maxLength
         : true;
 
-    if (!isDisabled && isValueExist && isValueLowerThanMaxLength) {
+    if (
+      !isInputFunctionsDisabled &&
+      isValueExist &&
+      isValueLowerThanMaxLength
+    ) {
       onChange(e.currentTarget.value);
     }
   };
@@ -174,21 +180,25 @@ export default function PureInput({
     if (selectAll) {
       e.currentTarget.select();
     }
-    if (onFocus) {
+    if (onFocus && !isInputFunctionsDisabled) {
       onFocus(e);
     }
-    setIsFocused(true);
+    if (!isInputFunctionsDisabled) {
+      setIsFocused(true);
+    }
   };
 
   const onInputBlur = (e: FocusEvent<HTMLInputElement>): void => {
-    if (onBlur) {
+    if (onBlur && !isInputFunctionsDisabled) {
       onBlur(e);
     }
-    setIsFocused(false);
+    if (!isInputFunctionsDisabled) {
+      setIsFocused(false);
+    }
   };
 
   const doClearInput = (): void => {
-    if (!isDisabled) {
+    if (!isInputFunctionsDisabled) {
       onChange('');
     }
   };
@@ -199,7 +209,7 @@ export default function PureInput({
 
   return (
     <Root
-      isFocused={!isDisabled && isFocused}
+      isFocused={isFocused}
       isError={!isFocused && isError}
       isDisabled={isDisabled}
       {...createNoBlurringOnClick(onRootClick)}
@@ -213,12 +223,12 @@ export default function PureInput({
         : { style: overrides.Root.css, ...overrides.Root })}>
       <Input
         ref={inputRef}
-        tabIndex={isDisabled ? -1 : undefined}
+        tabIndex={isInputFunctionsDisabled ? -1 : undefined}
         type={inputType}
         value={value}
         placeholder={placeholder}
         maxLength={maxLength}
-        readOnly={isDisabled}
+        readOnly={isInputFunctionsDisabled}
         onChange={onInputChange}
         onKeyDown={onKeyDown}
         onFocus={onInputFocus}
@@ -234,7 +244,7 @@ export default function PureInput({
           ? {}
           : { style: overrides.Input.css, ...overrides.Input })}
       />
-      {clearable && !isDisabled && isFocused && value.length > 0 && (
+      {clearable && !isInputFunctionsDisabled && isFocused && value.length > 0 && (
         <ClearButton
           {...createNoBlurringOnClick(doClearInput)}
           {...(typeof overrides?.ClearButton?.css === 'string'

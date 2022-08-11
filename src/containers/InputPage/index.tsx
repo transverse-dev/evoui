@@ -125,6 +125,19 @@ export default function InputPage() {
       />
 
       <div style={{ marginTop: '24px' }} />
+      <Text>readOnly</Text>
+      <Text>input을 읽을수만 있게 됩니다.</Text>
+      <Text>타입: boolean</Text>
+      <Text>기본값: false</Text>
+      <div style={{ marginTop: '24px' }} />
+      <Input
+        value={value}
+        onChange={(value) => setValue(value)}
+        readOnly
+        overrides={{ Root: { css: 'max-width: 550px;' } }}
+      />
+
+      <div style={{ marginTop: '24px' }} />
       <Text>isDisabled</Text>
       <Text>input이 비활성화 됩니다.</Text>
       <Text>타입: boolean</Text>
