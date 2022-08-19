@@ -340,6 +340,7 @@ function ToastCanvas() {
   useEffect(() => {
     ToastManager.setList = (list: any) => setList(list);
     ToastManager.listChanged = () => setChanged((changed) => !changed);
+    ToastManager.dequeueToast();
 
     return () => {
       ToastManager.setList = null;
@@ -415,13 +416,11 @@ class ToastManager {
   }
 
   static enqueueToast(toastProps: IndependentToastPropsType) {
-    if (!this.isInitialized()) {
-      this.uninitializedError();
-    }
     this.toastQueue.push({ toast: toastProps, key: this.toastKey++ });
     if (
-      this.maxDisplaySize === 0 ||
-      this.toastQueue.length < this.maxDisplaySize
+      this.isInitialized() &&
+      (this.maxDisplaySize === 0 ||
+        this.toastQueue.length < this.maxDisplaySize)
     ) {
       this.dequeueToast();
     }
@@ -441,10 +440,6 @@ class ToastManager {
       this.setList(this.displayList);
       this.listChanged();
     }, toast.toast?.duration ?? 5000);
-  }
-
-  private static uninitializedError() {
-    throw 'Toast did not initialized. Toast component must be mounted somewhere in the React DOM tree.';
   }
 }
 
