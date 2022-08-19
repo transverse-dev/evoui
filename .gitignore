@@ -3,5 +3,5 @@ node_modules
 .vscode
 
 # build
-dist
+/dist
 docs_dev
