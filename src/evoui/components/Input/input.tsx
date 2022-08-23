@@ -137,6 +137,7 @@ export default function PureInput({
   placeholder,
   maxLength,
   onChange,
+  onKeyPress,
   onKeyDown,
   onFocus,
   onBlur,
@@ -243,6 +244,7 @@ export default function PureInput({
         maxLength={maxLength}
         readOnly={isInputFunctionsDisabled}
         onChange={onInputChange}
+        onKeyPress={onKeyPress}
         onKeyDown={onKeyDown}
         onFocus={onInputFocus}
         onBlur={onInputBlur}
