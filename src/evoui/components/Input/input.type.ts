@@ -22,6 +22,9 @@ export interface PropsType {
   placeholder?: string;
   maxLength?: number;
   onChange: (() => void) | ((value: string) => void);
+  onKeyPress?:
+    | (() => void)
+    | ((event: KeyboardEvent<HTMLInputElement>) => void);
   onKeyDown?: (() => void) | ((event: KeyboardEvent<HTMLInputElement>) => void);
   onFocus?:
     | (() => void)
