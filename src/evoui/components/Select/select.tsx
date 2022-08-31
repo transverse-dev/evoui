@@ -42,13 +42,17 @@ const InputValueWrapper = styled.div<SelectType.InputValueWrapperPropsType>`
   flex-direction: row;
   column-gap: 2px;
   width: 100%;
+  overflow: hidden;
 
   ${(props) => props.cssStyle ?? ''};
 `;
 const InputValue = styled.div<SelectType.InputValuePropsType>`
-  white-space: nowrap;
+  max-width: 100%;
   font-size: 16px;
   line-height: initial;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   ${(props) => props.cssStyle ?? ''};
 `;
