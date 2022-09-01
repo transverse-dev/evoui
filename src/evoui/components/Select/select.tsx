@@ -29,9 +29,8 @@ const InputWrapper = styled.div<SelectType.InputWrapperPropsType>`
   height: fit-content;
   background-color: ${(props) =>
     props.isMenuVisible || !props.error
-    ? props.theme.evoui.colors.select.bgColor
-    : props.theme.evoui.colors.select.errorBgColor
-    };
+      ? props.theme.evoui.colors.select.bgColor
+      : props.theme.evoui.colors.select.errorBgColor};
   cursor: ${(props) => (props.disable ? 'not-allowed' : 'text')};
   opacity: ${(props) => (props.disable ? '0.4' : '1')};
   transition: all ease-in-out 200ms;
@@ -43,12 +42,17 @@ const InputValueWrapper = styled.div<SelectType.InputValueWrapperPropsType>`
   flex-direction: row;
   column-gap: 2px;
   width: 100%;
+  overflow: hidden;
 
   ${(props) => props.cssStyle ?? ''};
 `;
 const InputValue = styled.div<SelectType.InputValuePropsType>`
-  white-space: nowrap;
+  max-width: 100%;
   font-size: 16px;
+  line-height: initial;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   ${(props) => props.cssStyle ?? ''};
 `;
@@ -56,12 +60,12 @@ const Input = styled.input<SelectType.InputPropsType>`
   margin: 0;
   width: ${(props) => (props.isInputValueExist ? '100%' : '2px')};
   max-width: 100%;
-  color: ${(props) => props.theme.evoui.colors.select.fgColor
-  };
+  color: ${(props) => props.theme.evoui.colors.select.fgColor};
   font-size: 16px;
   font-weight: normal;
   white-space: nowrap;
   text-overflow: ellipsis;
+  line-height: initial;
   background: none;
   border: 0;
   padding: 0;
@@ -83,7 +87,7 @@ const InputIcon = styled.svg<SelectType.InputIconPropsType>`
   width: 16px;
   height: 16px;
   fill: #212121;
-  cursor: ${(props) => (props.disable ? 'not-allowed' : 'text')};
+  cursor: ${(props) => (props.disable ? 'not-allowed' : 'pointer')};
 
   ${(props) => props.cssStyle ?? ''};
 `;
@@ -103,9 +107,8 @@ const Menu = styled.div<SelectType.MenuPropsType>`
   max-width: 90vh;
   max-height: 225px;
   min-width: 80px;
-  background-color: ${(props) => props.theme.evoui.colors.select.menuBgColor
-  };
-  box-shadow: ${props => props.theme.evoui.colors.select.menuShadow};
+  background-color: ${(props) => props.theme.evoui.colors.select.menuBgColor};
+  box-shadow: ${(props) => props.theme.evoui.colors.select.menuShadow};
   overflow-x: hidden;
   overflow-y: auto;
   animation-name: ${(props) => (props.isMenuVisible ? 'fadeIn' : '')};
