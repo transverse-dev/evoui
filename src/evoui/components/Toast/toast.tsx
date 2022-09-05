@@ -18,7 +18,6 @@ type ToastsType = Array<{
 }>;
 
 const DEFAULT_TOAST_DURATION = 5000;
-const DEFAULT_MAX_DISPLAY_SIZE = 0; // if zero, no limit for displaying size.
 
 const Canvas = styled.div`
   position: fixed;
@@ -399,11 +398,6 @@ export function Toast() {
  */
 class ToastManager {
   /**
-   * max number of toasts displayed.
-   */
-  private static maxDisplaySize: number = DEFAULT_MAX_DISPLAY_SIZE;
-
-  /**
    * a key to indentify each individual toast.
    */
   private static toastKey: number = 0;
@@ -434,18 +428,10 @@ class ToastManager {
       console.error('Cannot call flushToast until the ToastManager is ready');
       return;
     }
-    const toastsToDisplay =
-      this.maxDisplaySize === 0
-        ? [...this.toastQueue]
-        : this.toastQueue.slice(0, this.maxDisplaySize);
-    const toastsToRemain =
-      this.maxDisplaySize === 0
-        ? []
-        : this.toastQueue.slice(this.maxDisplaySize);
     // setDisplayedToasts is not null because of the above statements.
     // beware calling setDisplayedToasts with new array!
     // if you just use the old one, useEffect won't detect the change.
-    toastsToDisplay.forEach((toast) => {
+    this.toastQueue.forEach((toast) => {
       this.setDisplayedToasts?.((prev) => [...prev, toast]);
       setTimeout(() => {
         // not doing anything if this.setDisplayedToasts is null.
@@ -454,7 +440,7 @@ class ToastManager {
         );
       }, toast.toast.duration ?? DEFAULT_TOAST_DURATION);
     });
-    this.toastQueue = toastsToRemain;
+    this.toastQueue = [];
   }
 
   /**
