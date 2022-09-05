@@ -347,6 +347,9 @@ function ToastCanvas() {
 
   useEffect(() => {
     ToastManager.setDisplayedToasts = setDisplayedToasts;
+    if (ToastManager.getIsReady()) {
+      ToastManager.flushToast();
+    }
     return () => {
       ToastManager.reset();
     };
