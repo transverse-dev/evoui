@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import {
   CloseButtonPropsType,
@@ -10,7 +10,10 @@ import {
   RootPropsType,
   TitlePropsType,
   ToastContentPropsType,
+  ToastsType,
 } from './toast.type';
+
+const DEFAULT_TOAST_DURATION = 5000;
 
 const Canvas = styled.div`
   position: fixed;
@@ -331,155 +334,138 @@ function IndependentToast({
   );
 }
 
+/**
+ * ToastCanvas displays actual toast components.
+ */
 function ToastCanvas() {
-  const [changed, setChanged] = useState(false);
-  const [list, setList] = useState<
-    Array<{ toast: IndependentToastPropsType; key: number }>
-  >([]);
+  const [displayedToasts, setDisplayedToasts] = useState<ToastsType>([]);
 
   useEffect(() => {
-    ToastManager.setList = (list: any) => setList(list);
-    ToastManager.listChanged = () => setChanged((changed) => !changed);
-    ToastManager.dequeueToast();
-
+    ToastManager.setDisplayedToasts = setDisplayedToasts;
+    if (ToastManager.getIsReady()) {
+      ToastManager.flushToast();
+    }
     return () => {
-      ToastManager.setList = null;
-      ToastManager.listChanged = null;
+      ToastManager.reset();
     };
   }, []);
 
   useEffect(() => {
-    if (!!ref.current) {
-      ref.current.scroll({ top: ref.current.scrollHeight, behavior: 'smooth' });
+    if (toastWrapperRef.current !== null) {
+      toastWrapperRef.current.scroll({
+        top: toastWrapperRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
     }
-  }, [changed]);
+  }, [displayedToasts]);
 
-  const ref = useRef<any>(null);
+  const toastWrapperRef = useRef<null | HTMLDivElement>(null);
 
   return (
     <Canvas>
-      <ToastWrapper ref={ref}>
-        {list &&
-          list.map &&
-          list.map((toast, i) => {
-            return (
-              <IndependentToast
-                key={toast.key ?? i}
-                title={toast.toast.title}
-                content={toast.toast.content}
-                type={toast.toast.type}
-                duration={toast.toast.duration}
-                closable={toast.toast.closable}
-                icon={toast.toast.icon}
-                closeButton={toast.toast.closeButton}
-                overrides={toast.toast.overrides}
-              />
-            );
-          })}
+      <ToastWrapper ref={toastWrapperRef}>
+        {displayedToasts.map((displayedToast) => (
+          <IndependentToast
+            key={displayedToast.key}
+            title={displayedToast.toast.title}
+            content={displayedToast.toast.content}
+            type={displayedToast.toast.type}
+            duration={displayedToast.toast.duration}
+            closable={displayedToast.toast.closable}
+            icon={displayedToast.toast.icon}
+            closeButton={displayedToast.toast.closeButton}
+            overrides={displayedToast.toast.overrides}
+          />
+        ))}
       </ToastWrapper>
     </Canvas>
   );
 }
 
+/**
+ * main toast component
+ */
+export function Toast() {
+  return createPortal(<ToastCanvas />, document.body);
+}
+
+/**
+ * ToastManager manages methods and values for the Toast features. (ex. enqueueToast)
+ */
 class ToastManager {
-  public static canvas?: React.ReactElement = undefined;
-  public static setList?: any = null;
-  public static listChanged?: any = null;
-  private static initialized: boolean = false;
-
-  private static maxDisplaySize: number = 0;
-
-  private static toastQueue: Array<{
-    toast: IndependentToastPropsType;
-    key: number;
-  }> = [];
-  private static displayList: Array<{
-    toast: IndependentToastPropsType;
-    key: number;
-  }> = [];
+  /**
+   * a key to indentify each individual toast.
+   */
   private static toastKey: number = 0;
 
-  static init(canvas: any): void {
-    if (!this.initialized) {
-      this.canvas = canvas;
-      this.initialized = true;
-    }
-  }
+  /**
+   * a ready queue which contains toasts in order.
+   * dequeued toast will be displayed.
+   */
+  private static toastQueue: ToastsType = [];
 
-  static isInitialized(): boolean {
-    return this.initialized;
-  }
-
-  static uninit(): void {
-    this.canvas = undefined;
-    this.initialized = false;
-  }
-
+  /**
+   * add the toast to the toastQueue.
+   */
   static enqueueToast(toastProps: IndependentToastPropsType) {
+    // add the toast to the ready queue.
     this.toastQueue.push({ toast: toastProps, key: this.toastKey++ });
-    if (
-      this.isInitialized() &&
-      (this.maxDisplaySize === 0 ||
-        this.toastQueue.length < this.maxDisplaySize)
-    ) {
-      this.dequeueToast();
+    // if the ToastCanvas is ready to render toast components, flush the ready queue!
+    if (this.getIsReady()) {
+      this.flushToast();
     }
   }
 
-  static dequeueToast() {
-    let toast = this.toastQueue.shift();
-    if (!toast || !this.setList) return;
-    this.displayList.push(toast);
-    this.setList(this.displayList);
-    this.listChanged();
-    setTimeout(() => {
-      if (!this.isInitialized() || !this.setList) return;
-      this.displayList = this.displayList.filter(
-        (el) => (el?.key ?? -2) !== (toast?.key ?? -1),
-      );
-      this.setList(this.displayList);
-      this.listChanged();
-    }, toast.toast?.duration ?? 5000);
+  /**
+   * flush toast of maxDisplaySize in the ready queue.
+   */
+  static flushToast() {
+    if (!this.getIsReady()) {
+      console.error('Cannot call flushToast until the ToastManager is ready');
+      return;
+    }
+    // setDisplayedToasts is not null because of the above statements.
+    // beware calling setDisplayedToasts with new array!
+    // if you just use the old one, useEffect won't detect the change.
+    this.toastQueue.forEach((toast) => {
+      this.setDisplayedToasts?.((prev) => [...prev, toast]);
+      setTimeout(() => {
+        // not doing anything if this.setDisplayedToasts is null.
+        this.setDisplayedToasts?.((prev) =>
+          prev.filter((_toast) => _toast.key !== toast.key),
+        );
+      }, toast.toast.duration ?? DEFAULT_TOAST_DURATION);
+    });
+    this.toastQueue = [];
+  }
+
+  /**
+   * setState function from ToastCanvas.
+   */
+  public static setDisplayedToasts: null | Dispatch<
+    SetStateAction<ToastsType>
+  > = null;
+
+  /**
+   * check if ToastCanvas is ready to render toast components.
+   */
+  public static getIsReady() {
+    return this.setDisplayedToasts !== null;
+  }
+
+  /**
+   * reset all private values to initial values.
+   */
+  public static reset() {
+    this.setDisplayedToasts = null;
+    this.toastKey = 0;
+    this.toastQueue = [];
   }
 }
 
-export function Toast() {
-  const [initialized, setInitialized] = useState(false);
-
-  const toastCanvas = <ToastCanvas />;
-
-  useEffect(() => {
-    if (!ToastManager.isInitialized()) {
-      ToastManager.init(toastCanvas);
-      setInitialized(true);
-    }
-
-    return () => {
-      ToastManager.uninit();
-    };
-  }, []);
-
-  return initialized ? ReactDOM.createPortal(toastCanvas, document.body) : null;
-}
-
-export function sendToast({
-  title,
-  content,
-  type,
-  duration,
-  closable,
-  icon,
-  closeButton,
-  overrides,
-}: IndependentToastPropsType) {
-  ToastManager.enqueueToast({
-    title,
-    content,
-    type,
-    duration,
-    closable,
-    icon,
-    closeButton,
-    overrides,
-  });
-}
+/**
+ * call enqueueToast with toast properties.
+ */
+export const sendToast = (props: IndependentToastPropsType) => {
+  ToastManager.enqueueToast(props);
+};

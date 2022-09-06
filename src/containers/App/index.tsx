@@ -16,9 +16,10 @@ import ReleasePage from 'containers/ReleasePage';
 import ThemeProviderPage from 'containers/ThemeProviderPage';
 import DropdownListPage from 'containers/DropdownListPage';
 import SelectPage from 'containers/SelectPage';
-import { ThemeProvider } from 'evoui';
+import { ThemeProvider, Toast } from 'evoui';
 import InputPage from 'containers/InputPage';
 import MultipleTextInputPage from 'containers/MultipleTextInputPage';
+import ToastPage from 'containers/ToastPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ export default function App() {
                   path='/components/themeprovider'
                   render={() => <ThemeProviderPage />}
                 />
+                <Route path='/components/toast' render={() => <ToastPage />} />
                 <Route
                   render={() => (
                     <Executer
@@ -79,6 +81,7 @@ export default function App() {
           </PageWrapper>
         </div>
         <Footer />
+        <Toast />
       </BrowserRouter>
       <GlobalStyle />
     </ThemeProvider>
