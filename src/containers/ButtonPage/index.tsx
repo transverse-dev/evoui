@@ -1,5 +1,5 @@
 import { Divider, Text, Title1 } from 'components/PageComponents';
-import { Button } from '@transverse/evo-ui';
+import { Button } from 'evoui';
 
 export default function ButtonPage() {
   return (

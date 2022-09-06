@@ -95,6 +95,13 @@ export default function SideMenu() {
           }}>
           ThemeProvider
         </Item>
+        <Item
+          selected={pathname.split('/')[2] === 'toast'}
+          onClick={() => {
+            dispatch(push('/components/toast'));
+          }}>
+          Toast
+        </Item>
       </List>
     </Root>
   );
