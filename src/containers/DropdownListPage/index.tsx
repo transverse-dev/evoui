@@ -1,5 +1,5 @@
 import { Divider, Text, Title1 } from 'components/PageComponents';
-import { DropdownList } from '@transverse/evo-ui';
+import { DropdownList } from 'evoui';
 
 export default function DropdownListPage() {
   return (
