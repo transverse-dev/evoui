@@ -10,12 +10,8 @@ import {
   RootPropsType,
   TitlePropsType,
   ToastContentPropsType,
+  ToastsType,
 } from './toast.type';
-
-type ToastsType = Array<{
-  toast: IndependentToastPropsType;
-  key: number;
-}>;
 
 const DEFAULT_TOAST_DURATION = 5000;
 

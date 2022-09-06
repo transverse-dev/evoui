@@ -30,6 +30,10 @@ export type IndependentToastPropsType = OptionalIndependentToastPropsType & {
   /** Title of the toast. It must be a string.*/
   title: string;
 };
+export type ToastsType = Array<{
+  toast: IndependentToastPropsType;
+  key: number;
+}>;
 export interface RootPropsType extends DefaultPropsType {}
 export interface ToastContentPropsType extends DefaultPropsType {
   type: ToastType;
