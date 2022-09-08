@@ -182,6 +182,12 @@ export default function Modal({
 
   const [alreadyHidden, setAlreadyHidden] = useState<boolean>(false);
 
+  const keypressEvent = (e: KeyboardEvent) => {
+    if (e.code === 'Escape') {
+      onClose();
+    }
+  };
+
   useEffect(() => {
     if (window.document.body.style.overflow === 'hidden' && !alreadyHidden) {
       setAlreadyHidden(true);
@@ -199,16 +205,13 @@ export default function Modal({
     }
 
     return () => {
+      if (!alreadyHidden) {
+        window.document.body.style.overflow = '';
+      }
       setAlreadyHidden(false);
       window?.removeEventListener('keydown', keypressEvent);
     };
   }, [isOpen]);
-
-  const keypressEvent = (e: KeyboardEvent) => {
-    if (e.code === 'Escape') {
-      onClose();
-    }
-  };
 
   return isOpen ? (
     <RootWrapper
