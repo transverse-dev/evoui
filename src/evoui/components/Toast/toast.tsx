@@ -392,7 +392,7 @@ export function Toast() {
     setIsDocumentReady(true);
   }, []);
 
-  return isDocumentReady && createPortal(<ToastCanvas />, document.body);
+  return isDocumentReady ? createPortal(<ToastCanvas />, document.body) : null;
 }
 
 /**
