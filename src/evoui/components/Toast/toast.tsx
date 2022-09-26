@@ -386,7 +386,13 @@ function ToastCanvas() {
  * main toast component
  */
 export function Toast() {
-  return createPortal(<ToastCanvas />, document.body);
+  const [isDocumentReady, setIsDocumentReady] = useState(false);
+
+  useEffect(() => {
+    setIsDocumentReady(true);
+  }, []);
+
+  return isDocumentReady && createPortal(<ToastCanvas />, document.body);
 }
 
 /**
