@@ -102,6 +102,13 @@ export default function SideMenu() {
           }}>
           Toast
         </Item>
+        <Item
+          selected={pathname.split('/')[2] === 'datePicker'}
+          onClick={() => {
+            dispatch(push('/components/datePicker'));
+          }}>
+          DatePicker
+        </Item>
       </List>
     </Root>
   );

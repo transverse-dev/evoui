@@ -97,6 +97,10 @@ const dark = {
     wall: {
       bgColor: 'rgba(0, 0, 0, 0.6)',
     },
+    datePicker: {
+      text: '#DFDFDF',
+      bgColor: '#2B2B2B',
+    },
   },
 };
 
@@ -198,6 +202,10 @@ const light = {
     // },
     wall: {
       bgColor: 'rgba(255, 255, 255, 0.7)',
+    },
+    datePicker: {
+      text: '#555555',
+      bgColor: '#F2F2F2',
     },
   },
 };
