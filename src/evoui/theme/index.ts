@@ -98,8 +98,15 @@ const dark = {
       bgColor: 'rgba(0, 0, 0, 0.6)',
     },
     datePicker: {
+      calendarBgColor: '#212121',
       text: '#DFDFDF',
+      selectedText: '#DFDFDF',
       bgColor: '#2B2B2B',
+      sundayText: '#D64B4B',
+      dayColor: '#9F5DFA',
+      todayBgColor: '#393939',
+      rangeColor: '#5D5392',
+      pastColor: '#555555',
     },
   },
 };
@@ -204,8 +211,15 @@ const light = {
       bgColor: 'rgba(255, 255, 255, 0.7)',
     },
     datePicker: {
+      calendarBgColor: '#FFFFFF',
       text: '#555555',
+      selectedText: '#DFDFDF',
       bgColor: '#F2F2F2',
+      sundayText: '#D64B4B',
+      dayColor: '#9F5DFA',
+      todayBgColor: '#E5E5E5',
+      rangeColor: '#E7D6FE',
+      pastColor: '#A4A4A4',
     },
   },
 };
