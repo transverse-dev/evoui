@@ -6,11 +6,9 @@ export default function ClickAwayListener({
   children,
   handleClickAway,
 }: PropsType): JSX.Element {
-  let listenerRef = useRef<HTMLInputElement>(null);
+  const listenerRef = useRef<HTMLInputElement>(null);
 
   const handleClick = (e: MouseEvent) => {
-    console.dir(e.target);
-
     if (
       listenerRef.current &&
       !listenerRef.current.contains(e.target as Node)
