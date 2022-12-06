@@ -238,18 +238,18 @@ const DateIcon = () => {
 };
 
 const months = [
-  { label: '1', id: '1' },
-  { label: '2', id: '2' },
-  { label: '3', id: '3' },
-  { label: '4', id: '4' },
-  { label: '5', id: '5' },
-  { label: '6', id: '6' },
-  { label: '7', id: '7' },
-  { label: '8', id: '8' },
-  { label: '9', id: '9' },
-  { label: '10', id: '10' },
-  { label: '11', id: '11' },
-  { label: '12', id: '12' },
+  { label: '1', id: '0' },
+  { label: '2', id: '1' },
+  { label: '3', id: '2' },
+  { label: '4', id: '3' },
+  { label: '5', id: '4' },
+  { label: '6', id: '5' },
+  { label: '7', id: '6' },
+  { label: '8', id: '7' },
+  { label: '9', id: '8' },
+  { label: '10', id: '9' },
+  { label: '11', id: '10' },
+  { label: '12', id: '11' },
 ];
 
 type ItemType = typeof months[number];
@@ -297,7 +297,7 @@ export default function DatePicker({
     setCurrentYear(year);
 
     const month = months.findIndex(
-      (item: ItemType) => item.id === (currentDate.getMonth() + 1).toString(),
+      (item: ItemType) => item.id === currentDate.getMonth().toString(),
     );
     setCurrentMonth(month);
   }, []);
@@ -342,7 +342,7 @@ export default function DatePicker({
   const handleSetStartDate = (day: number) => {
     const newDate = new Date();
     newDate.setFullYear(Number(years[currentYear].id));
-    newDate.setMonth(Number(months[currentMonth].id) - 1);
+    newDate.setMonth(Number(months[currentMonth].id));
     newDate.setDate(Number(day));
     newDate.setHours(0, 0, 0);
 
@@ -353,7 +353,7 @@ export default function DatePicker({
     if (isRange) {
       const newDate = new Date();
       newDate.setFullYear(Number(years[currentYear].id));
-      newDate.setMonth(Number(months[currentMonth].id) - 1);
+      newDate.setMonth(Number(months[currentMonth].id));
       newDate.setDate(Number(day));
       newDate.setHours(23, 59, 59);
 
@@ -434,7 +434,7 @@ export default function DatePicker({
     // 선택된 년도, 달을 설정하고 시작요일을 가져오기위해 일수를 1일로 지정한다
     const selectedDate = new Date();
     selectedDate.setFullYear(Number(years[currentYear].id));
-    selectedDate.setMonth(Number(months[currentMonth].id) - 1);
+    selectedDate.setMonth(Number(months[currentMonth].id));
     selectedDate.setDate(1);
 
     // 시작일수를 가져온다
@@ -472,7 +472,7 @@ export default function DatePicker({
     if (selectedStartDate && selectedEndDate) {
       const selectedDate = new Date();
       selectedDate.setFullYear(Number(years[currentYear].id));
-      selectedDate.setMonth(Number(months[currentMonth].id) - 1);
+      selectedDate.setMonth(Number(months[currentMonth].id));
       selectedDate.setDate(item);
 
       return (
@@ -486,7 +486,7 @@ export default function DatePicker({
   const getIsPast = (item: number) => {
     const selectedDate = new Date();
     selectedDate.setFullYear(Number(years[currentYear].id));
-    selectedDate.setMonth(Number(months[currentMonth].id) - 1);
+    selectedDate.setMonth(Number(months[currentMonth].id));
     selectedDate.setDate(item);
 
     return currentDate > selectedDate;
@@ -495,7 +495,7 @@ export default function DatePicker({
   const getIsSelected = (item: number) => {
     if (
       selectedStartDate?.getFullYear() === Number(years[currentYear].id) &&
-      selectedStartDate?.getMonth() + 1 === Number(months[currentMonth].id) &&
+      selectedStartDate?.getMonth() === Number(months[currentMonth].id) &&
       selectedStartDate?.getDate() === item
     ) {
       return true;
@@ -503,7 +503,7 @@ export default function DatePicker({
 
     if (
       selectedEndDate?.getFullYear() === Number(years[currentYear].id) &&
-      selectedEndDate?.getMonth() + 1 === Number(months[currentMonth].id) &&
+      selectedEndDate?.getMonth() === Number(months[currentMonth].id) &&
       selectedEndDate?.getDate() === item
     ) {
       return true;
@@ -515,7 +515,7 @@ export default function DatePicker({
   const getIsStartDay = (day: number) => {
     if (
       selectedStartDate?.getFullYear() === Number(years[currentYear].id) &&
-      selectedStartDate?.getMonth() + 1 === Number(months[currentMonth].id) &&
+      selectedStartDate?.getMonth() === Number(months[currentMonth].id) &&
       selectedStartDate?.getDate() === day
     ) {
       return true;
@@ -527,7 +527,7 @@ export default function DatePicker({
   const getIsEndDay = (day: number) => {
     if (
       selectedEndDate?.getFullYear() === Number(years[currentYear].id) &&
-      selectedEndDate?.getMonth() + 1 === Number(months[currentMonth].id) &&
+      selectedEndDate?.getMonth() === Number(months[currentMonth].id) &&
       selectedEndDate?.getDate() === day
     ) {
       return true;
@@ -652,7 +652,7 @@ export default function DatePicker({
                           today={
                             currentDate.getFullYear() ===
                               Number(years[currentYear].id) &&
-                            currentDate.getMonth() + 1 ===
+                            currentDate.getMonth() ===
                               Number(months[currentMonth].id) &&
                             currentDate.getDate() === item.day
                           }
