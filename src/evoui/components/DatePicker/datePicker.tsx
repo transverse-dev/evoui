@@ -258,8 +258,6 @@ const currentDate = new Date();
 
 const dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
-const backgroundWidth = 100 / 7;
-
 export default function DatePicker({
   startDate,
   endDate,
@@ -318,11 +316,8 @@ export default function DatePicker({
   const renderStartDate = () => {
     if (selectedStartDate) {
       const year = selectedStartDate.getFullYear();
-      const month =
-        selectedStartDate.getMonth() + 1 < 10
-          ? `0${selectedStartDate.getMonth() + 1}`
-          : selectedStartDate.getMonth() + 1;
-      const day = selectedStartDate.getDate();
+      const month = `0${selectedStartDate.getMonth() + 1}`.slice(-2);
+      const day = `0${selectedStartDate.getDate()}`.slice(-2);
       return `
         ${year} / ${month} / ${day}
       `;
@@ -334,11 +329,8 @@ export default function DatePicker({
   const renderEndDate = () => {
     if (selectedEndDate) {
       const year = selectedEndDate.getFullYear();
-      const month =
-        selectedEndDate.getMonth() + 1 < 10
-          ? `0${selectedEndDate.getMonth() + 1}`
-          : selectedEndDate.getMonth() + 1;
-      const day = selectedEndDate.getDate();
+      const month = `0${selectedEndDate.getMonth() + 1}`.slice(-2);
+      const day = `0${selectedEndDate.getDate()}`.slice(-2);
       return `
         ${year} / ${month} / ${day}
       `;
