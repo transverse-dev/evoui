@@ -291,10 +291,7 @@ export default function DatePicker({
   >([[]]);
 
   useEffect(() => {
-    const year = years.findIndex(
-      (item: ItemType) => item.id === currentDate.getFullYear().toString(),
-    );
-    setCurrentYear(year);
+    initializeYears();
 
     const month = months.findIndex(
       (item: ItemType) => item.id === currentDate.getMonth().toString(),
@@ -305,6 +302,24 @@ export default function DatePicker({
   useEffect(() => {
     renderCalendar();
   }, [currentYear, currentMonth, selectedStartDate, selectedEndDate]);
+
+  const initializeYears = () => {
+    const currentYear = currentDate.getFullYear();
+    const yearRange: ItemType[] = [];
+    for (let i = currentYear - 5; i <= currentYear + 5; i++) {
+      yearRange.push({
+        id: i.toString(),
+        label: i.toString(),
+      });
+    }
+
+    setYears(yearRange);
+
+    const year = yearRange.findIndex(
+      (item: ItemType) => item.id === currentYear.toString(),
+    );
+    setCurrentYear(year);
+  };
 
   const handleCalendarVisible = () => {
     setCalendarVisible(!calendarVisible);
