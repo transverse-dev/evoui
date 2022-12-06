@@ -32,7 +32,8 @@ export interface PropsType {
   startDate: Date | null;
   endDate: Date | null;
   isRange?: boolean;
-  onChange: (() => void) | ((value: Date) => void);
+  onChangeStartDate?: (() => void) | ((value: Date) => void);
+  onChangeEndDate?: (() => void) | ((value: Date) => void);
   Title?: React.ComponentType | React.ElementType;
   Divider?: React.ComponentType | React.ElementType;
   startText?: string;

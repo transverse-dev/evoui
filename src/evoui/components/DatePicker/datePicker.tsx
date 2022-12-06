@@ -262,7 +262,8 @@ export default function DatePicker({
   startDate,
   endDate,
   isRange,
-  onChange,
+  onChangeStartDate,
+  onChangeEndDate,
   dayOfWeekText,
   Title,
   Divider,
@@ -362,6 +363,9 @@ export default function DatePicker({
     newDate.setHours(0, 0, 0);
 
     setSelectedStartDate(newDate);
+    if (onChangeStartDate) {
+      onChangeStartDate(newDate);
+    }
   };
 
   const handleSetEndDate = (day: number) => {
@@ -376,8 +380,16 @@ export default function DatePicker({
         newDate.setHours(0, 0, 0);
         setSelectedStartDate(newDate);
         setIsUnderSelection(true);
+
+        if (onChangeStartDate) {
+          onChangeStartDate(newDate);
+        }
       } else {
         setSelectedEndDate(newDate);
+
+        if (onChangeEndDate) {
+          onChangeEndDate(newDate);
+        }
       }
     }
   };
@@ -604,7 +616,9 @@ export default function DatePicker({
                 <Select
                   value={years[currentYear]}
                   items={years}
-                  onChange={({ selected }) => handleSelectYear(selected)}
+                  onChange={({ selected }) => {
+                    handleSelectYear(selected);
+                  }}
                   valueShouldExist
                   overrides={{
                     InputWrapper: {

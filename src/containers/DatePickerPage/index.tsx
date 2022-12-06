@@ -21,16 +21,10 @@ export default function DatePickerPage() {
         endDate={null}
         startText='출발'
         endText='도착'
-        onChange={() => {}}
         isRange
       />
       <div style={{ marginTop: '24px' }} />
-      <DatePicker
-        startDate={null}
-        endDate={null}
-        startText='출발'
-        onChange={() => {}}
-      />
+      <DatePicker startDate={null} endDate={null} startText='출발' />
       <div style={{ marginTop: '24px' }} />
       <DatePicker
         Title={title}
@@ -38,7 +32,6 @@ export default function DatePickerPage() {
         endDate={null}
         startText='출발'
         endText='도착'
-        onChange={() => {}}
         isRange
       />
       <div style={{ marginTop: '24px' }} />
@@ -47,7 +40,6 @@ export default function DatePickerPage() {
         startDate={null}
         endDate={null}
         startText='출발'
-        onChange={() => {}}
       />
     </>
   );
