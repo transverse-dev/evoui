@@ -343,7 +343,7 @@ export default function DatePicker({
     const newDate = new Date();
     newDate.setFullYear(Number(years[currentYear].id));
     newDate.setMonth(Number(months[currentMonth].id));
-    newDate.setDate(Number(day));
+    newDate.setDate(day);
     newDate.setHours(0, 0, 0);
 
     setSelectedStartDate(newDate);
@@ -354,7 +354,7 @@ export default function DatePicker({
       const newDate = new Date();
       newDate.setFullYear(Number(years[currentYear].id));
       newDate.setMonth(Number(months[currentMonth].id));
-      newDate.setDate(Number(day));
+      newDate.setDate(day);
       newDate.setHours(23, 59, 59);
 
       if (selectedStartDate && newDate < selectedStartDate) {
