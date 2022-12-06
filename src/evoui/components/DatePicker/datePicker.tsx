@@ -617,8 +617,8 @@ export default function DatePicker({
                   <path
                     d='M9 2L5 6L1.70711 9.29289C1.31658 9.68342 1.31658 10.3166 1.70711 10.7071L9 18'
                     stroke='#DFDFDF'
-                    stroke-width='2.5'
-                    stroke-linecap='round'
+                    strokeWidth='2.5'
+                    strokeLinecap='round'
                   />
                 </svg>
               </MonthButton>
