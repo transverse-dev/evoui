@@ -201,6 +201,9 @@ const RangeTile = styled.div<RangeTilePropsType>`
   bottom: 0;
   margin: auto;
   background: ${(props) => {
+    if (props.startDay && props.endDay) {
+      return `transparent`;
+    }
     if (props.startDay) {
       return `linear-gradient(
     90deg,
@@ -387,12 +390,14 @@ export default function DatePicker({
     setCurrentYear(
       years.findIndex((item: ItemType) => item.id === selected.id),
     );
+    setCalendarVisible(true);
   };
 
   const handleSelectMonth = (selected: ItemType) => {
     setCurrentMonth(
       months.findIndex((item: ItemType) => item.id === selected.id),
     );
+    setCalendarVisible(true);
   };
 
   // 다음달로 넘긴다.
