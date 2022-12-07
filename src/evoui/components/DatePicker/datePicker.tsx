@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ClickAwayListener from '../ClickAwayListener';
 import Select from '../Select';
@@ -271,11 +271,7 @@ export default function DatePicker({
   endText,
   overrides,
 }: PropsType): JSX.Element {
-  const [years, setYears] = useState<ItemType[]>([
-    { label: '2022', id: '2022' },
-    { label: '2023', id: '2023' },
-    { label: '2024', id: '2024' },
-  ]);
+  const [years, setYears] = useState<ItemType[]>([{ label: '0', id: '0' }]);
 
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
@@ -298,6 +294,14 @@ export default function DatePicker({
       (item: ItemType) => item.id === currentDate.getMonth().toString(),
     );
     setCurrentMonth(month);
+
+    if (startDate) {
+      setSelectedStartDate(startDate);
+    }
+
+    if (endDate) {
+      setSelectedEndDate(endDate);
+    }
   }, []);
 
   useEffect(() => {
@@ -322,10 +326,10 @@ export default function DatePicker({
     setCurrentYear(year);
   };
 
-  const handleCalendarVisible = () => {
+  const toggleCalendarVisibility = () => {
     setCalendarVisible(!calendarVisible);
   };
-  const handleCalendarInvisible = () => {
+  const setCalendarInvisible = () => {
     setCalendarVisible(false);
   };
 
@@ -460,7 +464,7 @@ export default function DatePicker({
   const renderCalendar = () => {
     // 선택된 년도, 달을 설정하고 시작요일을 가져오기위해 일수를 1일로 지정한다
     const selectedDate = new Date();
-    selectedDate.setFullYear(Number(years[currentYear].id));
+    selectedDate.setFullYear(Number(years[currentYear]?.id));
     selectedDate.setMonth(Number(months[currentMonth].id));
     selectedDate.setDate(1);
 
@@ -480,7 +484,10 @@ export default function DatePicker({
         // dayCount가 달의 총 일수를 넘지않거나 시작일 이상이면 1일부터 삽입한다
         // 그외에는 0
         if (daysOfMonth >= dayCount && (startDay <= day || week !== 0)) {
-          calendar[week].push({ day: dayCount, isRange: getIsRange(dayCount) });
+          calendar[week].push({
+            day: dayCount,
+            isRange: getIsRange(dayCount),
+          });
           dayCount += 1;
         } else {
           calendar[week].push({ day: 0, isRange: false });
@@ -577,7 +584,7 @@ export default function DatePicker({
             ...overrides.Root,
           })}>
       {Title !== undefined ? <Title /> : null}
-      <DateButton onClick={handleCalendarVisible}>
+      <DateButton onClick={toggleCalendarVisibility}>
         <DateIcon></DateIcon>
         <DateText>{renderStartDate()}</DateText>
       </DateButton>
@@ -588,13 +595,15 @@ export default function DatePicker({
           ) : (
             <DefaultDivider>~</DefaultDivider>
           )}
-          <DateButton onClick={handleCalendarVisible}>
+          <DateButton onClick={toggleCalendarVisibility}>
             <DateText>{renderEndDate()}</DateText>
           </DateButton>
         </>
       ) : null}
       {calendarVisible ? (
-        <ClickAwayListener handleClickAway={handleCalendarInvisible}>
+        <ClickAwayListener
+          handleClickAway={setCalendarInvisible}
+          listenByPosition>
           <CalendarContainer>
             <CalendarDate>
               <MonthButton onClick={handleSelectPrevMonth}>
@@ -607,8 +616,8 @@ export default function DatePicker({
                   <path
                     d='M9 2L5 6L1.70711 9.29289C1.31658 9.68342 1.31658 10.3166 1.70711 10.7071L9 18'
                     stroke='#DFDFDF'
-                    stroke-width='2.5'
-                    stroke-linecap='round'
+                    strokeWidth='2.5'
+                    strokeLinecap='round'
                   />
                 </svg>
               </MonthButton>
