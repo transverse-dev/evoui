@@ -20,6 +20,7 @@ import { ThemeProvider, Toast } from 'evoui';
 import InputPage from 'containers/InputPage';
 import MultipleTextInputPage from 'containers/MultipleTextInputPage';
 import ToastPage from 'containers/ToastPage';
+import DatePickerPage from 'containers/DatePickerPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -67,6 +68,10 @@ export default function App() {
                   render={() => <ThemeProviderPage />}
                 />
                 <Route path='/components/toast' render={() => <ToastPage />} />
+                <Route
+                  path='/components/datepicker'
+                  render={() => <DatePickerPage />}
+                />
                 <Route
                   render={() => (
                     <Executer
