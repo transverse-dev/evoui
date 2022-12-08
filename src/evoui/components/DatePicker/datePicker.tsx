@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ClickAwayListener from '../ClickAwayListener';
 import Select from '../Select';
