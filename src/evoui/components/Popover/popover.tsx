@@ -72,8 +72,12 @@ const Menu = styled.div<PopoverType.Menu>`
     ${(props) => props.theme.evoui.colors.popover.shadowColor};
   overflow-x: hidden;
   overflow-y: auto;
-  animation-name: ${(props) => (props.isMenuVisible ? 'fadeInScale' : '')};
+  animation-name: ${(props) =>
+    props.isMenuVisible && props.animationKind !== 'none'
+      ? props.animationKind
+      : ''};
   animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
   animation-fill-mode: both;
 
   @keyframes fadeInScale {
@@ -90,6 +94,17 @@ const Menu = styled.div<PopoverType.Menu>`
     100% {
       opacity: 1;
       transform: scale(1);
+    }
+  }
+
+  @keyframes fadeInHeight {
+    0% {
+      opacity: 0;
+      max-height: 0;
+    }
+    100% {
+      opacity: 1;
+      max-height: 90vh;
     }
   }
 
@@ -164,6 +179,8 @@ const Popover = memo(function Popover({
   isExternal = false,
   closeOutOfScreen,
   scrollTarget,
+  canHoverToOpen,
+  animationKind = 'fadeInScale',
   onOpen,
   onClose,
   close = false,
@@ -184,6 +201,8 @@ const Popover = memo(function Popover({
    * isExternal: 메뉴가 외부에 종속될지 설정할 수 있다.
    * closeOutOfScreen: 버튼이 화면 밖으로 나갔을 시 메뉴 오픈 여부를 설정할 수 있다.
    * scrollTarget: 메뉴가 어떤 상위 요소에 반응할지 설정할 수 있다.
+   * canHoverToOpen: Button및 Menu 에 mouseOver 함으로써 Menu를 열 수 있다.
+   * animationKind: Menu가 열릴때의 animation을 설정할 수 있다.
    * onOpen: 메뉴가 열리면서 실행될 함수를 설정할 수 있다.
    * onClose: 메뉴가 닫히면서 실행될 함수를 설정할 수 있다.
    * close: 메뉴를 수동으로 닫을때 사용한다.(true가 되면 닫는다. onClose로 state를 false로 바꾸어 다시 사용)
@@ -303,6 +322,18 @@ const Popover = memo(function Popover({
    * 메뉴가 열려있으면 닫고
    * 닫혀있으면 연다
    */
+
+  const onMouseOver = (): void => {
+    if (canHoverToOpen) {
+      openMenu();
+    }
+  };
+
+  const onMouseLeave = (): void => {
+    if (canHoverToOpen) {
+      closeMenu();
+    }
+  };
 
   const handleClickOutside = (event: { target: any }) => {
     if (!popoverRef.current[0] || !popoverRef.current[2]) {
@@ -543,6 +574,8 @@ const Popover = memo(function Popover({
   return (
     <Root
       ref={(el) => (popoverRef.current[0] = el)}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
       locationY={benchmark?.split('-')[0]}
       {...(typeof overrides?.Root?.css === 'string'
         ? {
@@ -612,8 +645,11 @@ const Popover = memo(function Popover({
           ReactDOM.createPortal(
             <Menu
               ref={(el) => (popoverRef.current[2] = el)}
+              onMouseOver={onMouseOver}
+              onMouseLeave={onMouseLeave}
               isExternal={!!isExternal}
               isMenuVisible={isMenuVisible}
+              animationKind={animationKind}
               {...(typeof overrides?.Menu?.css === 'string'
                 ? {
                     cssStyle: overrides.Menu.css,
@@ -691,6 +727,7 @@ const Popover = memo(function Popover({
             ref={(el) => (popoverRef.current[2] = el)}
             isExternal={!!isExternal}
             isMenuVisible={isMenuVisible}
+            animationKind={animationKind}
             {...(typeof overrides?.Menu?.css === 'string'
               ? {
                   cssStyle: overrides.Menu.css,

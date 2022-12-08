@@ -17,6 +17,7 @@ export namespace PopoverType {
   export interface Menu extends DefaultPropsType {
     isExternal: boolean;
     isMenuVisible: boolean;
+    animationKind?: AnimationKindType;
   }
   export interface MenuList extends DefaultPropsType {}
   export interface MenuItem extends DefaultPropsType {
@@ -32,6 +33,8 @@ export namespace PopoverType {
     disabled?: boolean;
     onClick?: (event: any) => any;
   }
+
+  type AnimationKindType = undefined | 'none' | 'fadeInScale' | 'fadeInHeight';
 
   export interface PopoverProps {
     Button?: React.ComponentType | React.ElementType;
@@ -67,6 +70,8 @@ export namespace PopoverType {
     isExternal?: boolean;
     closeOutOfScreen?: boolean;
     scrollTarget?: any;
+    canHoverToOpen?: boolean;
+    animationKind?: AnimationKindType;
     onOpen?: () => any;
     onClose?: () => any;
     close?: boolean;
