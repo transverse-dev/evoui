@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { DefaultOverridesType, DefaultPropsType } from '../global.type';
 
 export namespace VideoType {
@@ -22,7 +22,7 @@ export namespace VideoType {
 
   export interface PropsType {
     src?: string;
-    videoRef: RefObject<HTMLVideoElement>;
+    videoRef?: MutableRefObject<HTMLVideoElement | null>;
     previewTime?: number;
     onPlayingChange?: (playing: boolean) => void;
     onCurrentTimeChange?: (currentTime: number) => void;
@@ -30,6 +30,7 @@ export namespace VideoType {
     onDurationChange?: (duration: number) => void;
     onEndedChange?: (ended: boolean) => void;
     isMobile?: boolean;
+    tracks?: TrackType[];
     overrides?: {
       Root?: DefaultOverridesType;
     };
@@ -95,6 +96,15 @@ export namespace VideoType {
       onVolumeChange: (volume: number) => void;
       muted: boolean;
       toggleMuted: () => void;
+      track: TrackType | null;
+      setTrack: Dispatch<SetStateAction<TrackType | null>>;
+      tracks?: TrackType[];
     }
   }
 }
+
+export type TrackType = {
+  id: number | string;
+  label: string;
+  src: string;
+};
