@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import PlayingButton from './playingbutton';
 import Progress from './progress';
-import Settings from './settings';
-import { VideoType } from './video.type';
+import Settings from './Settings';
+import { TrackType, VideoType } from './video.type';
 import Volume from './volume';
 
 const ControllerContainer = styled.div`
@@ -121,6 +121,7 @@ export default function Video({
   onDurationChange,
   onEndedChange,
   isMobile,
+  tracks,
   overrides,
 }: VideoType.PropsType) {
   // video properties
@@ -132,6 +133,7 @@ export default function Video({
   const [fullscreen, setFullscreen] = React.useState(false);
   const [volume, setVolume] = React.useState(1);
   const [speed, setSpeed] = React.useState('1.0');
+  const [track, setTrack] = useState<TrackType | null>(null);
 
   const [controllerVisible, setControllerVisible] = React.useState(false);
 
@@ -274,7 +276,9 @@ export default function Video({
         onLoadedMetadata={onLoadedMetadata}
         onEnded={onEnded}
         style={{ width: '100%', height: '100%', cursor: 'pointer' }}
-      />
+        crossOrigin={tracks ? 'anonymous' : undefined}>
+        {track ? <track default src={track.src} /> : null}
+      </video>
       {isMobile ? (
         <Shadow
           onClick={(event) => {
@@ -344,6 +348,9 @@ export default function Video({
               toggleMuted={toggleMuted}
               volume={volume}
               onVolumeChange={onVolumeChange}
+              track={track}
+              setTrack={setTrack}
+              tracks={tracks}
             />
             <div style={{ marginRight: '10px' }} />
             <FullscreenButton
