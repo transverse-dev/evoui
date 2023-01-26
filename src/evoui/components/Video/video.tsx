@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import PlayingButton from './playingbutton';
 import Progress from './progress';
-import Settings from './settings';
+import Settings from './Settings';
 import { TrackType, VideoType } from './video.type';
 import Volume from './volume';
 

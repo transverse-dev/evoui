@@ -1,7 +1,9 @@
-import { Dispatch, memo, SetStateAction } from 'react';
+import { memo } from 'react';
 import styled from 'styled-components';
-import Popover from '../Popover';
-import { TrackType, VideoType } from './video.type';
+import { Popover } from '../../../index';
+import { VideoType } from '../video.type';
+import MenuItem from './MenuItem';
+import TracksPopover from './TracksPopover';
 
 const SettingButton = styled.button<VideoType.SettingsType.SettingButtonPropsType>`
   margin: 0;
@@ -27,62 +29,6 @@ const SettingButton = styled.button<VideoType.SettingsType.SettingButtonPropsTyp
     }
   }
 `;
-
-const MenuItem = styled.div`
-  padding: 8px 12px;
-  color: ${(props) => props.theme.evoui.colors.video.fgColor};
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-align: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  background-color: transparent;
-  cursor: pointer;
-  user-select: none;
-  overflow: hidden;
-  transition: all ease-in-out 200ms;
-  width: 100%;
-
-  &:hover {
-    background-color: ${(props) => props.theme.evoui.colors.video.hoverBgColor};
-  }
-`;
-
-const TracksPopover = ({
-  track,
-  setTrack,
-  tracks,
-}: {
-  track: TrackType | null;
-  setTrack: Dispatch<SetStateAction<TrackType | null>>;
-  tracks: TrackType[];
-}) => {
-  return (
-    <Popover
-      overrides={{
-        Root: { css: 'width: 100%;' },
-        ButtonWrapper: { css: 'width: 100%' },
-      }}
-      Button={() => (
-        <MenuItem>{`자막: ${track ? track.language : '사용 안 함'}`}</MenuItem>
-      )}
-      items={[
-        {
-          label: '사용 안 함',
-          onClick: () => {
-            setTrack(null);
-          },
-        },
-        ...tracks.map((track) => ({
-          label: track.language,
-          onClick: () => {
-            setTrack(track);
-          },
-        })),
-      ]}
-    />
-  );
-};
 
 const Settings = memo(
   ({
