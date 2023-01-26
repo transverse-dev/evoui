@@ -39,6 +39,8 @@ export default function TracksPopover({
           selected: selectedTrack?.id === track.id,
         })),
       ]}
+      benchmark='bottom-left'
+      direction='top-left'
     />
   );
 }
