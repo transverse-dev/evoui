@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import PlayingButton from './playingbutton';
 import Progress from './progress';
@@ -136,28 +136,29 @@ export default function Video({
   const [controllerVisible, setControllerVisible] = React.useState(false);
 
   const rootRef = React.useRef<HTMLDivElement>(null); // for fullscreen
+  const embeddedVideoRef = useRef<HTMLVideoElement | null>(null);
 
   const onLoadedMetadata = () => {
-    if (videoRef.current === null) return;
-    setDuration(videoRef.current.duration);
+    if (embeddedVideoRef.current === null) return;
+    setDuration(embeddedVideoRef.current.duration);
   };
 
   const onCurrentTimeUpdate = () => {
-    if (videoRef.current === null) return;
+    if (embeddedVideoRef.current === null) return;
 
     // currentTime이 바뀌었을 때 previewTime을 넘었는지 확인
-    // if (videoRef.current.currentTime > (previewTime ?? duration)) {
+    // if (embeddedVideoRef.current.currentTime > (previewTime ?? duration)) {
     //   setPlaying(false);
-    //   videoRef.current.currentTime = previewTime ?? duration;
+    //   embeddedVideoRef.current.currentTime = previewTime ?? duration;
     //   return;
     // }
 
-    setCurrentTime(videoRef.current.currentTime);
+    setCurrentTime(embeddedVideoRef.current.currentTime);
   };
 
   const onEnded = () => {
-    if (videoRef.current === null) return;
-    setEnded(videoRef.current.ended);
+    if (embeddedVideoRef.current === null) return;
+    setEnded(embeddedVideoRef.current.ended);
     setPlaying(false); // video가 끝나면 멈추기
   };
 
@@ -167,20 +168,20 @@ export default function Video({
   };
 
   const _onCurrentTimeChange = (currentTime: number) => {
-    if (videoRef.current === null) return;
-    videoRef.current.currentTime = currentTime;
+    if (embeddedVideoRef.current === null) return;
+    embeddedVideoRef.current.currentTime = currentTime;
   };
 
   const onVolumeChange = React.useCallback((volume: number) => {
-    if (videoRef.current === null) return;
-    videoRef.current.volume = volume;
+    if (embeddedVideoRef.current === null) return;
+    embeddedVideoRef.current.volume = volume;
     setVolume(volume);
     setMuted(volume === 0);
   }, []);
 
   const _onSpeedChange = React.useCallback((speed: string) => {
-    if (videoRef.current === null) return;
-    videoRef.current.playbackRate = +speed; // string to number
+    if (embeddedVideoRef.current === null) return;
+    embeddedVideoRef.current.playbackRate = +speed; // string to number
     setSpeed(speed);
   }, []);
 
@@ -206,24 +207,33 @@ export default function Video({
     };
   }, []);
 
-  React.useEffect(() => {
-    if (videoRef.current === null) return;
-    playing ? videoRef.current.play() : videoRef.current.pause();
-  }, [playing, videoRef.current]);
+  // 만약 videoRef prop이 있다면 내부 ref 오브젝트를 넘겨줌.
+  useEffect(() => {
+    if (videoRef) {
+      videoRef.current = embeddedVideoRef.current;
+    }
+  }, [videoRef, embeddedVideoRef.current]);
 
   React.useEffect(() => {
-    if (videoRef.current === null) return;
-    videoRef.current.muted = muted;
-  }, [muted, videoRef.current]);
+    if (embeddedVideoRef.current === null) return;
+    playing
+      ? embeddedVideoRef.current.play()
+      : embeddedVideoRef.current.pause();
+  }, [playing, embeddedVideoRef.current]);
 
   React.useEffect(() => {
-    if (videoRef.current === null) return;
+    if (embeddedVideoRef.current === null) return;
+    embeddedVideoRef.current.muted = muted;
+  }, [muted, embeddedVideoRef.current]);
+
+  React.useEffect(() => {
+    if (embeddedVideoRef.current === null) return;
 
     // previewTime이 바뀌었을 때 currentTime이 넘었는지 확인
-    // if (videoRef.current.currentTime <= (previewTime ?? duration)) return;
+    // if (embeddedVideoRef.current.currentTime <= (previewTime ?? duration)) return;
     // setPlaying(false);
-    // videoRef.current.currentTime = previewTime ?? duration;
-  }, [previewTime, duration, videoRef.current]);
+    // embeddedVideoRef.current.currentTime = previewTime ?? duration;
+  }, [previewTime, duration, embeddedVideoRef.current]);
 
   React.useEffect(() => {
     if (onPlayingChange) onPlayingChange(playing);
@@ -259,7 +269,7 @@ export default function Video({
         : { style: overrides.Root.css, ...(overrides.Root ?? {}) })}>
       <video
         src={src}
-        ref={videoRef}
+        ref={embeddedVideoRef}
         onTimeUpdate={onCurrentTimeUpdate}
         onLoadedMetadata={onLoadedMetadata}
         onEnded={onEnded}
