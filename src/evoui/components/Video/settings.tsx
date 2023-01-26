@@ -76,11 +76,8 @@ const TracksPopover = ({
         ...tracks.map((track) => ({
           label: track.language,
           onClick: () => {
-            if (track.isSameOrigin) {
-              setTrack(track);
-            }
+            setTrack(track);
           },
-          disabled: !track.isSameOrigin,
         })),
       ]}
     />

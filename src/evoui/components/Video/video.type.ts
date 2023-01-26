@@ -31,7 +31,6 @@ export namespace VideoType {
     onEndedChange?: (ended: boolean) => void;
     isMobile?: boolean;
     tracks?: TrackType[];
-    trackSrcPattern?: string;
     overrides?: {
       Root?: DefaultOverridesType;
     };
@@ -105,8 +104,6 @@ export namespace VideoType {
 }
 
 export type TrackType = {
-  id: number | string;
   language: string;
   src: string;
-  isSameOrigin?: boolean;
 };
