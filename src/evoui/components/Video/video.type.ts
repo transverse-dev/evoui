@@ -104,6 +104,7 @@ export namespace VideoType {
 }
 
 export type TrackType = {
-  language: string;
+  id: number | string;
+  label: string;
   src: string;
 };

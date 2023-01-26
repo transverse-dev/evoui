@@ -4,7 +4,7 @@ import { TrackType } from '../video.type';
 import MenuItem from './MenuItem';
 
 export default function TracksPopover({
-  track,
+  track: selectedTrack,
   setTrack,
   tracks,
 }: {
@@ -19,7 +19,9 @@ export default function TracksPopover({
         ButtonWrapper: { css: 'width: 100%' },
       }}
       Button={() => (
-        <MenuItem>{`자막: ${track ? track.language : '사용 안 함'}`}</MenuItem>
+        <MenuItem>{`자막: ${
+          selectedTrack ? selectedTrack.label : '사용 안 함'
+        }`}</MenuItem>
       )}
       items={[
         {
@@ -27,12 +29,14 @@ export default function TracksPopover({
           onClick: () => {
             setTrack(null);
           },
+          selected: !selectedTrack,
         },
         ...tracks.map((track) => ({
-          label: track.language,
+          label: track.label,
           onClick: () => {
             setTrack(track);
           },
+          selected: selectedTrack?.id === track.id,
         })),
       ]}
     />
