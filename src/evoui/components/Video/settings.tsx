@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import { Dispatch, memo, SetStateAction } from 'react';
 import styled from 'styled-components';
 import Popover from '../Popover';
-import { VideoType } from './video.type';
+import { TrackType, VideoType } from './video.type';
 
 const SettingButton = styled.button<VideoType.SettingsType.SettingButtonPropsType>`
   margin: 0;
@@ -41,12 +41,51 @@ const MenuItem = styled.div`
   user-select: none;
   overflow: hidden;
   transition: all ease-in-out 200ms;
+  width: 100%;
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme.evoui.colors.video.hoverBgColor};
+    background-color: ${(props) => props.theme.evoui.colors.video.hoverBgColor};
   }
 `;
+
+const TracksPopover = ({
+  track,
+  setTrack,
+  tracks,
+}: {
+  track: TrackType | null;
+  setTrack: Dispatch<SetStateAction<TrackType | null>>;
+  tracks: TrackType[];
+}) => {
+  return (
+    <Popover
+      overrides={{
+        Root: { css: 'width: 100%;' },
+        ButtonWrapper: { css: 'width: 100%' },
+      }}
+      Button={() => (
+        <MenuItem>{`자막: ${track ? track.language : '사용 안 함'}`}</MenuItem>
+      )}
+      items={[
+        {
+          label: '사용 안 함',
+          onClick: () => {
+            setTrack(null);
+          },
+        },
+        ...tracks.map((track) => ({
+          label: track.language,
+          onClick: () => {
+            if (track.isSameOrigin) {
+              setTrack(track);
+            }
+          },
+          disabled: !track.isSameOrigin,
+        })),
+      ]}
+    />
+  );
+};
 
 const Settings = memo(
   ({
@@ -57,6 +96,9 @@ const Settings = memo(
     onVolumeChange,
     muted,
     toggleMuted,
+    track,
+    setTrack,
+    tracks,
   }: VideoType.SettingsType.PropsType) => {
     return (
       <Popover
@@ -83,6 +125,10 @@ const Settings = memo(
           isMobile
             ? [
                 <Popover
+                  overrides={{
+                    Root: { css: 'width: 100%;' },
+                    ButtonWrapper: { css: 'width: 100%' },
+                  }}
                   Button={() => <MenuItem>{`재생 속도 ${speed}배`}</MenuItem>}
                   items={[
                     {
@@ -106,6 +152,10 @@ const Settings = memo(
                   direction='top-left'
                 />,
                 <Popover
+                  overrides={{
+                    Root: { css: 'width: 100%;' },
+                    ButtonWrapper: { css: 'width: 100%' },
+                  }}
                   Button={() => (
                     <MenuItem>
                       {muted ? '무음 모드' : `소리 ${volume * 100}%`}
@@ -136,9 +186,22 @@ const Settings = memo(
                   benchmark='bottom-left'
                   direction='top-left'
                 />,
+                ...(tracks
+                  ? [
+                      <TracksPopover
+                        track={track}
+                        setTrack={setTrack}
+                        tracks={tracks}
+                      />,
+                    ]
+                  : []),
               ]
             : [
                 <Popover
+                  overrides={{
+                    Root: { css: 'width: 100%;' },
+                    ButtonWrapper: { css: 'width: 100%' },
+                  }}
                   Button={() => <MenuItem>{`재생 속도 ${speed}배`}</MenuItem>}
                   items={[
                     {
@@ -161,6 +224,15 @@ const Settings = memo(
                   benchmark='bottom-left'
                   direction='top-left'
                 />,
+                ...(tracks
+                  ? [
+                      <TracksPopover
+                        track={track}
+                        setTrack={setTrack}
+                        tracks={tracks}
+                      />,
+                    ]
+                  : []),
               ]
         }
         benchmark='top-right'

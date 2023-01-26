@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import PlayingButton from './playingbutton';
 import Progress from './progress';
 import Settings from './settings';
-import { VideoType } from './video.type';
+import { TrackType, VideoType } from './video.type';
 import Volume from './volume';
 
 const ControllerContainer = styled.div`
@@ -121,6 +121,8 @@ export default function Video({
   onDurationChange,
   onEndedChange,
   isMobile,
+  tracks: tracksProperty,
+  trackSrcPattern,
   overrides,
 }: VideoType.PropsType) {
   // video properties
@@ -132,6 +134,11 @@ export default function Video({
   const [fullscreen, setFullscreen] = React.useState(false);
   const [volume, setVolume] = React.useState(1);
   const [speed, setSpeed] = React.useState('1.0');
+  const [track, setTrack] = useState<TrackType | null>(null);
+  // prop으로 넘어온 tracks를 state로 관리
+  const [tracks, setTracks] = useState<TrackType[] | null>(
+    tracksProperty ?? null,
+  );
 
   const [controllerVisible, setControllerVisible] = React.useState(false);
 
@@ -250,6 +257,65 @@ export default function Video({
     };
   }, []);
 
+  useEffect(() => {
+    if (tracksProperty) {
+      /** track.src를 검사할 사용자 지정 RegExp (따로 없다면 null) */
+      const pattern = trackSrcPattern ? new RegExp(trackSrcPattern) : null;
+      tracksProperty.forEach(async (track) => {
+        // track 별로 same origin이 아닌 경우 src 가공 작업을 함.
+        // (same origin이 아니면 정상적으로 vtt 파일을 불러올 수 없음.)
+        if (
+          !track.isSameOrigin &&
+          (pattern ? pattern.test(track.src) : track.src)
+        ) {
+          try {
+            // 가공 작업:
+            // 외부 url로 되어 있는 src를 통해 vtt 파일을 다운받고,
+            // base64로 인코딩한다.
+            const response = await fetch(track.src);
+            const content = await response.text();
+            const vttBlob = new Blob([content], { type: 'text/vtt' });
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(vttBlob);
+            fileReader.onloadend = () => {
+              // 가공이 완료되면 이전 src를 가공된 src(result)로 교체
+              const { result } = fileReader;
+              if (typeof result === 'string') {
+                setTracks((prev) => {
+                  if (prev) {
+                    /** src를 교체할 track의 index */
+                    const targetIndex = prev.findIndex(
+                      (oldTrack) => oldTrack.id === track.id,
+                    );
+                    if (targetIndex !== -1) {
+                      return prev.map((oldTrack, index) => {
+                        if (index === targetIndex) {
+                          return {
+                            ...oldTrack,
+                            src: result,
+                            isSameOrigin: true,
+                          };
+                        } else {
+                          return oldTrack;
+                        }
+                      });
+                    } else {
+                      return prev;
+                    }
+                  } else {
+                    return prev;
+                  }
+                });
+              }
+            };
+          } catch {}
+        }
+      });
+    } else {
+      setTracks(null);
+    }
+  }, [tracksProperty, trackSrcPattern]);
+
   React.useEffect(() => {
     if (videoRef) {
       if (videoRef.current === null) return;
@@ -328,8 +394,9 @@ export default function Video({
         onTimeUpdate={onCurrentTimeUpdate}
         onLoadedMetadata={onLoadedMetadata}
         onEnded={onEnded}
-        style={{ width: '100%', height: '100%', cursor: 'pointer' }}
-      />
+        style={{ width: '100%', height: '100%', cursor: 'pointer' }}>
+        {track ? <track default src={track.src} /> : null}
+      </video>
       {isMobile ? (
         <Shadow
           onClick={(event) => {
@@ -399,6 +466,9 @@ export default function Video({
               toggleMuted={toggleMuted}
               volume={volume}
               onVolumeChange={onVolumeChange}
+              track={track}
+              setTrack={setTrack}
+              tracks={tracks ?? undefined}
             />
             <div style={{ marginRight: '10px' }} />
             <FullscreenButton
