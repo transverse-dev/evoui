@@ -29,7 +29,6 @@ export namespace VideoType {
     onSpeedChange?: (speed: number) => void;
     onDurationChange?: (duration: number) => void;
     onEndedChange?: (ended: boolean) => void;
-    isMobile?: boolean;
     tracks?: TrackType[];
     overrides?: {
       Root?: DefaultOverridesType;
