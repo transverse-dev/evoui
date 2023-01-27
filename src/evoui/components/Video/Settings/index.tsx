@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Popover } from '../../../index';
 import { VideoType } from '../video.type';
 import MenuItem from './MenuItem';
-import TracksPopover from './TracksPopover';
 
 const SettingButton = styled.button<VideoType.SettingsType.SettingButtonPropsType>`
   margin: 0;
@@ -39,9 +38,6 @@ const Settings = memo(
     onVolumeChange,
     muted,
     toggleMuted,
-    track,
-    setTrack,
-    tracks,
   }: VideoType.SettingsType.PropsType) => {
     return (
       <Popover
@@ -129,15 +125,6 @@ const Settings = memo(
                   benchmark='bottom-left'
                   direction='top-left'
                 />,
-                ...(tracks
-                  ? [
-                      <TracksPopover
-                        track={track}
-                        setTrack={setTrack}
-                        tracks={tracks}
-                      />,
-                    ]
-                  : []),
               ]
             : [
                 <Popover
@@ -167,19 +154,14 @@ const Settings = memo(
                   benchmark='bottom-left'
                   direction='top-left'
                 />,
-                ...(tracks
-                  ? [
-                      <TracksPopover
-                        track={track}
-                        setTrack={setTrack}
-                        tracks={tracks}
-                      />,
-                    ]
-                  : []),
               ]
         }
         benchmark='top-right'
         direction='top-left'
+        position={{
+          x: 0,
+          y: 6,
+        }}
       />
     );
   },
