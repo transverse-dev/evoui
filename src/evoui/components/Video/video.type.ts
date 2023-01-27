@@ -1,4 +1,4 @@
-import { Dispatch, MutableRefObject, SetStateAction } from 'react';
+import { MutableRefObject } from 'react';
 import { DefaultOverridesType, DefaultPropsType } from '../global.type';
 
 export namespace VideoType {
@@ -29,7 +29,6 @@ export namespace VideoType {
     onSpeedChange?: (speed: number) => void;
     onDurationChange?: (duration: number) => void;
     onEndedChange?: (ended: boolean) => void;
-    isMobile?: boolean;
     tracks?: TrackType[];
     overrides?: {
       Root?: DefaultOverridesType;
@@ -96,9 +95,6 @@ export namespace VideoType {
       onVolumeChange: (volume: number) => void;
       muted: boolean;
       toggleMuted: () => void;
-      track: TrackType | null;
-      setTrack: Dispatch<SetStateAction<TrackType | null>>;
-      tracks?: TrackType[];
     }
   }
 }
