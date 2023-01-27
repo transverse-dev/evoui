@@ -6,6 +6,7 @@ import { TrackType } from './video.type';
 import { Popover } from '../../index';
 
 const SubtitleButton = styled.button<{ isOn: boolean }>`
+  all: unset;
   display: inline-flex;
   align-items: center;
   justify-content: center;
