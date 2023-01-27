@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import PlayingButton from './playingbutton';
 import Progress from './progress';
 import Settings from './Settings';
 import { TrackType, VideoType } from './video.type';
 import Volume from './volume';
+import TracksPopover from './TracksPopover';
 
 const ControllerContainer = styled.div`
   position: absolute;
@@ -125,19 +126,19 @@ export default function Video({
   overrides,
 }: VideoType.PropsType) {
   // video properties
-  const [duration, setDuration] = React.useState(0);
-  const [currentTime, setCurrentTime] = React.useState(0);
-  const [playing, setPlaying] = React.useState(false);
-  const [ended, setEnded] = React.useState(false);
-  const [muted, setMuted] = React.useState(false);
-  const [fullscreen, setFullscreen] = React.useState(false);
-  const [volume, setVolume] = React.useState(1);
-  const [speed, setSpeed] = React.useState('1.0');
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [ended, setEnded] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [speed, setSpeed] = useState('1.0');
   const [track, setTrack] = useState<TrackType | null>(null);
 
-  const [controllerVisible, setControllerVisible] = React.useState(false);
+  const [controllerVisible, setControllerVisible] = useState(false);
 
-  const rootRef = React.useRef<HTMLDivElement>(null); // for fullscreen
+  const rootRef = useRef<HTMLDivElement>(null); // for fullscreen
   const embeddedVideoRef = useRef<HTMLVideoElement | null>(null);
 
   const onLoadedMetadata = () => {
@@ -174,14 +175,14 @@ export default function Video({
     embeddedVideoRef.current.currentTime = currentTime;
   };
 
-  const onVolumeChange = React.useCallback((volume: number) => {
+  const onVolumeChange = useCallback((volume: number) => {
     if (embeddedVideoRef.current === null) return;
     embeddedVideoRef.current.volume = volume;
     setVolume(volume);
     setMuted(volume === 0);
   }, []);
 
-  const _onSpeedChange = React.useCallback((speed: string) => {
+  const _onSpeedChange = useCallback((speed: string) => {
     if (embeddedVideoRef.current === null) return;
     embeddedVideoRef.current.playbackRate = +speed; // string to number
     setSpeed(speed);
@@ -191,7 +192,7 @@ export default function Video({
     setPlaying((oldState) => !oldState);
   };
 
-  const toggleMuted = React.useCallback(() => {
+  const toggleMuted = useCallback(() => {
     setMuted((oldState) => !oldState);
   }, []);
 
@@ -202,7 +203,7 @@ export default function Video({
       : rootRef.current.requestFullscreen();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener('fullscreenchange', onFullscreenChange);
     return () => {
       document.removeEventListener('fullscreenchange', onFullscreenChange);
@@ -216,19 +217,19 @@ export default function Video({
     }
   }, [videoRef, embeddedVideoRef.current]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (embeddedVideoRef.current === null) return;
     playing
       ? embeddedVideoRef.current.play()
       : embeddedVideoRef.current.pause();
   }, [playing, embeddedVideoRef.current]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (embeddedVideoRef.current === null) return;
     embeddedVideoRef.current.muted = muted;
   }, [muted, embeddedVideoRef.current]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (embeddedVideoRef.current === null) return;
 
     // previewTime이 바뀌었을 때 currentTime이 넘었는지 확인
@@ -237,23 +238,23 @@ export default function Video({
     // embeddedVideoRef.current.currentTime = previewTime ?? duration;
   }, [previewTime, duration, embeddedVideoRef.current]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (onPlayingChange) onPlayingChange(playing);
   }, [playing]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (onCurrentTimeChange) onCurrentTimeChange(currentTime);
   }, [currentTime]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (onSpeedChange) onSpeedChange(+speed); // string to number
   }, [speed]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (onDurationChange) onDurationChange(duration);
   }, [duration]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (onEndedChange) onEndedChange(ended);
   }, [ended]);
 
@@ -340,6 +341,13 @@ export default function Video({
               alignItems: 'center',
               marginRight: '6px',
             }}>
+            {tracks ? (
+              <TracksPopover
+                track={track}
+                setTrack={setTrack}
+                tracks={tracks}
+              />
+            ) : null}
             <Settings
               speed={speed}
               onSpeedChange={_onSpeedChange}
@@ -348,9 +356,6 @@ export default function Video({
               toggleMuted={toggleMuted}
               volume={volume}
               onVolumeChange={onVolumeChange}
-              track={track}
-              setTrack={setTrack}
-              tracks={tracks}
             />
             <div style={{ marginRight: '10px' }} />
             <FullscreenButton
