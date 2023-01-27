@@ -121,11 +121,11 @@ export default function Video({
   onSpeedChange,
   onDurationChange,
   onEndedChange,
-  isMobile,
   tracks,
   overrides,
 }: VideoType.PropsType) {
   // video properties
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -209,6 +209,26 @@ export default function Video({
       document.removeEventListener('fullscreenchange', onFullscreenChange);
     };
   }, []);
+
+  useEffect(() => {
+    const checkIsMobileView = (): void => {
+      if (
+        rootRef?.current &&
+        rootRef.current.getBoundingClientRect().width <= 500
+      ) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+
+    if (rootRef.current) {
+      window.addEventListener('resize', checkIsMobileView);
+      checkIsMobileView();
+    }
+
+    return () => window.removeEventListener('resize', checkIsMobileView);
+  }, [rootRef]);
 
   // 만약 videoRef prop이 있다면 내부 ref 오브젝트를 넘겨줌.
   useEffect(() => {
